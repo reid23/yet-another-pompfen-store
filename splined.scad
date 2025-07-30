@@ -1,6 +1,11 @@
 include <BOSL2/std.scad>;
 include <BOSL2/threading.scad>;
 
+$fn = 100;
+coredims = [12, 14];
+PRESSFIT = 0.1;
+CLEARANCE = 0.2;
+
 module spline_cyl(n_splines, spline_id, od, chamfer_angle){
     difference(){
         zcyl(h=INCH/2+(od-spline_id)/2, d=od, chamfer1=0.5, anchor=BOTTOM);
@@ -36,8 +41,8 @@ module spline_cyl(n_splines, spline_id, od, chamfer_angle){
 module blade_m(n_splines, spline_id, od, chamfer_angle){
     difference(){
         union(){
-            spline_cyl(n_splines, spline_id, od, chamfer_angle);
-            zcyl(h=INCH, d=spline_id, anchor=BOTTOM);
+            up(CLEARANCE) spline_cyl(n_splines, spline_id, od, chamfer_angle);
+            up(CLEARANCE) zcyl(h=INCH, d=spline_id, anchor=BOTTOM);
             up(7) zcyl(h=4, d=od, chamfer=1.5, anchor=BOTTOM);
         }
         zcyl(h=INCH, d=coredims[1]+PRESSFIT, chamfer=-0.25,anchor=BOTTOM);
@@ -75,11 +80,11 @@ module blade_f(n_splines=6, spline_id=15, od=17, chamfer_angle=45, n_splines_per
 module collet(id, od, flange_thickness){
     difference(){
         union(){
-            zcyl(h=INCH/2, d=od-PRESSFIT/2, chamfer1=0.2, anchor=BOTTOM);
-            up(INCH/2) zcyl(h=1, d=od+6, anchor=BOTTOM);
+            up(INCH/2) zcyl(h=INCH/4, d=od-PRESSFIT/2, chamfer1=0.2, anchor=TOP);
+            up(INCH/2) zcyl(h=2, d=od+6, anchor=BOTTOM);
         }
-        zcyl(h=INCH/2+flange_thickness, d=id+PRESSFIT/2, chamfer1=-0.2, anchor=BOTTOM);
-        pie_slice(h = INCH/2+flange_thickness, d = od*2, ang=6, anchor = BOTTOM);
+        zcyl(h=INCH/2+2, d=id+PRESSFIT/2, chamfer1=-0.2, anchor=BOTTOM);
+        // pie_slice(h = INCH/2+flange_thickness, d = od*2, ang=6, anchor = BOTTOM);
     }
 }
 module blade_assy(
@@ -100,7 +105,7 @@ module blade_assy(
 }
 difference(){
     blade_assy();
-    // cube(100, anchor=RIGHT);
+    cube(100, anchor=RIGHT);
 }
 
 // blade_m(chamfer_angle=30);

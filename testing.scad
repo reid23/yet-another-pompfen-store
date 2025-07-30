@@ -83,13 +83,14 @@ module tip_3dp_component(
 
 
 // tip_3dp_component(40, 4, 12, 1, 9);
-difference(){
-union(){
-    up(1.5) zrot(180) blade_thread_m();
-    blade_thread_f(1.5, 12);
-}
-cube(100, anchor=LEFT);
-}
+threaded_rod()
+// difference(){
+// union(){
+//     up(1.5) zrot(180) blade_thread_m();
+//     blade_thread_f(1.5, 12);
+// }
+// cube(100, anchor=LEFT);
+// }
 // core(1900);
 
 
