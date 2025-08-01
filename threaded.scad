@@ -6,10 +6,6 @@ coredims = [12, 14];
 PRESSFIT = 0.1;
 CLEARANCE = 0.2;
 
-module core(length){
-    tube(h=length, id=coredims[0], od=coredims[1]);
-}
-
 module blade_thread_m(){
     intersection(){
         threaded_rod(h=20, d=18, pitch=1.5, anchor=BOTTOM);
@@ -37,7 +33,7 @@ module blade_thread_f(flange_thickness, epp_thickness){
     }
 }
 
-module tip_3dp_body(flange_od, 
+module tip_thread_m_body(flange_od, 
                     flange_depth, 
                     core_pin_depth, 
                     core_to_epp_dist,
@@ -55,7 +51,7 @@ module tip_3dp_body(flange_od,
     up(core_to_epp_dist) zcyl(h=epp_pin_depth, d=12, chamfer2=0.5, anchor=BOTTOM);
 }
 
-module tip_3dp_component(
+module tip_thread_m(
     flange_od, 
     flange_depth, 
     core_pin_depth, 
@@ -76,22 +72,32 @@ module tip_3dp_component(
         epp_pin_depth=epp_pin_depth,
         anchors=anchors
     ){
-        tip_3dp_body(flange_od, flange_depth, core_pin_depth, core_to_epp_dist, epp_pin_depth);
+        tip_thread_m_body(flange_od, flange_depth, core_pin_depth, core_to_epp_dist, epp_pin_depth);
         children();
     }
 
 }
 
+module tip_thread_f_body(depth, above_core_height){
+    intersection(){
+        union(){
+            zcyl(h=depth-above_core_height, d=coredims[0]-PRESSFIT, anchor=TOP);
+            zcyl(h=above_core_height, d=coredims[1]-CLEARANCE, anchor=BOTTOM);
+        }
+        up(ceil(above_core_height/1.5)*1.5) threaded_nut(nutwidth=50, id=coredims[0]-1, h=depth*2, pitch=1.5, $slop=0.025, ibevel=false, anchor=TOP);
+    }
+}
 
-
-tip_3dp_component(40, 4, 12, 1, 9);
-// difference(){
-// union(){
-//     up(1.5) zrot(180) blade_thread_m();
-//     blade_thread_f(1.5, 12);
-// }
-// cube(100, anchor=LEFT);
-// }
-// core(1900);
-
-
+difference(){
+union(){
+    up(2) tip_thread_m(
+        flange_od = 40, 
+        flange_depth = 4, 
+        core_pin_depth = 6, 
+        core_to_epp_dist = 1,
+        epp_pin_depth = 9
+    );
+    tip_thread_f_body(depth = 10, above_core_height = 2);
+}
+cube(100, anchor=LEFT);
+}
