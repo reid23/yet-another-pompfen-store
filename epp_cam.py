@@ -2,9 +2,18 @@ travel = 2000
 feed = 100
 plunge = 500
 
+# get values from params.scad
+INCH = 25.4
+with open("params.scad", "r") as f:
+    for line in f.readlines():
+        print(line)
+        if line[0] in '$/': continue
+        exec(line)
+
 OD = float(input("OD (3in = 76.2, 2.75in = 69.85): "))
-ID = float(input("ID (12mm tip, 20mm blade, 26mm guard): "))
-kerf = float(input("kerf radius (2.25mm default): "))
+ID = float(input("ID (12mm tip, 24mm blade, 26mm guard): "))
+kerf = input("kerf radius (2.25mm default): ")
+kerf = 2.25 if len(kerf)==0 else float(kerf)
 center = OD/2 + kerf + 1
 out = f"""
 G0 Z25 F{travel}

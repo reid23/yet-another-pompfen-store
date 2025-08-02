@@ -2,12 +2,12 @@ include <BOSL2/std.scad>;
 include <BOSL2/threading.scad>;
 
 $fn = 100;
-coredims = [12, 14];
+COREDIMS = [12, 14];
 PRESSFIT = 0.1;
 CLEARANCE = 0.2;
 
 module core(length){
-    tube(h=length, id=coredims[0], od=coredims[1]);
+    tube(h=length, id=COREDIMS[0], od=COREDIMS[1]);
 }
 
 module blade_thread_m(){
@@ -15,11 +15,11 @@ module blade_thread_m(){
         threaded_rod(h=20, d=18, pitch=1.5, anchor=BOTTOM);
         difference(){
             zcyl(h=INCH/2, d=25, anchor=BOTTOM);
-            zcyl(h=INCH/2, d=coredims[1]+PRESSFIT, chamfer=-0.3, anchor=BOTTOM);
+            zcyl(h=INCH/2, d=COREDIMS[1]+PRESSFIT, chamfer=-0.3, anchor=BOTTOM);
         }
-        // up(INCH/4) zcyl(h=INCH/2, d=coredims[1]+PRESSFIT, chamfer=-0.3);
+        // up(INCH/4) zcyl(h=INCH/2, d=COREDIMS[1]+PRESSFIT, chamfer=-0.3);
     }
-    up(12) tube(h=1.5, od=18, id=coredims[1]+PRESSFIT, anchor=BOTTOM);
+    up(12) tube(h=1.5, od=18, id=COREDIMS[1]+PRESSFIT, anchor=BOTTOM);
 }
 
 module blade_thread_f(flange_thickness, epp_thickness){
@@ -27,10 +27,10 @@ module blade_thread_f(flange_thickness, epp_thickness){
         threaded_nut(nutwidth=50, id=18, h=20, pitch=1.5, anchor=BOTTOM, $slop=0.025, ibevel=false);
         union(){
             zcyl(h=epp_thickness + flange_thickness, d=20, anchor=BOTTOM);
-            up(epp_thickness+flange_thickness) zcyl(h=flange_thickness, id=coredims[1], od=18, anchor=BOTTOM);
+            up(epp_thickness+flange_thickness) zcyl(h=flange_thickness, id=COREDIMS[1], od=18, anchor=BOTTOM);
         }
     }
-    tube(h=1.5, id=coredims[1]+CLEARANCE, od=50, anchor=BOTTOM);
+    tube(h=1.5, id=COREDIMS[1]+CLEARANCE, od=50, anchor=BOTTOM);
     up(epp_thickness+2*flange_thickness) intersection(){
         tube(h=1.5, id=18+CLEARANCE, od=35, anchor=TOP);
         cube([27, 500, 500], anchor=TOP);
@@ -43,14 +43,14 @@ module tip_3dp_body(flange_od,
                     core_to_epp_dist,
                     epp_pin_depth){
 
-    // zcyl(h=core_pin_depth, d=coredims[0]-CLEARANCE, chamfer1=1, anchor=TOP);
-    threaded_rod(h=core_pin_depth, d=coredims[0]-1, pitch=1.5, anchor=TOP);
+    // zcyl(h=core_pin_depth, d=COREDIMS[0]-CLEARANCE, chamfer1=1, anchor=TOP);
+    threaded_rod(h=core_pin_depth, d=COREDIMS[0]-1, pitch=1.5, anchor=TOP);
     zcyl(h=core_to_epp_dist, d=flange_od, anchor=BOTTOM);
     
     h = flange_depth-core_to_epp_dist;
     difference(){
-        zcyl(h=h, d=flange_od, chamfer1=h, chamfang=atan2(h, flange_od/2 - (coredims[1]/2 + 1)), from_end=true, anchor=TOP);
-        zcyl(h=h, d=coredims[1]+CLEARANCE, chamfer1=-0.5, anchor=TOP);
+        zcyl(h=h, d=flange_od, chamfer1=h, chamfang=atan2(h, flange_od/2 - (COREDIMS[1]/2 + 1)), from_end=true, anchor=TOP);
+        zcyl(h=h, d=COREDIMS[1]+CLEARANCE, chamfer1=-0.5, anchor=TOP);
     }
     up(core_to_epp_dist) zcyl(h=epp_pin_depth, d=12, chamfer2=0.5, anchor=BOTTOM);
 }
@@ -84,7 +84,7 @@ module tip_3dp_component(
 
 
 
-tip_3dp_component(40, 4, 12, 1, 9);
+// tip_3dp_component(40, 4, 12, 1, 9);
 // difference(){
 // union(){
 //     up(1.5) zrot(180) blade_thread_m();

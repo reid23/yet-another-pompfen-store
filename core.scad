@@ -1,28 +1,54 @@
-include <BOSL2/std.scad>;
+include <BOSL2/std.scad>
+include <params.scad>
 
-module core(id=12, od=14, l=2000){
+
+module core(l){
     difference(){
-        zcyl(h=l, d=od, anchor=BOTTOM);
-        zcyl(h=l, d=id, anchor=BOTTOM);
+        zcyl(h=l, d=COREDIMS[1], anchor=BOTTOM);
+        zcyl(h=l, d=COREDIMS[0], anchor=BOTTOM);
     }
 }
 
-module short_core(pommel_thickness=25, tip_thickness=50){
-    up(pommel_thickness) core(l=85-pommel_thickness-tip_thickness, anchor=BOTTOM);
+module short_core(anchor=CENTER, spin=0, orient=UP){
+    anchors = [
+        named_anchor(name="core_top", pos=ORIGIN, orient=DOWN),
+        named_anchor(name="core_bottom", pos=(TIP_THICKNESS-EPP_THICKNESS)*UP, orient=UP)
+    ];
+    attachable(anchor, spin, orient, anchors=anchors){
+        core(l=850-pommel_thickness-TIP_THICKNESS, anchor=BOTTOM);
+        children();
+    }
 }
 
-module staff_core(pommel_thickness=25, tip_thickness=50){
-    up(pommel_thickness) core(l=180-pommel_thickness-tip_thickness, anchor=BOTTOM);
+module staff_core(anchor=CENTER, spin=0, orient=UP){
+    anchors = [
+        named_anchor(name="core_top", pos=ORIGIN, orient=DOWN),
+        named_anchor(name="core_bottom", pos=(TIP_THICKNESS-EPP_THICKNESS)*UP, orient=UP)
+    ];
+    attachable(anchor, spin, orient, anchors=anchors){
+        core(l=1800-pommel_thickness-TIP_THICKNESS, anchor=BOTTOM);
+        children();
+    }
 }
 
-module long_core(pommel_thickness=25, tip_thickness=50){
-    up(pommel_thickness) core(l=180-pommel_thickness-tip_thickness, anchor=BOTTOM);
+module long_core(anchor=CENTER, spin=0, orient=UP){
+    anchors = [
+        named_anchor(name="core_top", pos=ORIGIN, orient=DOWN),
+        named_anchor(name="core_bottom", pos=(TIP_THICKNESS-EPP_THICKNESS)*UP, orient=UP)
+    ];
+    attachable(anchor, spin, orient, anchors=anchors){
+        core(l=1600-pommel_thickness-TIP_THICKNESS, anchor=BOTTOM);
+        children();
+    }
 }
 
-module qtip_core(tip_thickness=50){
-    up(pommel_thickness) core(l=200-2*tip_thickness, anchor=BOTTOM);
-}
-
-module short_staff_core(pommel_thickness=25, tip_thickness=50){
-    up(pommel_thickness) core(l=170-pommel_thickness-tip_thickness, anchor=BOTTOM);
+module short_staff_core(anchor=CENTER, spin=0, orient=UP){
+    anchors = [
+        named_anchor(name="core_top", pos=ORIGIN, orient=DOWN),
+        named_anchor(name="core_bottom", pos=(TIP_THICKNESS-EPP_THICKNESS)*UP, orient=UP)
+    ];
+    attachable(anchor, spin, orient, anchors=anchors){
+        core(l=1600-pommel_thickness-TIP_THICKNESS, anchor=BOTTOM);
+        children();
+    }
 }

@@ -1,10 +1,6 @@
-include <BOSL2/std.scad>;
-include <BOSL2/threading.scad>;
-
-$fn = 100;
-coredims = [12, 14];
-PRESSFIT = 0.1;
-CLEARANCE = 0.2;
+include <BOSL2/std.scad>
+include <BOSL2/threading.scad>
+include <params.scad>
 
 module spline_cyl(n_splines, spline_id, od, chamfer_angle){
     difference(){
@@ -45,7 +41,7 @@ module blade_m(n_splines, spline_id, od, chamfer_angle){
             up(CLEARANCE) zcyl(h=INCH, d=spline_id, anchor=BOTTOM);
             up(7) zcyl(h=4, d=od, chamfer=1.5, anchor=BOTTOM);
         }
-        zcyl(h=INCH, d=coredims[1]+PRESSFIT, chamfer=-0.25,anchor=BOTTOM);
+        zcyl(h=INCH, d=COREDIMS[1]+PRESSFIT, chamfer=-0.25,anchor=BOTTOM);
     }
 }
 
@@ -72,7 +68,7 @@ module blade_f(n_splines=6, spline_id=15, od=17, chamfer_angle=45, n_splines_per
             ]);
         }
         zcyl(h=INCH/2, d=spline_id, chamfer2=-1, anchor=BOTTOM);
-        zcyl(h=100, d=coredims[1]+CLEARANCE*2);
+        zcyl(h=100, d=COREDIMS[1]+CLEARANCE*2);
     }
     // #blade_m(n_splines, spline_id, od, chamfer_angle);
 }
@@ -103,10 +99,12 @@ module blade_assy(
     blade_f(n_splines, spline_id, spline_od, spline_chamfer, n_splines_per_segment, flange_od, flange_thickness, collet_id, collet_od, epp_id, slot_angular_size);
     up(CLEARANCE) collet(collet_id, collet_od, flange_thickness);
 }
-difference(){
-    blade_assy();
-    cube(100, anchor=RIGHT);
-}
+
+
+// difference(){
+//     blade_assy();
+//     cube(100, anchor=RIGHT);
+// }
 
 // blade_m(chamfer_angle=30);
 // blade_m(chamfer_angle=30);
