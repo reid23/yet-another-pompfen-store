@@ -91,7 +91,7 @@ module tip_thread_f(
     spin=0,
     orient=UP){
     anchors = [
-        named_anchor(name = "carbon_core_tip", pos = CENTER, orient = UP),
+        named_anchor(name = "carbon_core_tip", pos = CENTER, orient = DOWN),
         named_anchor(name = "effective_core_top", pos = above_core_height*UP, orient = UP),
     ];
     attachable(anchor, spin, orient, anchors=anchors){
@@ -101,10 +101,10 @@ module tip_thread_f(
 
 }
 
-difference(){
-    tip_thread_f(depth = 10, above_core_height = 2)
-        attach("effective_core_top", "core_anchor")
-           tip_thread_m(flange_od=30, flange_depth=3.1, core_pin_depth=8, core_to_epp_dist=1, epp_pin_depth=9);
+// difference(){
+//     tip_thread_f(depth = 10, above_core_height = 2)
+//         attach("effective_core_top", "core_anchor")
+//            tip_thread_m(flange_od=30, flange_depth=3.1, core_pin_depth=8, core_to_epp_dist=1, epp_pin_depth=9);
 
-    // cube(100, anchor=LEFT);
-}
+//     // cube(100, anchor=LEFT);
+// }
