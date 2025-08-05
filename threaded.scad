@@ -90,7 +90,7 @@ module tip_thread_m(
 module tip_thread_f_body(depth, above_core_height){
     intersection(){
         union(){
-            zcyl(h=depth-above_core_height, d=COREDIMS[0]-PRESSFIT, anchor=TOP);
+            zcyl(h=depth-above_core_height, d=COREDIMS[0], anchor=TOP);
             zcyl(h=above_core_height, d=COREDIMS[1]-CLEARANCE, anchor=BOTTOM);
         }
         

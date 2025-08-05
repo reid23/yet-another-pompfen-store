@@ -29,7 +29,7 @@ module staff_grip(
         named_anchor(name="grip_bottom", pos=CENTER, orient=UP)
     ];
     p0 = [od/2, start_height];
-    p1 = [COREDIMS[1]+min_wall_thickness, total_length];
+    p1 = [id/2+min_wall_thickness, total_length];
     v0 = [cos(90+th1), sin(90+th1)]*w1;
     v1 = [cos(90+th2), sin(90+th2)]*w2;
     attachable(anchor, spin, orient, anchors=anchors){
@@ -41,7 +41,7 @@ module staff_grip(
     }
 }
 
-// staff_grip() show_anchors(std=false);
+staff_grip() show_anchors(std=false);
 
 function rad2deg(x) = x*180/3.14159265358979;
 function cos_sin(theta) = [cos(theta), sin(theta)];
@@ -176,3 +176,5 @@ module pommel(height=32, r_fillet=10, r_main=47, x_main=60,
         children();
     }
 }
+
+//pommel();
