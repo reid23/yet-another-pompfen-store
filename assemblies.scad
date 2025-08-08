@@ -11,7 +11,7 @@ module long(){
     attach("core_end", "core_bottom")
     long_core()
     attach("core_top", "carbon_core_tip")
-    tip_thread_f(depth=8, above_core_height=2)
+    tip_thread_f(depth=8, above_core_height=2, $pitch=1.5, $starts=2, $major_d=COREDIMS[0]-0.4*4)
     attach("effective_core_top", "core_anchor")
     tip_thread_m(flange_od=30, flange_depth=3.1, core_pin_depth=8, core_to_epp_dist=1, epp_pin_depth=9)
     attach("epp_anchor", "tip_epp_bottom")

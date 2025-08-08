@@ -13,24 +13,96 @@ function hermite(t, p0, p1, v0, v1) = (
 module staff_grip(
     min_wall_thickness=4,
     od=GUARD_OD*0.75,
-    total_length=50,
+    total_length=45,
     start_height=3,
     th1=30,
     th2=10,
     w1=100,
-    w2=50){
-    
+    w2=50,
+
+    anchor=CENTER,
+    spin=0,
+    orient=UP){
+    anchors = [
+        named_anchor(name="grip_top", pos=total_length*UP, orient=UP),
+        named_anchor(name="grip_bottom", pos=CENTER, orient=UP)
+    ];
     p0 = [od/2, start_height];
     p1 = [COREDIMS[1]+min_wall_thickness, total_length];
     v0 = [cos(90+th1), sin(90+th1)]*w1;
     v1 = [cos(90+th2), sin(90+th2)]*w2;
-    rotate_extrude() polygon(concat(
-        [[COREDIMS[1], total_length], [COREDIMS[1], 0], [od/2, 0]],
-        [for(i=[0:0.01:1]) hermite(i, p0, p1, v0, v1)])
-    );
+    attachable(anchor, spin, orient, anchors=anchors){
+        rotate_extrude() polygon(concat(
+            [[COREDIMS[1], total_length], [COREDIMS[1], 0], [od/2, 0]],
+            [for(i=[0:0.01:1]) hermite(i, p0, p1, v0, v1)])
+        );
+        children();
+    }
 }
 
+// staff_grip() show_anchors(std=false);
 
+function rad2deg(x) = x*180/3.14159265358979;
+function cos_sin(theta) = [cos(theta), sin(theta)];
+
+module _chamfered_slotted_ring(ir, or, slot_angular_size, chamfer_size){
+    startsideangles = [
+        -rad2deg(chamfer_size/ir), 
+        0.0, 
+        0.0, 
+        -rad2deg(chamfer_size/or)
+    ];
+    endsideangles   = [
+        slot_angular_size+rad2deg(chamfer_size/or),
+        slot_angular_size, 
+        slot_angular_size, 
+        slot_angular_size+rad2deg(chamfer_size/ir)
+    ];
+    difference(){
+        circle(r=or);
+        circle(r=ir);
+        polygon([[0, 0], 2*or*[1, 0], 2*or*[cos(slot_angular_size), sin(slot_angular_size)]]);
+        polygon([
+            cos_sin(startsideangles[0])     * ir,
+            cos_sin(startsideangles[1])     * (ir+chamfer_size),
+            cos_sin(startsideangles[2])     * (or-chamfer_size),
+            cos_sin(startsideangles[3])     * or,
+            cos_sin(slot_angular_size/2)    * or*5,
+            cos_sin(endsideangles[0])       * or,
+            cos_sin(endsideangles[1])       * (or-chamfer_size),
+            cos_sin(endsideangles[2])       * (ir+chamfer_size),
+            cos_sin(endsideangles[3])       * ir,
+        ]);
+    }
+}
+
+module staff_spacer(
+    od=INCH,
+    slot_angular_size=4,
+    total_height=50,
+    shoulder_od=20,
+    shoulder_height=5,
+    
+    anchor=CENTER,
+    spin=0,
+    orient=UP){
+    anchors = [
+        named_anchor(name="screw_side_anchor", pos=shoulder_height*DOWN, orient=UP),
+        named_anchor(name="spacer_top", pos=(total_height-shoulder_height)*UP, orient=UP)
+    ];
+    id = COREDIMS[1];
+    r_c = 1; // rad of chamfer
+    attachable(anchor, spin, orient, anchors=anchors){
+        union(){
+            linear_extrude(total_height-shoulder_height) 
+                _chamfered_slotted_ring(ir = COREDIMS[1]/2, or = od/2, slot_angular_size = slot_angular_size, chamfer_size = r_c);
+            down(shoulder_height) linear_extrude(shoulder_height)
+                _chamfered_slotted_ring(ir = COREDIMS[1]/2, or = shoulder_od/2, slot_angular_size = slot_angular_size, chamfer_size = r_c);
+        }
+        children();
+    }
+}
+// staff_spacer() show_anchors(std=false);
 
 module pommel_body(height=32, r_fillet=10, r_main=47, x_main=60){
     function r(x) = sqrt((x-10)^2 - 100^2) + y_main;

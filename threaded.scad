@@ -37,7 +37,10 @@ module tip_thread_m_body(flange_od,
                     extra_tube_height=5){
 
     // zcyl(h=core_pin_depth, d=COREDIMS[0]-CLEARANCE, chamfer1=1, anchor=TOP);
-    up(1.5) threaded_rod(h=core_pin_depth+1.5, d=COREDIMS[0]-1, pitch=1.5, anchor=TOP);
+    up($pitch) intersection() {
+        threaded_rod(h=core_pin_depth+1.5, d=COREDIMS[0]-1, pitch=$pitch, starts=$starts, anchor=TOP);
+        zcyl(h=core_pin_depth+1.5, d=$major_d-CLEARANCE, anchor=TOP);
+    }
     zcyl(h=core_to_epp_dist, d=flange_od, anchor=BOTTOM);
     
     h = flange_depth-core_to_epp_dist;
@@ -50,7 +53,10 @@ module tip_thread_m_body(flange_od,
         zcyl(h=extra_tube_height, d=16, anchor=TOP);
         zcyl(h=extra_tube_height, d=COREDIMS[1]+CLEARANCE, chamfer1=-0.25, anchor=TOP);
     }
-    up(core_to_epp_dist) zcyl(h=12+1.5, d=2, anchor=BOTTOM);
+    up(core_to_epp_dist) {
+        zcyl(h=12+1.5, d=2, anchor=BOTTOM);
+        up(12+1.5) zcyl(h=0.7, d=30, anchor=TOP);
+    }
 }
 
 module tip_thread_m(
@@ -80,9 +86,14 @@ module tip_thread_f_body(depth, above_core_height){
             zcyl(h=above_core_height, d=COREDIMS[1]-CLEARANCE, anchor=BOTTOM);
         }
         
-        up(ceil(above_core_height/1.5)*1.5 +0.25) threaded_nut(nutwidth=50, id=COREDIMS[0]-1, h=depth*2, pitch=1.5, $slop=0.025, ibevel=false, anchor=TOP);
+        up(ceil(above_core_height/$pitch + 1)*$pitch - 0.25) union() {
+            threaded_nut(nutwidth=50, id=COREDIMS[0]-1, h=depth*2, pitch=$pitch, starts=$starts, $slop=0.025, ibevel=false, blunt_start=true, lead_in=1, anchor=TOP);
+            difference(){
+                zcyl(h=depth*2, d=50, anchor=TOP);
+                zcyl(h=depth*2, d=$major_d, anchor=TOP);
+            }
+        }
     }
-    // zcyl
 }
 
 module tip_thread_f(
@@ -101,10 +112,14 @@ module tip_thread_f(
 
 }
 
-// difference(){
-//     tip_thread_f(depth = 10, above_core_height = 2)
-//         attach("effective_core_top", "core_anchor")
-//            tip_thread_m(flange_od=30, flange_depth=3.1, core_pin_depth=8, core_to_epp_dist=1, epp_pin_depth=9);
+$pitch=1.5;
+$starts=2;
+$major_d=COREDIMS[0]-0.4*4;
 
-//     // cube(100, anchor=LEFT);
-// }
+intersection() { 
+    tip_thread_f(depth = 13, above_core_height = 2, $pitch=1.5, $starts=2, $major_d=COREDIMS[0]-0.4*4)
+        attach("effective_core_top", "core_anchor")
+           tip_thread_m(flange_od=30, flange_depth=3.1, core_pin_depth=8, core_to_epp_dist=1, epp_pin_depth=9)
+    ;
+    // cube(100, anchor=LEFT);
+}
