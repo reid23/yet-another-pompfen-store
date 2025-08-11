@@ -19,7 +19,9 @@ module qtip_core(anchor=CENTER, spin=0, orient=UP){
         children();
     }
 }
+
 module short_core(anchor=CENTER, spin=0, orient=UP){
+    // test 2
     anchors = [
         named_anchor(name="core_bottom", pos=CENTER, orient=UP),
         named_anchor(name="core_top", pos=(850-POMMEL_THICKNESS-TIP_THICKNESS)*UP, orient=UP)
@@ -29,7 +31,6 @@ module short_core(anchor=CENTER, spin=0, orient=UP){
         children();
     }
 }
-
 module staff_core(anchor=CENTER, spin=0, orient=UP){
     anchors = [
         named_anchor(name="core_top", pos=CENTER, orient=UP),

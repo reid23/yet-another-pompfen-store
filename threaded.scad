@@ -48,7 +48,7 @@ module tip_thread_m_body(flange_od,
         zcyl(h=h, d=flange_od, chamfer1=h, chamfang=atan2(h, flange_od/2 - (COREDIMS[1]/2 + 1)), from_end=true, anchor=TOP);
         zcyl(h=h, d=COREDIMS[1]+CLEARANCE, chamfer1=-0.25, anchor=TOP);
     }
-    up(core_to_epp_dist) zcyl(h=epp_pin_depth, d=12, chamfer2=0.5, anchor=BOTTOM);
+    up(core_to_epp_dist) zcyl(h=epp_pin_depth, d=TIP_EPP_ID, chamfer2=0.5, anchor=BOTTOM);
     difference(){
         zcyl(h=extra_tube_height, d=16, anchor=TOP);
         zcyl(h=extra_tube_height, d=COREDIMS[1]+CLEARANCE, chamfer1=-0.25, anchor=TOP);
@@ -59,6 +59,7 @@ module tip_thread_m_body(flange_od,
     }
 }
 
+// @build tip_thread_m.stl flange_od=30, flange_depth=1.5, core_pin_depth=8, core_to_epp_dist=1, epp_pin_depth=8
 module tip_thread_m(
     flange_od, 
     flange_depth, 
@@ -96,6 +97,7 @@ module tip_thread_f_body(depth, above_core_height){
     }
 }
 
+// @build tip_thread_f.stl depth=13, above_core_height=2
 module tip_thread_f(
     depth, above_core_height,
     anchor = CENTER,
@@ -116,10 +118,10 @@ $pitch=1.5;
 $starts=2;
 $major_d=COREDIMS[0]-0.4*4;
 
-intersection() { 
-    tip_thread_f(depth = 13, above_core_height = 2, $pitch=1.5, $starts=2, $major_d=COREDIMS[0]-0.4*4)
-        attach("effective_core_top", "core_anchor")
-           tip_thread_m(flange_od=30, flange_depth=3.1, core_pin_depth=8, core_to_epp_dist=1, epp_pin_depth=9)
-    ;
-    // cube(100, anchor=LEFT);
-}
+// intersection() { 
+//     tip_thread_f(depth = 13, above_core_height = 2, $pitch=1.5, $starts=2, $major_d=COREDIMS[0]-0.4*4)
+//         attach("effective_core_top", "core_anchor")
+//            tip_thread_m(flange_od=30, flange_depth=3.1, core_pin_depth=8, core_to_epp_dist=1, epp_pin_depth=9)
+//     ;
+//     // cube(100, anchor=LEFT);
+// }

@@ -10,6 +10,7 @@ function hermite(t, p0, p1, v0, v1) = (
   * [p0,p1,v0,v1]
 )[0];
 
+// @build staff_grip.stl
 module staff_grip(
     min_wall_thickness=4,
     od=GUARD_OD*0.75,
@@ -76,6 +77,7 @@ module _chamfered_slotted_ring(ir, or, slot_angular_size, chamfer_size){
     }
 }
 
+// @build staff_spacer.stl
 module staff_spacer(
     od=INCH,
     slot_angular_size=4,
@@ -160,6 +162,7 @@ module pommel_body(height=32, r_fillet=10, r_main=47, x_main=60){
 }
 
 // anchors: `core_end` and `bottom`
+// @build pommel.stl
 module pommel(height=32, r_fillet=10, r_main=47, x_main=60,
     anchor=CENTER,
     spin=0,

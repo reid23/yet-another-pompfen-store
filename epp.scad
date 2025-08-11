@@ -14,7 +14,7 @@ module tip_epp(anchor=CENTER, spin=0, orient=UP){
         named_anchor(name="tip_epp_bottom", pos=EPP_THICKNESS*UP, orient=UP)
     ];
     attachable(anchor, spin, orient, anchors=anchors){
-        epp(id=10, od=NOODLE_OD);
+        epp(id=TIP_EPP_ID, od=NOODLE_OD);
         children();
     }
 }
@@ -24,7 +24,7 @@ module blade_epp(anchor=CENTER, spin=0, orient=UP){
         named_anchor(name="blade_epp_bottom", pos=EPP_THICKNESS*UP, orient=UP)
     ];
     attachable(anchor, spin, orient, anchors=anchors){
-        epp(id=24, od=NOODLE_OD);
+        epp(id=BLADE_EPP_ID, od=NOODLE_OD);
         children();
     }
 }
@@ -35,7 +35,7 @@ module guard_epp(anchor=CENTER, spin=0, orient=UP){
         named_anchor(name="epp_bottom", pos=EPP_THICKNESS*UP, orient=UP)
     ];
     attachable(anchor, spin, orient, anchors=anchors){
-        epp(id=26, od=GUARD_OD);
+        epp(id=GUARD_EPP_ID, od=GUARD_OD);
         children();
     }
 }

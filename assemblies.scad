@@ -6,6 +6,7 @@ include <threaded.scad>
 include <splined.scad>
 include <epp.scad>
 include <foam.scad>
+
 module long(){
     pommel()
     attach("core_end", "core_bottom")
@@ -24,8 +25,13 @@ module long(){
             blade_epp(){
                 attach("blade_epp_bottom", "buffer_top")
                     buffer_noodle();
-                attach("blade_epp_top", "blade_epp_bond")
-                    blade_assy();
+                attach("blade_epp_top", "epp_blade_side")
+                    blade_f(){
+                        attach("blade_spline_interface", "blade_spline_interface")
+                            blade_m();
+                        attach("collet_interface", "collet_interface")
+                            collet();
+                    }
             }
     }
 }
