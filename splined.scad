@@ -110,9 +110,9 @@ module blade_f_body(
 module blade_f(
     n_splines_per_segment=2,
     bladeside_flange_od=40,
-    handside_flange_od=35,
+    handside_flange_od=0,
     slot_angular_size=4,
-    real_epp_height=12,
+    real_epp_height=INCH/2-$flange_thickness,
     anchor=CENTER, spin=0, orient=UP){
     anchors = [
         named_anchor(name="blade_spline_interface", pos=CENTER, orient=DOWN),
@@ -153,6 +153,7 @@ $n_splines = 6;
 $spline_id = 15.5;
 $spline_od = 17;
 $spline_chamfer_angle = 30;
+// projection(cut=true) xrot(90)
 // blade_f(anchor="blade_spline_interface"){
 //     attach("blade_spline_interface", "blade_spline_interface")
 //         blade_m();

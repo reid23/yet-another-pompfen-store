@@ -1,0 +1,16 @@
+#!/usr/bin/python
+import os, re, epp_cam
+
+r = re.compile('\/\/\s@build\s(?P<filename>[^\s^\\n]*)(?P<args>[^\\n]*)\\n|module\s(?P<module>[^\\n]+)\(')
+for filename in filter(lambda x: x.endswith(".scad"), os.listdir()):
+    with open(filename, 'r') as f: out = r.findall(''.join(f.readlines()))
+    res = []
+    for i in out[::-1]:
+        if i[0]=='': res.append([i[2]])
+        else: res[-1].append(i[:2])
+    for i in filter(lambda x: len(x)>1, res): 
+        for stlfile, opts in i[1:]: 
+            os.system(f'echo "include <{filename}> \n {i[0]}({opts});" | \
+                openscad {"--export-format binstl " if stlfile.endswith(".stl") else ""}-o build/{stlfile} -')
+
+epp_cam.export_cam()
