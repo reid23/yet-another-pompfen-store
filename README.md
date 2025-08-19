@@ -10,6 +10,48 @@ CAD for all YAPS products.
 > I am uploading this work for free use (in all senses) because I want to see Jugger continue to grow and the equipment to improve. Please carry that spirit forward.
 
 
+## Documentation
+
+Eventually I'll move this to a more appropriate place, but for now this is fine.
+More complete statuses and specific manufacturing documentation on each part is in the New Sticks epic in the Ursae Notion.
+
+### Setup
+
+There shouldn't be much setup. Just clone the repo. If you don't have [BOSL2](https://github.com/BelfrySCAD/BOSL2) installed, you can just `git submodule init` and `git submodule update` to get it in the repo directory.
+
+You may also need to `chmod +x buildall` before you can run the build script. It references `/usr/bin/python`, so if that doesn't exist, make a symlink (or change the interpreter in `buildall` or run it with python or whatever you'd like)
+
+### Build System
+
+I made a silly little custom build system, since openscad is funny and I couldn't find something that fits my needs.
+You'll see comments above modules like this:
+```openscad
+// @build tip_thread_m_nodfm.stl include_dfm=false
+// @build tip_thread_m.stl include_dfm=true
+module tip_thread_m(
+   // ...,
+   include_dfm=true
+){
+    // ...
+}
+```
+
+This tells the build system to build two stls from this module: one with the parameter `include_dfm` set to `true`, and the other `false`.
+
+To build the .stl files, run the build script:
+
+```bash
+./buildall
+```
+
+This exports all files to the build folder. It also runs the CAM script, which generates some gcode for cutting the EPP. This is not well documented since it was just a one-off I made for myself and my specific setup. If you want to do a similar thing, you should write your own gcode. It's not hard, and you'll be able to debug it much easier.
+
+### Assemblies
+
+`assemblies.scad` contains all TLAs. Currently, the only complete one is the `long` module. The parts exist for short and Q, but I have not made the assemblies yet.
+Staff is still under construction - I designed v1 in Fusion and haven't changed it since. I'll port it over here before the `v0.2.1` release.
+
+
 ## Building Your Own
 
 The intent is to sell these, but that doesn't mean you can't make your own!
