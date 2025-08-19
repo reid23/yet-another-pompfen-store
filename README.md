@@ -1,7 +1,6 @@
 # yet-another-pompfen-store
-CAD for all YAPS products.
 
-> [!WARNING] Licensing
+> [!IMPORTANT]
 > This content is licensed with GPL v2[^1] because I want to encourage sharing within the community.
 > I hope that I'm never going to have to argue about the details with anyone about this. The main things I want are:
 >  - If you use this in your own work (directly, or even borrowing some design features), please also release your content under GPL v2. 
