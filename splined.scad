@@ -2,6 +2,14 @@ include <BOSL2/std.scad>
 include <BOSL2/threading.scad>
 include <params.scad>
 
+$collet_id=20;
+$collet_od=22;
+$flange_thickness=1.5;
+$n_splines = 6;
+$spline_id = 15.5;
+$spline_od = 17;
+$spline_chamfer_angle = 30;
+
 // uses: $n_splines, $spline_id, $spline_od, $spline_chamfer_angle
 module _spline_cyl(){
     n_splines = $n_splines;
@@ -146,13 +154,7 @@ module collet(h=INCH/4, anchor=CENTER, spin=0, orient=UP){
 
 }
 
-$collet_id=20;
-$collet_od=22;
-$flange_thickness=1.5;
-$n_splines = 6;
-$spline_id = 15.5;
-$spline_od = 17;
-$spline_chamfer_angle = 30;
+
 // projection(cut=true) xrot(90)
 // blade_f(anchor="blade_spline_interface"){
 //     attach("blade_spline_interface", "blade_spline_interface")

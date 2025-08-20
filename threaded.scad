@@ -2,6 +2,12 @@ include <BOSL2/std.scad>
 include <BOSL2/threading.scad>
 include <params.scad>
 
+
+$pitch=1.5;
+$starts=2;
+$major_d=COREDIMS[0]-0.4*4;
+
+
 module blade_thread_m(){
     intersection(){
         threaded_rod(h=20, d=18, pitch=1.5, anchor=BOTTOM);
@@ -121,10 +127,53 @@ module tip_thread_f(
 
 }
 
-$pitch=1.5;
-$starts=2;
-$major_d=COREDIMS[0]-0.4*4;
 
+$guard_pitch = 2.5;
+$guard_major_d = 20;
+
+// @build guard_thread_m.stl
+module guard_thread_m(
+    length=10,
+    anchor=CENTER,
+    spin=0,
+    orient=UP){
+    anchors = [
+        named_anchor(name="guard_top_thread_reference", pos=CENTER, orient=DOWN),
+    ];
+    attachable(anchor, spin, orient, anchors=anchors){
+        intersection(){
+            down($guard_pitch) threaded_rod(d=$guard_major_d, l=length+$guard_pitch, pitch=$guard_pitch, $slop=0.025, anchor=BOTTOM);
+            tube(h=length+1, id=COREDIMS[1]+CLEARANCE, od=$guard_major_d+1, anchor=BOTTOM);
+        }
+        children();
+    }
+}
+
+// @build lower_guard_thread_m.stl
+module lower_guard_thread_m(
+    length=10,
+    anchor=CENTER,
+    spin=0,
+    orient=UP){
+    anchors = [
+        named_anchor(name="guard_lower_thread_flange_top", pos=CENTER, orient=UP),
+        named_anchor(name="guard_lower_thread_bottom", pos=2*DOWN, orient=UP),
+    ];
+    attachable(anchor, spin, orient, anchors=anchors){
+        difference(){
+            union(){
+                intersection(){
+                    down($guard_pitch) threaded_rod(d=$guard_major_d, l=length+$guard_pitch, pitch=$guard_pitch, $slop=0.025, anchor=BOTTOM);
+                    down(0.5) zcyl(h=length+1, d=$guard_major_d+1, anchor=BOTTOM);
+                }
+                zcyl(h=2, d=24, chamfer2=1, anchor=TOP);
+            }
+            zcyl(h=3*length, d=COREDIMS[1]+CLEARANCE);
+        }
+        children();
+    }
+}
+// lower_guard_thread_m() show_anchors(std=false);
 // intersection() {
 //     tip_thread_f(depth = 13, above_core_height = 2, $pitch=1.5, $starts=2, $major_d=COREDIMS[0]-0.4*4)
 //         attach("effective_core_top", "core_anchor")

@@ -14,6 +14,7 @@ function hermite(t, p0, p1, v0, v1) = (
 module staff_grip(
     min_wall_thickness=4,
     od=GUARD_OD*0.75,
+    id=INCH,
     total_length=45,
     start_height=3,
     th1=30,
@@ -41,7 +42,7 @@ module staff_grip(
     }
 }
 
-staff_grip() show_anchors(std=false);
+// staff_grip() show_anchors(std=false);
 
 function rad2deg(x) = x*180/3.14159265358979;
 function cos_sin(theta) = [cos(theta), sin(theta)];

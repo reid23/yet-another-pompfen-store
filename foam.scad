@@ -1,11 +1,6 @@
 include <BOSL2/std.scad>
 include <params.scad>
 
-// COREDIMS=[12, 14];
-// NOODLE_OD=2.7*INCH;
-// EPP_THICKNESS=0.5*INCH;
-// SHEEP_DIAMETER=(7/16)*INCH;
-
 module tip_noodle(
     anchor=CENTER,
     spin=0,
