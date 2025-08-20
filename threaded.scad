@@ -44,8 +44,8 @@ module tip_thread_m_body(flange_od,
                     include_dfm=true){
 
     // zcyl(h=core_pin_depth, d=COREDIMS[0]-CLEARANCE, chamfer1=1, anchor=TOP);
-    up($pitch) intersection() {
-        threaded_rod(h=core_pin_depth+1.5, d=COREDIMS[0]-1, pitch=$pitch, starts=$starts, anchor=TOP);
+    intersection() {
+        up($pitch) threaded_rod(h=core_pin_depth+1.5, d=COREDIMS[0]-1, pitch=$pitch, starts=$starts, anchor=TOP);
         zcyl(h=core_pin_depth+1.5, d=$major_d-CLEARANCE, anchor=TOP);
     }
     zcyl(h=core_to_epp_dist, d=flange_od, anchor=BOTTOM);
@@ -55,7 +55,9 @@ module tip_thread_m_body(flange_od,
         zcyl(h=h, d=flange_od, chamfer1=h, chamfang=atan2(h, flange_od/2 - (COREDIMS[1]/2 + 1)), from_end=true, anchor=TOP);
         zcyl(h=h, d=COREDIMS[1]+CLEARANCE, chamfer1=-0.25, anchor=TOP);
     }
-    up(core_to_epp_dist) zcyl(h=epp_pin_depth, d=TIP_EPP_ID, chamfer2=0.5, anchor=BOTTOM);
+    if(TIP_EPP_ID>0){
+        up(core_to_epp_dist) zcyl(h=epp_pin_depth, d=TIP_EPP_ID, chamfer2=0.5, anchor=BOTTOM);
+    }
     difference(){
         zcyl(h=extra_tube_height, d=16, anchor=TOP);
         zcyl(h=extra_tube_height, d=COREDIMS[1]+CLEARANCE, chamfer1=-0.25, anchor=TOP);
