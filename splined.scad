@@ -120,7 +120,7 @@ module blade_f(
     bladeside_flange_od=40,
     handside_flange_od=0,
     slot_angular_size=4,
-    real_epp_height=INCH/2-$flange_thickness,
+    real_epp_height=EPP_THICKNESS, //INCH/2-$flange_thickness,
     anchor=CENTER, spin=0, orient=UP){
     anchors = [
         named_anchor(name="blade_spline_interface", pos=CENTER, orient=DOWN),

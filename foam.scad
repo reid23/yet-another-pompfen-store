@@ -14,17 +14,29 @@ module tip_noodle(
         children();
     }
 }
-module blade_noodle(
+module long_blade_noodle(
     anchor=CENTER,
     spin=0,
     orient=UP){
-    echo(TIP_THICKNESS);
     anchors = [
-        named_anchor(name="core_tip", pos=(900-TIP_THICKNESS-(EPP_THICKNESS+BUFFER_THICKNESS))*UP, orient=UP),
+        named_anchor(name="core_tip", pos=(LONG_BLADE-TIP_THICKNESS-(EPP_THICKNESS+BUFFER_THICKNESS))*UP, orient=UP),
         named_anchor(name="hand_side", pos=CENTER, orient=UP)
     ];
     attachable(anchor, spin, orient, anchors=anchors){
-        tube(h=900-TIP_THICKNESS-(EPP_THICKNESS+BUFFER_THICKNESS), od=NOODLE_OD, id=SHEEP_DIAMETER, anchor=BOTTOM);
+        tube(h=LONG_BLADE-TIP_THICKNESS-(EPP_THICKNESS+BUFFER_THICKNESS), od=NOODLE_OD, id=SHEEP_DIAMETER, anchor=BOTTOM);
+        children();
+    }
+}
+module short_blade_noodle(
+    anchor=CENTER,
+    spin=0,
+    orient=UP){
+    anchors = [
+        named_anchor(name="core_tip", pos=(SHORT_BLADE-TIP_THICKNESS-(EPP_THICKNESS+BUFFER_THICKNESS))*UP, orient=UP),
+        named_anchor(name="hand_side", pos=CENTER, orient=UP)
+    ];
+    attachable(anchor, spin, orient, anchors=anchors){
+        tube(h=SHORT_BLADE-TIP_THICKNESS-(EPP_THICKNESS+BUFFER_THICKNESS), od=NOODLE_OD, id=SHEEP_DIAMETER, anchor=BOTTOM);
         children();
     }
 }
@@ -42,3 +54,18 @@ module buffer_noodle(
         children();
     }
 }
+module guard_foam(
+    anchor=CENTER,
+    spin=0,
+    orient=UP){
+    length = GUARD_LEN - 2*EPP_THICKNESS - STAFF_GRIP_HEIGHT;
+    anchors = [
+        named_anchor(name="guard_foam_top", pos=UP*length),
+        named_anchor(name="guard_foam_bottom", pos=CENTER)
+    ];
+    attachable(anchor, spin, orient, anchors=anchors){
+        tube(h=length, od=GUARD_OD, id=INCH, anchor=BOTTOM);
+        children();
+    }
+}
+

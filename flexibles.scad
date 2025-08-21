@@ -26,7 +26,7 @@ module staff_grip(
     spin=0,
     orient=UP){
     anchors = [
-        named_anchor(name="grip_top", pos=total_length*UP, orient=UP),
+        named_anchor(name="grip_top", pos=total_length*UP, orient=DOWN),
         named_anchor(name="grip_bottom", pos=CENTER, orient=UP)
     ];
     p0 = [od/2, start_height];
@@ -35,7 +35,7 @@ module staff_grip(
     v1 = [cos(90+th2), sin(90+th2)]*w2;
     attachable(anchor, spin, orient, anchors=anchors){
         rotate_extrude() polygon(concat(
-            [[COREDIMS[1], total_length], [COREDIMS[1], 0], [od/2, 0]],
+            [[id/2, total_length], [id/2, 0], [od/2, 0]],
             [for(i=[0:0.01:1]) hermite(i, p0, p1, v0, v1)])
         );
         children();
@@ -82,22 +82,22 @@ module _chamfered_slotted_ring(ir, or, slot_angular_size, chamfer_size){
 module staff_spacer(
     od=INCH,
     slot_angular_size=4,
-    total_height=50,
-    shoulder_od=20,
-    shoulder_height=5,
+    height=45,
+    shoulder_od=22,
+    shoulder_height=2,
     
     anchor=CENTER,
     spin=0,
     orient=UP){
     anchors = [
-        named_anchor(name="screw_side_anchor", pos=shoulder_height*DOWN, orient=UP),
-        named_anchor(name="spacer_top", pos=(total_height-shoulder_height)*UP, orient=UP)
+        named_anchor(name="screw_side_anchor", pos=shoulder_height*DOWN, orient=DOWN),
+        named_anchor(name="spacer_top", pos=height*UP, orient=UP)
     ];
     id = COREDIMS[1];
     r_c = 1; // rad of chamfer
     attachable(anchor, spin, orient, anchors=anchors){
         union(){
-            linear_extrude(total_height-shoulder_height) 
+            linear_extrude(height) 
                 _chamfered_slotted_ring(ir = COREDIMS[1]/2, or = od/2, slot_angular_size = slot_angular_size, chamfer_size = r_c);
             down(shoulder_height) linear_extrude(shoulder_height)
                 _chamfered_slotted_ring(ir = COREDIMS[1]/2, or = shoulder_od/2, slot_angular_size = slot_angular_size, chamfer_size = r_c);

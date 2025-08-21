@@ -25,13 +25,13 @@ You may also need to `chmod +x buildall` before you can run the build script. It
 
 I made a silly little custom build system, since openscad is funny and I couldn't find something that fits my needs.
 You'll see comments above modules like this:
+
 ```openscad
 // @build tip_thread_m_nodfm.stl include_dfm=false
 // @build tip_thread_m.stl include_dfm=true
 module tip_thread_m(
    // ...,
-   include_dfm=true
-){
+   include_dfm=true){
     // ...
 }
 ```
@@ -44,12 +44,19 @@ To build the .stl files, run the build script:
 ./buildall
 ```
 
-This exports all files to the build folder. It also runs the CAM script, which generates some gcode for cutting the EPP. This is not well documented since it was just a one-off I made for myself and my specific setup. If you want to do a similar thing, you should write your own gcode. It's not hard, and you'll be able to debug it much easier.
+This exports all files to the build folder. It also runs the CAM script, which generates some gcode for cutting the EPP. This is not well documented since it was just a one-off I made for myself and my specific setup. If you want to do a similar thing, you should just write your own gcode. It's not hard, and you'll be able to debug it much easier.
 
 ### Assemblies
 
-`assemblies.scad` contains all TLAs. Currently, the only complete one is the `long` module. The parts exist for short and Q, but I have not made the assemblies yet.
-Staff is still under construction - I designed v1 in Fusion and haven't changed it since. I'll port it over here before the `v0.2.1` release.
+`assemblies.scad` contains all TLAs (**T**op-**L**evel **A**ssemblies). This is not as helpful as it should be; you still have to go in and highlight or hide things to actually see what's going on, because openscad doesn't have a great way to prevent merging of touching parts.
+It maybe helpful to make a section view:
+
+```openscad
+difference(){
+    long_tla();
+    cube(10000, anchor=RIGHT);
+}
+```
 
 ### Parameters
 
@@ -85,7 +92,7 @@ I caution that these were designed to be easy to make at a larger scale, so the 
      - I clamped a hot knife foam cutter to my printer and wrote some gcode. Do a couple test cuts to see your max feedrate (don't push it too hard, any deflection will hurt your accuracy and it's faster to just do one good cut than a fast cut and a spring pass) and tune your kerf. It's like <10 lines and a good excuse to actually understand G2/3.
  - For the blade, you need to use a single piece of foam, which you can get from either pipe insulation which you take a slice out of to make the ID match the core, or from a solid noodle with a hole cut through the center (this is preferred because the seam is not a weak point)
      - see my coring jig: https://www.printables.com/model/1233976-pompf-coring-jig
- - For a staff guard, you need the ID to be large enough to fit around all the other hardware. I have used pipe insulation for this.
+ - For a staff guard, you need the ID to be large enough to fit around all the other hardware. I have used pipe insulation for this because I think a larger diameter guard is easier to block with. If you want a smaller guard, normal (non-solid) pool noodle works as well (just be sure to change `GUARD_OD`).
  - The tip should be 33mm thick on top of the EPP.
  - An additional buffer of 50mm of foam behind the EPP can help it degrade less when chainbreaking. The 50mm buffer can then be replaced easily.
      - you don't need to tape this in place if you have a tight cover

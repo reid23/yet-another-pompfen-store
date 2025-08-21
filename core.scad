@@ -10,12 +10,13 @@ module core(l){
 }
 
 module qtip_core(anchor=CENTER, spin=0, orient=UP){
+    corelen = QTIP-2*(TIP_THICKNESS+ABOVE_CORE_HEIGHT+CORE_TO_EPP_DIST);
     anchors = [
         named_anchor(name="core_bottom", pos=CENTER, orient=UP),
-        named_anchor(name="core_top", pos=(2000-2*TIP_THICKNESS)*UP, orient=UP)
+        named_anchor(name="core_top", pos=corelen*UP, orient=UP)
     ];
     attachable(anchor, spin, orient, anchors=anchors){
-        core(l=2000-2*TIP_THICKNESS);
+        core(l=corelen);
         children();
     }
 }
@@ -24,20 +25,23 @@ module short_core(anchor=CENTER, spin=0, orient=UP){
     // test 2
     anchors = [
         named_anchor(name="core_bottom", pos=CENTER, orient=UP),
-        named_anchor(name="core_top", pos=(850-POMMEL_THICKNESS-TIP_THICKNESS)*UP, orient=UP)
+        named_anchor(name="core_top", pos=(SHORT-POMMEL_THICKNESS-TIP_THICKNESS-ABOVE_CORE_HEIGHT-CORE_TO_EPP_DIST)*UP, orient=UP)
     ];
     attachable(anchor, spin, orient, anchors=anchors){
-        core(l=850-POMMEL_THICKNESS-TIP_THICKNESS);
+        core(l=SHORT-POMMEL_THICKNESS-TIP_THICKNESS-ABOVE_CORE_HEIGHT-CORE_TO_EPP_DIST);
         children();
     }
 }
 module staff_core(anchor=CENTER, spin=0, orient=UP){
+    corelen = STAFF-POMMEL_THICKNESS-TIP_THICKNESS-ABOVE_CORE_HEIGHT-CORE_TO_EPP_DIST;
+
     anchors = [
-        named_anchor(name="core_top", pos=CENTER, orient=UP),
-        named_anchor(name="core_bottom", pos=(1800-POMMEL_THICKNESS-TIP_THICKNESS)*UP, orient=UP)
+        named_anchor(name="core_bottom", pos=CENTER, orient=UP),
+        named_anchor(name="core_top", pos=corelen*UP, orient=UP),
+        named_anchor(name="reach_limit", pos=(corelen-STAFF_REACH)*UP, orient=UP)
     ];
     attachable(anchor, spin, orient, anchors=anchors){
-        core(l=1800-POMMEL_THICKNESS-TIP_THICKNESS);
+        core(l=STAFF-POMMEL_THICKNESS-TIP_THICKNESS);
         children();
     }
 }
@@ -45,21 +49,23 @@ module staff_core(anchor=CENTER, spin=0, orient=UP){
 module long_core(anchor=CENTER, spin=0, orient=UP){
     anchors = [
         named_anchor(name="core_bottom", pos=CENTER, orient=UP),
-        named_anchor(name="core_top", pos=(1400-POMMEL_THICKNESS-TIP_THICKNESS)*UP, orient=UP)
+        named_anchor(name="core_top", pos=(LONG-POMMEL_THICKNESS-TIP_THICKNESS-ABOVE_CORE_HEIGHT-CORE_TO_EPP_DIST)*UP, orient=UP)
     ];
     attachable(anchor, spin, orient, anchors=anchors){
-        core(l=1400-POMMEL_THICKNESS-TIP_THICKNESS);
+        core(l=LONG-POMMEL_THICKNESS-TIP_THICKNESS-ABOVE_CORE_HEIGHT-CORE_TO_EPP_DIST);
         children();
     }
 }
 
 module short_staff_core(anchor=CENTER, spin=0, orient=UP){
+    corelen = SHORTSTAFF-POMMEL_THICKNESS-TIP_THICKNESS-ABOVE_CORE_HEIGHT-CORE_TO_EPP_DIST;
     anchors = [
         named_anchor(name="core_top", pos=CENTER, orient=UP),
-        named_anchor(name="core_bottom", pos=(1600-POMMEL_THICKNESS-TIP_THICKNESS)*UP, orient=UP)
+        named_anchor(name="core_bottom", pos=corelen*UP, orient=UP),
+        named_anchor(name="reach_limit", pos=(corelen-ABOVE_CORE_HEIGHT-CORE_TO_EPP_DIST)*UP, orient=UP)
     ];
     attachable(anchor, spin, orient, anchors=anchors){
-        core(l=1600-POMMEL_THICKNESS-TIP_THICKNESS);
+        core(l=CORELEN);
         children();
     }
 }
