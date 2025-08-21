@@ -84,7 +84,8 @@ I caution that these were designed to be easy to make at a larger scale, so the 
 ### Assembly
  - tape over all 3dp/EPP interfaces with athletic tape. Cut holes beforehand.
   - - adding a layer of tape to the surface of the EPP increases the strength by acting as a tensile member (EPP is much stronger in compression than tension)
- - Use athletic tape on the non-splined section of blade_m to tape it to the core.
+ - Use athletic tape on the non-splined section of `blade_m` to tape it to the core.
+    - This is the critical dimension that determines compatibility with other sticks. Using tape instead of superglue is not only stronger and fails in a more desirable way, but also makes this measurement adjustable if absolutely necessary.
  - Tape over the edge of the pommel so it stays on the core.
 
 ### Foam
@@ -93,23 +94,20 @@ I caution that these were designed to be easy to make at a larger scale, so the 
  - For the blade, you need to use a single piece of foam, which you can get from either pipe insulation which you take a slice out of to make the ID match the core, or from a solid noodle with a hole cut through the center (this is preferred because the seam is not a weak point)
      - see my coring jig: https://www.printables.com/model/1233976-pompf-coring-jig
  - For a staff guard, you need the ID to be large enough to fit around all the other hardware. I have used pipe insulation for this because I think a larger diameter guard is easier to block with. If you want a smaller guard, normal (non-solid) pool noodle works as well (just be sure to change `GUARD_OD`).
- - The tip should be 33mm thick on top of the EPP.
+ - The tip should be 37.3mm thick on top of the EPP.
  - An additional buffer of 50mm of foam behind the EPP can help it degrade less when chainbreaking. The 50mm buffer can then be replaced easily.
      - you don't need to tape this in place if you have a tight cover
 
 ### `blade_f`
- - print with the wider flange on TOP. spline components need a tiny amount of support (helps tie everything together on the base too so they don't break apart as easily during printing and removal)
- - insert a pause right before the top flange is printed so you can insert the EPP. If it's not a secure enough press fit, tape it down.
+ - print flange side down or elephant foot can mess with the spline geometry
 
 ### `blade_m`
  - print with the splines at the top to prevent elephant foot from making it not fit into blade_f nicely
  - brim recommended; there's not much contact area
 
 ### `tip_thread_m`
- - print with the threaded part on top. insert a pause before the top flange so you can insert the EPP.
- - the super skinny vertical bit between the main part and the big extra flange is sacrificial (as well as that big flange). It's so that you can print this at the same time as blade_f and put the pause to insert the EPP at the same height.
-     - you need support for the small face that is connected to the skinny cylinder. Be sure to set the “snug” support style so that the EPP still fits around it.
  - use at least 5 perimeters; this part takes a lot of load.
+ - print with flat side down (thread up on top)
 
 ### `pommel`
  - add a cylinder modifier centered at z=10 with h=10mm, d=25mm and set its infill percentage to like 70 or 80%. This helps prevent anyone from feeling the core, and reinforces the place that takes a lot of load
@@ -122,6 +120,13 @@ I caution that these were designed to be easy to make at a larger scale, so the 
  - tune the infill percentage to your desired firmness.
  - “solid infill every N layers” can increase stiffness a lot without adding much weight
 
+This part has not fully been finalized; you may want to tune the shape to match your needs. It's fairly simple to do so; just tune the arguments to the `staff_grip` module. Everyone has different sized hands and different preferences on guard size and grip length so customize it to your liking.
+
+It may be worth printing some very low infill, low perimiter count prototypes out of a cheaper material to make sure the shape is roughly what you want before printing the whole thing in flexible filament, which will take a while if your printer isn't great at flexibles.
+
+### `guard_thread_f`
+ - I recommend you print this with the second flange (ie, not `guard_thread_f_oneflange.stl`), and insert a pause at the start of the second flange to insert the EPP. This is because the second flange gives the grip something to push against other than the EPP.
+ - it is not really necessary to print with the wide side up (since you'll tape the connection anyway); if it's easier you can print wide side down and have the smaller flange be on top of the EPP.
 
 [^1]: I am aware that this is not very well suited for hardware projects (I'm not sure if there even is a good license for OpenSCAD projects). But it captures the spirit of what I'm trying to do, and I hope that the details never become relevant anyway. Please be nice and share your work.
 [^2]: I am working on getting comments on every module that uses shared parameters that say `// uses: $a, $b, $c`. You might see that on some modules, but it's not exhaustively done yet.
