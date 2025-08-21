@@ -29,15 +29,17 @@ def export_cam():
         feed = args.feed
         plunge = args.plunge
         kerf = args.kerf
-        # if ID
-        inner_circle = f"""
+        if ID >= 2*kerf:
+            inner_circle = f"""
 G0 X{center} Y{center} F{travel}
 G1 Z0 F{plunge}
 G1 X{center-(ID/2-kerf)} Y{center} F{feed}
 G2 I{ID/2 - kerf} J0 F{feed}
 G1 X{center} Y{center} F{travel}
-G0 Z{zclear} F{feed}""" if ID/2 >= kerf else ""
-
+G0 Z{zclear} F{feed}
+"""
+        else:
+            inner_circle = ""
         return f"""
 G0 Z{zclear} F{travel}
 G0 X0 Y{center}

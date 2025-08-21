@@ -47,8 +47,7 @@ module tip_thread_m_body(flange_od,
                     extra_tube_height=5){
 
     // zcyl(h=core_pin_depth, d=COREDIMS[0]-CLEARANCE, chamfer1=1, anchor=TOP);
-    // TODO: fix sticking out here
-    up($pitch*0) intersection() {
+    intersection() {
         threaded_rod(h=core_pin_depth, d=COREDIMS[0]-1, pitch=$pitch, blunt_start2=false, starts=$starts, anchor=TOP);
         zcyl(h=core_pin_depth, d=$major_d-CLEARANCE, anchor=TOP);
     }

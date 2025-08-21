@@ -97,7 +97,6 @@ module blade_f_body(
         scale([s, s, 1]) blade_m();
         zcyl(h=INCH/2, d=s*spline_id, anchor=BOTTOM);
         for(i=[0:(360/(n_splines/n_splines_per_segment)):359]){
-            // echo(i);
             up(2) linear_extrude(INCH/2) polygon([
                 [0, 0],
                 0.25*($collet_id+$collet_od)*[cos(i-slot_angular_size/2), sin(i-slot_angular_size/2)],
