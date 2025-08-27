@@ -11,6 +11,7 @@ $guard_pitch = 2.5;
 $guard_major_d = 20;
 $guard_thread_stop_d = 24;
 
+
 module blade_thread_m(){
     intersection(){
         threaded_rod(h=20, d=18, pitch=1.5, anchor=BOTTOM);
@@ -76,7 +77,7 @@ module tip_thread_m_body(flange_od,
 // tip_thread_m();
 
 // uses: $include_dfm, $major_d, $pitch, $starts
-// @build tip_thread_m.stl include_dfm=false
+// @build tip_thread_m.stl $include_dfm=false
 module tip_thread_m(
     flange_od=30, 
     flange_depth=3.1, 
