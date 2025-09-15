@@ -75,7 +75,7 @@ module qtip_blade(){
     }
 }
 
-module staff_guard(){
+module staff_guard(od=GUARD_OD, length=GUARD_LEN){
     staff_grip(){
         attach("grip_top", "spacer_top")
             staff_spacer()
@@ -84,11 +84,11 @@ module staff_guard(){
         attach("grip_bottom", "guard_f_top")
             guard_thread_f(){
                 attach("guard_epp_attachment", "epp_bottom")
-                    guard_epp();
+                    guard_epp(od);
                 attach("guard_epp_attachment", "guard_foam_top", inside=true)
-                    guard_foam(){
+                    guard_foam(od, length){
                         attach("guard_foam_bottom", "epp_top", inside=true)
-                            guard_epp();
+                            guard_epp(od);
                         attach("guard_foam_bottom", "guard_epp_attachment")
                             guard_thread_f()
                                 attach("guard_thread_ref_surface", "guard_lower_thread_flange_top", inside=true)
@@ -126,6 +126,19 @@ module staff_tla(){
     }
 }
 
+module short_staff_tla(){
+    pommel()
+    attach("core_end", "core_bottom")
+    short_staff_core(){
+        attach("core_top", "carbon_core_tip")
+            tip_thread_f()
+                attach("effective_core_top", "core_anchor")
+                    long_blade();
+        attach("reach_limit", "grip_top")
+            staff_guard(GUARD_OD, SHORT_GUARD_LEN);
+    }
+}
+
 module qtip_tla(){
     qtip_core(){
         attach("core_bottom", "carbon_core_tip", inside=true)
@@ -143,4 +156,6 @@ module qtip_tla(){
 // long_tla();
 // short_tla();
 // staff_tla();
+// short_staff_tla();
 // qtip_tla();
+// up(-53+2000) #zcyl(r=100, h=1, anchor=BOTTOM);

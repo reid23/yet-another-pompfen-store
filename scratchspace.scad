@@ -94,4 +94,34 @@ module tip_3dp_component(
 // }
 // core(1900);
 
+include <params.scad>
 
+module row(){
+    kerf = 2.25;
+    od = NOODLE_OD + 2*kerf;
+    r = od/2;
+    back(r){
+        right(r){
+            tube(od=NOODLE_OD-10, id=BLADE_EPP_ID+10, h=10, anchor=BOTTOM);
+            right(od){
+                tube(od=NOODLE_OD-10, id=BLADE_EPP_ID+10, h=10, anchor=BOTTOM);
+                right(od){
+                    tube(od=NOODLE_OD-10, id=BLADE_EPP_ID+10, h=10, anchor=BOTTOM);
+                }
+            }
+        }
+    }
+}
+module epp_support(){
+    kerf = 2.25;
+    od = NOODLE_OD + 2*kerf;
+    r = od/2;
+    row();
+    back(od) row();
+    cube([od*3, od*2, 3]);
+
+
+
+    
+}
+epp_support();

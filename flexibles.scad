@@ -15,12 +15,12 @@ module staff_grip(
     min_wall_thickness=4,
     od=GUARD_OD*0.75,
     id=INCH,
-    total_length=45,
+    total_length=STAFF_GRIP_HEIGHT,
     start_height=3,
     th1=30,
     th2=10,
-    w1=100,
-    w2=50,
+    w1=70,
+    w2=30,
 
     anchor=CENTER,
     spin=0,
@@ -30,19 +30,20 @@ module staff_grip(
         named_anchor(name="grip_bottom", pos=CENTER, orient=UP)
     ];
     p0 = [od/2, start_height];
-    p1 = [id/2+min_wall_thickness, total_length];
+    p1 = [id/2, total_length - min_wall_thickness] + [cos(th2), sin(th2)]*min_wall_thickness;
     v0 = [cos(90+th1), sin(90+th1)]*w1;
     v1 = [cos(90+th2), sin(90+th2)]*w2;
     attachable(anchor, spin, orient, anchors=anchors){
-        rotate_extrude() polygon(concat(
+        rotate_extrude() #polygon(concat(
             [[id/2, total_length], [id/2, 0], [od/2, 0]],
-            [for(i=[0:0.01:1]) hermite(i, p0, p1, v0, v1)])
+            [for(i=[0:0.01:1]) hermite(i, p0, p1, v0, v1)],
+            [for(i=[th2:1:90]) [cos(i), sin(i)]*min_wall_thickness + [id/2, total_length-min_wall_thickness]])
         );
         children();
     }
 }
 
-// staff_grip() show_anchors(std=false);
+staff_grip();// show_anchors(std=false);
 
 function rad2deg(x) = x*180/3.14159265358979;
 function cos_sin(theta) = [cos(theta), sin(theta)];

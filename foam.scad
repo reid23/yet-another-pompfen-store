@@ -55,16 +55,17 @@ module buffer_noodle(
     }
 }
 module guard_foam(
+    od, total_length,
     anchor=CENTER,
     spin=0,
     orient=UP){
-    length = GUARD_LEN - 2*EPP_THICKNESS - STAFF_GRIP_HEIGHT;
+    length = total_length - 2*EPP_THICKNESS - STAFF_GRIP_HEIGHT;
     anchors = [
         named_anchor(name="guard_foam_top", pos=UP*length),
         named_anchor(name="guard_foam_bottom", pos=CENTER)
     ];
     attachable(anchor, spin, orient, anchors=anchors){
-        tube(h=length, od=GUARD_OD, id=INCH, anchor=BOTTOM);
+        tube(h=length, od=od, id=INCH, anchor=BOTTOM);
         children();
     }
 }
