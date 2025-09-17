@@ -1,6 +1,10 @@
 include <BOSL2/std.scad>
 include <params.scad>
 
+$grip_step_size=2;
+$guard_major_d = 20;
+
+
 function hermite(t, p0, p1, v0, v1) = (
     [[t*t*t, t*t, t, 1]]
   * [[2, -2, 1, 1], 
@@ -35,7 +39,11 @@ module staff_grip(
     v1 = [cos(90+th2), sin(90+th2)]*w2;
     attachable(anchor, spin, orient, anchors=anchors){
         rotate_extrude() #polygon(concat(
-            [[id/2, total_length], [id/2, 0], [od/2, 0]],
+            [[id/2, total_length], 
+            [id/2, total_length/3],
+            [id/2+$grip_step_size, total_length/3],
+            [id/2+$grip_step_size, 0], 
+            [od/2, 0]],
             [for(i=[0:0.01:1]) hermite(i, p0, p1, v0, v1)],
             [for(i=[th2:1:90]) [cos(i), sin(i)]*min_wall_thickness + [id/2, total_length-min_wall_thickness]])
         );
@@ -43,7 +51,7 @@ module staff_grip(
     }
 }
 
-staff_grip();// show_anchors(std=false);
+// staff_grip();// show_anchors(std=false);
 
 function rad2deg(x) = x*180/3.14159265358979;
 function cos_sin(theta) = [cos(theta), sin(theta)];
@@ -83,7 +91,7 @@ module _chamfered_slotted_ring(ir, or, slot_angular_size, chamfer_size){
 module staff_spacer(
     od=INCH,
     slot_angular_size=4,
-    height=45,
+    height=STAFF_GRIP_HEIGHT,
     shoulder_od=22,
     shoulder_height=2,
     
@@ -91,17 +99,22 @@ module staff_spacer(
     spin=0,
     orient=UP){
     anchors = [
-        named_anchor(name="screw_side_anchor", pos=shoulder_height*DOWN, orient=DOWN),
+        named_anchor(name="screw_side_anchor", pos=CENTER, orient=DOWN),
         named_anchor(name="spacer_top", pos=height*UP, orient=UP)
     ];
     id = COREDIMS[1];
     r_c = 1; // rad of chamfer
     attachable(anchor, spin, orient, anchors=anchors){
-        union(){
-            linear_extrude(height) 
-                _chamfered_slotted_ring(ir = COREDIMS[1]/2, or = od/2, slot_angular_size = slot_angular_size, chamfer_size = r_c);
-            down(shoulder_height) linear_extrude(shoulder_height)
-                _chamfered_slotted_ring(ir = COREDIMS[1]/2, or = shoulder_od/2, slot_angular_size = slot_angular_size, chamfer_size = r_c);
+        difference(){
+            union(){
+                linear_extrude(height, convexity=20) 
+                    _chamfered_slotted_ring(ir = COREDIMS[1]/2, or = od/2, slot_angular_size = slot_angular_size, chamfer_size = r_c);
+                linear_extrude(height/3, convexity=20)
+                    _chamfered_slotted_ring(ir = COREDIMS[1]/2, or = od/2 + $grip_step_size, slot_angular_size = slot_angular_size, chamfer_size = r_c);
+            }
+            up(height+0.1){
+                cylinder(h=10.1, d=$guard_major_d+CLEARANCE, anchor=TOP, $fn=6);
+            }
         }
         children();
     }

@@ -38,8 +38,10 @@ A few comments:
 
 
 ## Guard Options
-Staff guards can be wide (3" diameter) or narrow (2.25" diameter).
-They can be long (350mm) or short (300mm).
+
+Staff guards can be wide (3" diameter) or narrow (2.25" diameter) and long (350mm) or short (300mm).
+
+All guards are just opaque black. If you really want something else I can do it but I don't see much demand so it's nice to be able to make the guard covers not entirely made-to-order.
 
 
 ## Cover & Color Options

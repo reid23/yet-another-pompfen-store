@@ -81,6 +81,8 @@ module staff_guard(od=GUARD_OD, length=GUARD_LEN){
             staff_spacer()
                 attach("screw_side_anchor", "guard_top_thread_reference")
                     guard_thread_m();// attach("guard_top_thread_reference", "guard_thread_ref_surface")
+        attach("grip_top", "grip_collar_top")
+            guard_grip_collar();
         attach("grip_bottom", "guard_f_top")
             guard_thread_f(){
                 attach("guard_epp_attachment", "epp_bottom")
@@ -95,7 +97,7 @@ module staff_guard(od=GUARD_OD, length=GUARD_LEN){
                                     lower_guard_thread_m();
                     }
             }
-            
+         
     }
 }
 
@@ -159,3 +161,17 @@ module qtip_tla(){
 // short_staff_tla();
 // qtip_tla();
 // up(-53+2000) #zcyl(r=100, h=1, anchor=BOTTOM);
+// intersection(){
+// staff_grip(){
+//     attach("grip_top", "spacer_top")
+//         staff_spacer()
+//             attach("screw_side_anchor", "guard_top_thread_reference")
+//                 guard_thread_m();// attach("guard_top_thread_reference", "guard_thread_ref_surface")
+//     attach("grip_bottom", "guard_f_top")
+//         guard_thread_f();
+//     attach("grip_top", "grip_collar_top")
+//         guard_grip_collar();
+
+// }
+// cube(1000, anchor=BACK);
+// }
