@@ -98,6 +98,13 @@ I caution that these were designed to be easy to make at a larger scale, so the 
  - An additional buffer of 50mm of foam behind the EPP can help it degrade less when chainbreaking. The 50mm buffer can then be replaced easily.
      - you don't need to tape this in place if you have a tight cover
 
+
+### Slicing
+
+Generally, use the two .3mf files in the `slice` folder. They contain all the modifications described below and are what I use to print the parts. They are separated by material.
+
+For completeness, I've written up everything here, though I may remove this going forward. Generally speaking check the .3mf files for the final recommendation; what is below should only be used for getting the general idea.
+
 ### `blade_f`
  - print flange side down or elephant foot can mess with the spline geometry
 
@@ -107,26 +114,21 @@ I caution that these were designed to be easy to make at a larger scale, so the 
 
 ### `tip_thread_m`
  - use at least 5 perimeters; this part takes a lot of load.
- - print with flat side down (thread up on top)
+ - print with flange UP! you need supports on the pin in the middle and the flange. This is because otherwise there will be supports for the end of the threads inside the part which are a huge pain to remove.
 
 ### `pommel`
- - add a cylinder modifier centered at z=10 with h=10mm, d=25mm and set its infill percentage to like 70 or 80%. This helps prevent anyone from feeling the core, and reinforces the place that takes a lot of load
+ - Add `pommel_modifier` as a modifier volume with higher infill. This helps prevent buckling and distributes the load of the core so you can't feel it through the bottom.
      - aside: usually it's better to add more perimeters rather than increase infill if you want more strength, but because this is a flexible part, the load gets distributed into the infill much more.
  - use 2 walls on the side AND BOTTOM.
- - 50% infill gave me a hardness I was happy with
  - I liked gyroid infill because it didn't have specific directions in which the stiffness is greatly increased (ie, because of straight lines causing buckling load cases inside - it's already pre-buckled)
 
 ### `staff_grip`
  - tune the infill percentage to your desired firmness.
- - “solid infill every N layers” can increase stiffness a lot without adding much weight
+ - "solid infill every N layers" can increase stiffness a lot without adding much weight
 
 This part has not fully been finalized; you may want to tune the shape to match your needs. It's fairly simple to do so; just tune the arguments to the `staff_grip` module. Everyone has different sized hands and different preferences on guard size and grip length so customize it to your liking.
 
-It may be worth printing some very low infill, low perimiter count prototypes out of a cheaper material to make sure the shape is roughly what you want before printing the whole thing in flexible filament, which will take a while if your printer isn't great at flexibles.
-
-### `guard_thread_f`
- - I recommend you print this with the second flange (ie, not `guard_thread_f_oneflange.stl`), and insert a pause at the start of the second flange to insert the EPP. This is because the second flange gives the grip something to push against other than the EPP.
- - it is not really necessary to print with the wide side up (since you'll tape the connection anyway); if it's easier you can print wide side down and have the smaller flange be on top of the EPP.
+It may be worth printing some very low infill, low perimeter count prototypes out of a cheaper material to make sure the shape is roughly what you want before printing the whole thing in flexible filament, which will take a while if your printer (like mine) isn't great at flexibles.
 
 [^1]: I am aware that this is not very well suited for hardware projects (I'm not sure if there even is a good license for OpenSCAD projects). But it captures the spirit of what I'm trying to do, and I hope that the details never become relevant anyway. Please be nice and share your work.
 [^2]: I am working on getting comments on every module that uses shared parameters that say `// uses: $a, $b, $c`. You might see that on some modules, but it's not exhaustively done yet.
