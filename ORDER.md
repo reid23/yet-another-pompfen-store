@@ -5,13 +5,26 @@ You can order a product by sending me a list of SKUs and quantities. Below is th
   - ex: if you order a wide shortstaff guard with cover for version 0.2.1, your final SKU would be `F-GU-SS-COV-v0.2.1`.
 - `XXXX` is the cover & foam color options, which are listed [below](#cover--color-options).
 - `[SH|LO|QT|ST|SS]` are weapon types. They correspond to short, long, q-tip, staff, and shortstaff, respectively.
+- All staff guards will be opaque black for now. If you really want something different let me know, but I don't see a ton of demand for this.
+
+> [!NOTE]
+> **UPDATE** I made a little website to help configure this! Go to [reid.xz.ax/yaps](https://reid.xz.ax/yaps) to configure everything and get the price & SKU.
+> **please still read this file**, since it contains important information and suggestions.
 
 ### 1. Full Weapon (`W`)
 
+`CP` ("core provided") is if you'll give me a core or ordered one in the core order and want me to use it. `NC` ("no core provided") is if you want me to provide the core.  
+
+`PO` means "pommel"; `NP` means "no pommel". choose the latter if you want to make your own. You'll need to cut the end of the core to length based on how thick your pommel will be.  
+
 The format is `W-[CP|NC]-[SH|LO|QT|ST[W|N]|SS[W|N]]-[PO|NP]-XXXX`:
-- `CP` ("core provided") is if you'll give me a core or ordered one in the core order and want me to use it. `NC` ("no core provided") is if you want me to provide the core.
-- the next option is weapon type. For `ST` and `SS` (staff and shortstaff), pass an additional `W` or `N` to set the guard to wide (3") or narrow (2.25").
-- `PO` means "pommel"; `NP` means "no pommel". choose the latter if you want to make your own. You'll need to cut the end of the core to length based on how thick your pommel will be.
+- Short: `W-[CP|NC]-SH-[PO|NP]-XXXX`
+- Long: `W-[CP|NC]-LO-[PO|NP]-XXXX`
+- Q-tip: `W-[CP|NC]-QT-XXXX`
+- staff: `W-[CP|NC]-[ST|SS]-[W|N]-[PO|NP]-XXXX`
+  - `ST` is full staff, `SS` is shortstaff
+  - `W` is wide guard (3"), `N` is narrow guard (2.25")
+
 
 ### 2. Foam (`F`)
 
@@ -24,8 +37,9 @@ Use `COV` if you want a cover or `NC` if you don't (ie, if you're replacing an o
 - Long/Staff (`F-LO-[COV|NC]-XXXX`)
 - Short (`F-SH-[COV|NC]-XXXX`)
 - Q (`F-QT-[COV|NC]-XXXX`) (only a single blade!)
-- Staff Guard (`F-GU-[ST|SS]-[COV|NC]`) (does not include grip!)
+- Staff Guard (`F-GU-[ST|SS][W|N]-[COV|NC]`) (does not include grip!)
   - `ST` for full staff, `SS` for shortstaff
+  - `W` for wide (3"), `N` for narrow (2.25")
 
 ### 3. Core (`C`)
 
@@ -49,7 +63,7 @@ The "raw cores" are just what you get from the core order, but immediately! If y
 
 ## Pricing
 
-Full weapon costs are the sum of the complete core, foam assemblies, pommel, and grip costs.
+Full weapon costs are the sum of the complete core, foam assemblies, pommel, and grip costs. If you provide a core, there is no core cost, but the appropriate mouting hardware kit costs are added.
 
 Foam Assemblies (Blades/Guards):
 - Short: $30 ($21 without cover)
@@ -69,8 +83,8 @@ Raw Cores:
 - 1.9m (q, staff): $42.50
 
 Mounting hardware kits: 
-- $3 per blade
-- $2 per staff guard
+- $2 per blade
+- $1.5 per staff guard
 
 Pommel: $2
 Staff grip: $5
@@ -79,7 +93,6 @@ Staff grip: $5
 A few comments:
 - If you have an existing core, I would highly recommend getting a hardware kit and installing it yourself instead of buying a new core. It will cut cost significantly, and the process is very easy. You need superglue, a tape measure, a lighter or heat gun, and some tape (preferrably athletic tape, but any should do).
 - If you're replacing an old blade, if the cover is still in good shape, buy a blade without the cover! It's much less labor for me and thus much cheaper for you.
-- Pommels are a separate additional cost because everyone has their own preferences on pommels so if you don't like mine you can make your own instead.
 - No tape is applied to the handles by default. If you want it, you need to add it yourself. Everyone has a different opinion on how this should be done, so I'm just going to leave it up to you.
 
 
