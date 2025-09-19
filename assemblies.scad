@@ -160,8 +160,8 @@ module qtip_tla(){
 }
 
 
-right(0) long_tla();
-// right(100) short_tla();
-// right(200) staff_tla();
-// right(300) short_staff_tla();
-// right(400) qtip_tla();
+right(000) long_tla();
+right(100) short_tla();
+right(200) staff_tla();
+right(300) short_staff_tla();
+right(400) qtip_tla();

@@ -1,7 +1,7 @@
 include <BOSL2/std.scad>
 include <params.scad>
 
-$grip_step_size=2;
+$grip_step_size = 2;
 $guard_major_d = 20;
 
 
@@ -41,7 +41,7 @@ module staff_grip(
         rotate_extrude() #polygon(concat(
             [[id/2, total_length], 
             [id/2, total_length/3],
-            [id/2+$grip_step_size, total_length/3],
+            [id/2+$grip_step_size, total_length/3 - $grip_step_size],
             [id/2+$grip_step_size, 0], 
             [od/2, 0]],
             [for(i=[0:0.01:1]) hermite(i, p0, p1, v0, v1)],
@@ -115,11 +115,20 @@ module staff_spacer(
             up(height+0.1){
                 cylinder(h=10.1, d=$guard_major_d+CLEARANCE, anchor=TOP, $fn=6);
             }
+            up(height/3-$grip_step_size-0.1){
+                tube(h=3*$grip_step_size, ir=od/2, or=od/2+2*$grip_step_size+0.1, ichamfer=$grip_step_size+0.1, anchor=BOTTOM);
+            }
         }
         children();
     }
 }
-// staff_spacer() show_anchors(std=false);
+// intersection(){
+//     union(){
+//         #staff_spacer();
+//         staff_grip();
+//     }
+//     cube(1000, anchor=RIGHT);
+// }
 
 
 

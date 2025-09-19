@@ -2,9 +2,9 @@ import argparse
 
 def export_cam():
     ap = argparse.ArgumentParser()
-    ap.add_argument('-f', '--feed', default=100, type=float, help="feedrate for cutting, in mm/s")
-    ap.add_argument('-t', '--travel', default=2000, type=float, help="feedrate for travel, in mm/s")
-    ap.add_argument('-p', '--plunge', default=500, type=float, help="feedrate for plunge, in mm/s")
+    ap.add_argument('-f', '--feed', default=100, type=float, help="feedrate for cutting, in mm/min")
+    ap.add_argument('-t', '--travel', default=2000, type=float, help="feedrate for travel, in mm/min")
+    ap.add_argument('-p', '--plunge', default=500, type=float, help="feedrate for plunge, in mm/min")
     ap.add_argument('-z', '--zclear', default=25, type=float, help="z height that clears the stock, in mm. Used for travel moves.")
     ap.add_argument('-y', '--yclear', default=100, type=float, help="y position that clears the stock, in mm. Used for start/end position.")
     ap.add_argument('-k', '--kerf', default=2.25, type=float, help="**radius** of hot knife kerf (ie, effective tool radius), in mm.")
@@ -65,5 +65,30 @@ G0 X0 Y{yclear} F{travel}
         print(get_gcode_string(params["NOODLE_OD"], params["BLADE_EPP_ID"], args), file=f)
     with open('build/tip_epp.gcode', 'w') as f:
         print(get_gcode_string(params["NOODLE_OD"], params["TIP_EPP_ID"], args), file=f)
+
+
+def cut_one(x, y, hclear, hcut, ID, OD, travel=2000, ztravel=1000, feed=100, plunge=500, kerf=2.25):
+    realid = ID/2 - kerf
+    realod = OD/2 + kerf
+    inner = f"""
+G0 Z{hclear} F{ztravel}
+G0 X{x} Y{y} F{travel}
+G1 Z{hcut} F{plunge}
+G1 X{x-realid} Y{y} F{feed}
+G2 I{realid} J0 F{feed}
+G0 X{x} Y{y} F{travel}
+G0 Z{hclear} F{ztravel}
+"""
+    outer = f"""
+G0 Z{hclear} F{ztravel}
+G0 X{x-realod-1} Y{y}
+G1 Z{hcut} F{plunge}
+G1 X{x-realod} Y{y} F{feed}
+G2 I{realod} J0 F{feed}
+G0 X{x-realod-1} Y{y} F{travel}
+G0 Z{hclear} F{ztravel}
+"""
+    return inner+outer if realid>=0.0 else outer
+
 
 if __name__ == '__main__': export_cam()

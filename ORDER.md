@@ -1,47 +1,86 @@
-So I spent like 4 hours one day writing down everything I could into this nice order form. There was a whole SKU system and everything was organized. You'd put together all the options you want and then say "I want 2pc SLBYXPFGRP" and i'd be like "ok coming right up".
-Then, I did `git commit` so that nothing would get lost. I did not, however, `git push`, since i didn't want to make the order form public just yet.
-Then while I was waiting to do that, I accidentally `rm -r ~/Documents/codeprojects`, where this repo lives.
+## How to Order
 
-I no longer have a fully built-out order system. This document will be enough for now.
+You can order a product by sending me a list of SKUs and quantities. Below is the full SKU map.
+- Postfix your resulting SKU with the version. This ensures that I'll make compatible components. The current release is always available at [github.com/reid23/yet-another-pompfen-store/releases/latest](https://github.com/reid23/yet-another-pompfen-store/releases/latest).
+  - ex: if you order a wide shortstaff guard with cover for version 0.2.1, your final SKU would be `F-GU-SS-COV-v0.2.1`.
+- `XXXX` is the cover & foam color options, which are listed [below](#cover--color-options).
+- `[SH|LO|QT|ST|SS]` are weapon types. They correspond to short, long, q-tip, staff, and shortstaff, respectively.
+
+### 1. Full Weapon (`W`)
+
+The format is `W-[CP|NC]-[SH|LO|QT|ST[W|N]|SS[W|N]]-[PO|NP]-XXXX`:
+- `CP` ("core provided") is if you'll give me a core or ordered one in the core order and want me to use it. `NC` ("no core provided") is if you want me to provide the core.
+- the next option is weapon type. For `ST` and `SS` (staff and shortstaff), pass an additional `W` or `N` to set the guard to wide (3") or narrow (2.25").
+- `PO` means "pommel"; `NP` means "no pommel". choose the latter if you want to make your own. You'll need to cut the end of the core to length based on how thick your pommel will be.
+
+### 2. Foam (`F`)
+
+This is where you can get blades and guards separately if you want.
+
+Use `COV` if you want a cover or `NC` if you don't (ie, if you're replacing an old bit of foam but the old cover is still fine).
+
+**Important**: if you are reusing a cover, make sure the foam color you request is the same as the one you originally had! Each color of noodle has a slightly different diameter, so the covers are noodle-color-specific.
+
+- Long/Staff (`F-LO-[COV|NC]-XXXX`)
+- Short (`F-SH-[COV|NC]-XXXX`)
+- Q (`F-QT-[COV|NC]-XXXX`) (only a single blade!)
+- Staff Guard (`F-GU-[ST|SS]-[COV|NC]`) (does not include grip!)
+  - `ST` for full staff, `SS` for shortstaff
+
+### 3. Core (`C`)
+
+Complete cores are cut to length for a weapon and contain all hardware needed for that weapon preinstalled.
+
+The "raw cores" are just what you get from the core order, but immediately! If you need a core now, you can get one, but otherwise i'd recommend waiting for the next core order to get a lower price. These have the 'Reid maintains inventory, fronts cost, and stores cores in his house' fee added.
+
+- Complete (`C-CMP-[SH|LO|QT|ST|SS]`)
+- Raw (`C-RAW-[LO|2SH|QT]`)
+  - `LO` is 1.35m, for longsword
+  - `2SH` is 1.6m, for two shorts.
+  - `QT` is 1.9m, for a Q, staff, or shortstaff.
+
+### 4. Parts (`P`)
+- Pommel (`P-PO`)
+- Blade Hardware Kit (`P-BHK`)
+- Staff Guard Hardware (`P-SGH`)
+- Staff Grip (`P-SGR-[W|N]`)
+  - `W` for wide (3") and `N` for narrow (2.25")
+
 
 ## Pricing
+
+Full weapon costs are the sum of the complete core, foam assemblies, pommel, and grip costs.
 
 Foam Assemblies (Blades/Guards):
 - Short: $30 ($21 without cover)
 - Long: $40 ($29 without cover)
 - Qtip: $28/side ($19 without cover)
-- Staff Guard: $25 ($16 without cover)
+- Staff/Shortstaff Guard: $20 ($13 without cover)
 
-Cores (with hardware):
+Complete Cores (with hardware):
 - Short: $22
 - Long: $32
 - Staff & Shortstaff: $45
 - Qtip: $46
-
-Mounting hardware kits: 
-- $3 per blade
-- $2 per staff guard
-
-Pommel: $2
 
 Raw Cores:
 - 1.35m (long): $30.00
 - 1.6m (2 shorts): $38.40
 - 1.9m (q, staff): $42.50
 
+Mounting hardware kits: 
+- $3 per blade
+- $2 per staff guard
+
+Pommel: $2
+Staff grip: $5
+
+
 A few comments:
 - If you have an existing core, I would highly recommend getting a hardware kit and installing it yourself instead of buying a new core. It will cut cost significantly, and the process is very easy. You need superglue, a tape measure, a lighter or heat gun, and some tape (preferrably athletic tape, but any should do).
 - If you're replacing an old blade, if the cover is still in good shape, buy a blade without the cover! It's much less labor for me and thus much cheaper for you.
 - Pommels are a separate additional cost because everyone has their own preferences on pommels so if you don't like mine you can make your own instead.
-- No tape is applied to the grips by default. If you want it, you need to add it yourself. Everyone has a different opinion on how this should be done, so I'm just going to leave it up to you.
-- The "raw cores" are just what you get from the core order, but immediately! If you need a core now, you can get one, but otherwise i'd recommend waiting for the next core order to get a lower price (these have the 'Reid maintains inventory, fronts cost, and stores cores in his house' fee added).
-
-
-## Guard Options
-
-Staff guards can be wide (3" diameter) or narrow (2.25" diameter) and long (350mm) or short (300mm).
-
-All guards are just opaque black. If you really want something else I can do it but I don't see much demand so it's nice to be able to make the guard covers not entirely made-to-order.
+- No tape is applied to the handles by default. If you want it, you need to add it yourself. Everyone has a different opinion on how this should be done, so I'm just going to leave it up to you.
 
 
 ## Cover & Color Options
@@ -83,7 +122,9 @@ Please let me know what color noodle you'd like by appending an `R`, `B`, `Y`, (
 The color options in fabrics I've tested are below. Please tell me the SKU of the one you want.
 
 | in stock? | extra fee? | SKU | human readable name  | image |
-| --- | -- | --- | -------------------- | ----- |
+| --- | --- | --- | -------------------- | ----- |
+| yes | NO  | PBR | pure black           | ![pure black](assets/pure_black.jpg) |
+| yes | NO  | PBM | pure black mesh      | ![black mesh](assets/black_mesh.jpg) |
 | yes | yes | FGR | foliage green        | ![foliage green](assets/foliage_green.jpg) |
 | yes | yes | RPM | royal purple mesh    | ![royal purple mesh](assets/royal_purple_mesh.jpg) |
 | yes | yes | GTR | green tea            | ![green tea](assets/green_tea.jpg) |
@@ -92,8 +133,7 @@ The color options in fabrics I've tested are below. Please tell me the SKU of th
 | NO  | yes | RPR | royal purple         | ![royal purple](assets/royal_purple.jpg) |
 | yes | yes | DOR | dark olive           | ![dark olive](assets/dark_olive.jpg) |
 | yes | yes | RTR | real teal            | ![real teal](assets/real_teal.jpg) |
-| yes | NO  | BMR | black mesh           | ![black mesh](assets/black_mesh.jpg) |
-| yes | yes | BOM | blaze orange mesh    | ![blaze orange mesh](assets/blaze_orange_mesh.jpg) |
+| yes | yes | ORM | blaze orange mesh    | ![blaze orange mesh](assets/blaze_orange_mesh.jpg) |
 | yes | yes | BOR | blaze orange         | ![blaze orange](assets/blaze_orange.jpg) |
 | yes | yes | HPR | hot pink             | ![hot pink](assets/hot_pink.jpg) |
 | yes | yes | ODR | olive drab           | ![olive drab](assets/olive_drab.jpg) |
@@ -102,7 +142,6 @@ The color options in fabrics I've tested are below. Please tell me the SKU of th
 | yes | yes | DOM | dark olive mesh      | ![dark olive mesh](assets/dark_olive_mesh.jpg) |
 | yes | yes | MBM | moroccan blue mesh   | ![moroccan blue mesh](assets/moroccan_blue_mesh.jpg) |
 | yes | yes | BOM | burnt orange mesh    | ![burnt orange mesh](assets/burnt_orange_mesh.jpg) |
-| yes | NO  | PBR | pure black           | ![pure black](assets/pure_black.jpg) |
 | yes | yes | HGM | hunter green mesh    | ![hunter green mesh](assets/hunter_green_mesh.jpg) |
 | yes | yes | WMR | white mesh           | ![white mesh](assets/white_mesh.jpg) |
 | yes | yes | CBR | coyote brown         | ![coyote brown](assets/coyote_brown.jpg) |
