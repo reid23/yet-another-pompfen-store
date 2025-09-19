@@ -53,7 +53,7 @@ There are two cover material options:
 | :----------------------- | :--------------------------- | :--------------------------------- |
 | **General**              |                              |                                    |
 | Waterproof               | Yes                          | No                                 |
-| Opaque                   | Yes                          | No                                 |
+| Opaque                   | dark colors yes, light are more translucent  | No                      |
 | **Dimensions**           |                              |                                    |
 | Weight                   | 1.1 oz                       | 1.0 oz                             |
 | Thickness                | 2.4 thou                     | 3.9 thou                           |
@@ -76,7 +76,7 @@ The noodle underneath the cover comes in three colors: red, blue, and yellow. Th
 
 ![noodle colors](assets/noodle_colors.jpg)
 
-If you go with the opaque Silnylon cover, you'll basically never see this. At most, it's a tiny accent at the edge of the blade (on everything except qtip, where it isn't visible at all). If you go with the mesh, you can see the color through the cover.
+If you go with the opaque Silnylon cover (ie, one of the darker colors of silnylon), you'll basically never see this. At most, it's a tiny accent at the edge of the blade (on everything except qtip, where it isn't visible at all). If you go with the mesh, you can see the color through the cover.
 
 Please let me know what color noodle you'd like by appending an `R`, `B`, `Y`, (red, blue, yellow) or `X` (no preference) to the end of the three-letter ripstop color SKU (see below) you tell me.
 

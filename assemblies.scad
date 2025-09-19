@@ -1,9 +1,13 @@
 include <BOSL2/std.scad>
 include <params.scad>
-include <flexibles.scad>
+
+include <pommel.scad>
+include <staff_grip.scad>
+include <tip_interface.scad>
+include <guard_interface.scad>
+include <blade_interface.scad>
+
 include <core.scad>
-include <threaded.scad>
-include <splined.scad>
 include <epp.scad>
 include <foam.scad>
 
@@ -142,7 +146,7 @@ module short_staff_tla(){
 }
 
 module qtip_tla(){
-    qtip_core(){
+    qtip_core(anchor="bottom_tip"){
         attach("core_bottom", "carbon_core_tip", inside=true)
             tip_thread_f()
                 attach("effective_core_top", "core_anchor")
@@ -155,23 +159,9 @@ module qtip_tla(){
 
 }
 
-// long_tla();
-// short_tla();
-// staff_tla();
-// short_staff_tla();
-// qtip_tla();
-// up(-53+2000) #zcyl(r=100, h=1, anchor=BOTTOM);
-// intersection(){
-// staff_grip(){
-//     attach("grip_top", "spacer_top")
-//         staff_spacer()
-//             attach("screw_side_anchor", "guard_top_thread_reference")
-//                 guard_thread_m();// attach("guard_top_thread_reference", "guard_thread_ref_surface")
-//     attach("grip_bottom", "guard_f_top")
-//         guard_thread_f();
-//     attach("grip_top", "grip_collar_top")
-//         guard_grip_collar();
 
-// }
-// cube(1000, anchor=BACK);
-// }
+right(0) long_tla();
+// right(100) short_tla();
+// right(200) staff_tla();
+// right(300) short_staff_tla();
+// right(400) qtip_tla();

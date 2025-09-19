@@ -13,7 +13,8 @@ module qtip_core(anchor=CENTER, spin=0, orient=UP){
     corelen = QTIP-2*(TIP_THICKNESS+ABOVE_CORE_HEIGHT+CORE_TO_EPP_DIST);
     anchors = [
         named_anchor(name="core_bottom", pos=CENTER, orient=UP),
-        named_anchor(name="core_top", pos=corelen*UP, orient=UP)
+        named_anchor(name="core_top", pos=corelen*UP, orient=UP),
+        named_anchor(name="bottom_tip", pos=DOWN*(ABOVE_CORE_HEIGHT+TIP_THICKNESS), orient=UP)
     ];
     attachable(anchor, spin, orient, anchors=anchors){
         core(l=corelen);

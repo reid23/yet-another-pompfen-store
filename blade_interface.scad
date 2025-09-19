@@ -153,12 +153,3 @@ module collet(h=INCH/4, anchor=CENTER, spin=0, orient=UP){
 
 }
 
-
-// projection(cut=true) xrot(90)
-// blade_f(anchor="blade_spline_interface"){
-//     attach("blade_spline_interface", "blade_spline_interface")
-//         blade_m();
-//     attach("collet_interface", "collet_interface")
-//         collet();
-// }
-
