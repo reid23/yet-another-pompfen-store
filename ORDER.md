@@ -72,10 +72,10 @@ Foam Assemblies (Blades/Guards):
 - Staff/Shortstaff Guard: $20 ($13 without cover)
 
 Complete Cores (with hardware):
-- Short: $22
-- Long: $32
-- Staff & Shortstaff: $45
-- Qtip: $46
+- Short: $21
+- Long: $31
+- Staff & Shortstaff: $43.5
+- Qtip: $44
 
 Raw Cores:
 - 1.35m (long): $30.00
