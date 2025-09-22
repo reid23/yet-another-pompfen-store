@@ -8,7 +8,7 @@ You can order a product by sending me a list of SKUs and quantities. Below is th
 - All staff guards will be opaque black for now. If you really want something different let me know, but I don't see a ton of demand for this.
 
 > [!NOTE]
-> **UPDATE** I made a little website to help configure this! Go to [reid.xz.ax/yaps](https://reid.xz.ax/yaps) to configure everything and get the price & SKU.
+> **UPDATE** I made a little website to help configure this! Go to [reid.xz.ax/yaps](https://reid.xz.ax/yaps) to configure everything and get the price & SKU. The mobile UI is not wonderful, but I have neither the time nor desire to fix it.
 > **please still read this file**, since it contains important information and suggestions.
 
 ### 1. Full Weapon (`W`)

@@ -19,4 +19,4 @@ for filename in filter(lambda x: x.endswith(".scad"), os.listdir()):
                 openscad {"--export-format binstl " if stlfile.endswith(".stl") else ""}-o build/{stlfile} -'
             os.system(cmd)
 
-epp_cam.export_cam()
+epp_cam.export_cam_grids()

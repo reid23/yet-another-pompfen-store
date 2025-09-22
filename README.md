@@ -9,6 +9,8 @@
 > 
 > I am uploading this work for free use (in all senses) because I want to see Jugger continue to grow and the equipment to improve. Please carry that spirit forward.
 
+See [ORDER.md](ORDER.md) for information on ordering.
+The product configurator is at [reid.xz.ax/yaps](reid.xz.ax/yaps).
 
 ## Documentation
 

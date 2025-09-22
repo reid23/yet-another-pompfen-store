@@ -99,6 +99,8 @@ include <params.scad>
 module row(){
     kerf = 2.25;
     od = NOODLE_OD + 2*kerf;
+    echo("GRID SIZE:");
+    echo(od);
     r = od/2;
     back(r){
         right(r){
@@ -120,4 +122,4 @@ module epp_support(){
     back(od) row();
     cube([od*3, od*2, 3]);
 }
-// epp_support();
+epp_support();
