@@ -125,7 +125,7 @@ module blade_f(
         named_anchor(name="blade_spline_interface", pos=CENTER, orient=DOWN),
         named_anchor(name="epp_hand_side", pos=UP*EPP_THICKNESS, orient=DOWN),
         named_anchor(name="epp_blade_side", pos=CENTER, orient=DOWN),
-        named_anchor(name="collet_interface", pos=UP*(real_epp_height + $flange_thickness))
+        named_anchor(name="collet_interface", pos=UP*real_epp_height)
     ];
     attachable(anchor, spin, orient, anchors=anchors){
         blade_f_body(n_splines_per_segment, bladeside_flange_od, handside_flange_od, slot_angular_size, real_epp_height);

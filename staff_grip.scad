@@ -1,18 +1,10 @@
 include <BOSL2/std.scad>
 include <params.scad>
+use <utils.scad>
 
 $grip_step_size = 2;
 $guard_major_d = 20;
 
-
-function hermite(t, p0, p1, v0, v1) = (
-    [[t*t*t, t*t, t, 1]]
-  * [[2, -2, 1, 1], 
-     [-3, 3, -2, -1], 
-     [0, 0, 1, 0], 
-     [1, 0, 0, 0]]
-  * [p0,p1,v0,v1]
-)[0];
 
 // @build staff_grip.stl od=STAFF_GRIP_OD
 // @build staff_grip_narrow.stl od=NARROW_STAFF_GRIP_OD, w1=40
@@ -52,42 +44,6 @@ module staff_grip(
     }
 }
 
-staff_grip();// show_anchors(std=false);
-
-function rad2deg(x) = x*180/3.14159265358979;
-function cos_sin(theta) = [cos(theta), sin(theta)];
-
-module _chamfered_slotted_ring(ir, or, slot_angular_size, chamfer_size){
-    startsideangles = [
-        -rad2deg(chamfer_size/ir), 
-        0.0, 
-        0.0, 
-        -rad2deg(chamfer_size/or)
-    ];
-    endsideangles   = [
-        slot_angular_size+rad2deg(chamfer_size/or),
-        slot_angular_size, 
-        slot_angular_size, 
-        slot_angular_size+rad2deg(chamfer_size/ir)
-    ];
-    difference(){
-        circle(r=or);
-        circle(r=ir);
-        polygon([[0, 0], 2*or*[1, 0], 2*or*[cos(slot_angular_size), sin(slot_angular_size)]]);
-        polygon([
-            cos_sin(startsideangles[0])     * ir,
-            cos_sin(startsideangles[1])     * (ir+chamfer_size),
-            cos_sin(startsideangles[2])     * (or-chamfer_size),
-            cos_sin(startsideangles[3])     * or,
-            cos_sin(slot_angular_size/2)    * or*5,
-            cos_sin(endsideangles[0])       * or,
-            cos_sin(endsideangles[1])       * (or-chamfer_size),
-            cos_sin(endsideangles[2])       * (ir+chamfer_size),
-            cos_sin(endsideangles[3])       * ir,
-        ]);
-    }
-}
-
 // @build staff_spacer.stl
 module staff_spacer(
     od=INCH,
@@ -114,7 +70,7 @@ module staff_spacer(
                     _chamfered_slotted_ring(ir = COREDIMS[1]/2, or = od/2 + $grip_step_size, slot_angular_size = slot_angular_size, chamfer_size = r_c);
             }
             up(height+0.1){
-                cylinder(h=10.1, d=$guard_major_d+CLEARANCE, anchor=TOP, $fn=6);
+                cylinder(h=10.1, d=COREDIMS[1] + 3 + PRESSFIT, anchor=TOP);
             }
             up(height/3-$grip_step_size-0.1){
                 tube(h=3*$grip_step_size, ir=od/2, or=od/2+2*$grip_step_size+0.1, ichamfer=$grip_step_size+0.1, anchor=BOTTOM);
@@ -123,13 +79,3 @@ module staff_spacer(
         children();
     }
 }
-// intersection(){
-//     union(){
-//         #staff_spacer();
-//         staff_grip();
-//     }
-//     cube(1000, anchor=RIGHT);
-// }
-
-
-

@@ -59,10 +59,11 @@ module guard_foam(
     anchor=CENTER,
     spin=0,
     orient=UP){
-    length = total_length - 2*EPP_THICKNESS - STAFF_GRIP_HEIGHT;
+    length = total_length - 2*EPP_THICKNESS - STAFF_GRIP_HEIGHT - 2; // -2 is for gap between EPP and grip
     anchors = [
         named_anchor(name="guard_foam_top", pos=UP*length),
-        named_anchor(name="guard_foam_bottom", pos=CENTER)
+        named_anchor(name="guard_foam_bottom", pos=CENTER),
+        named_anchor(name="guard_foam_center", pos=UP*(length/2+EPP_THICKNESS/2))
     ];
     attachable(anchor, spin, orient, anchors=anchors){
         tube(h=length, od=od, id=INCH, anchor=BOTTOM);

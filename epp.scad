@@ -4,7 +4,7 @@ include <params.scad>
 module epp(id, od){
     difference(){
         zcyl(h=EPP_THICKNESS, d=od, anchor=BOTTOM);
-        zcyl(h=EPP_THICKNESS, d=id, anchor=BOTTOM);
+        zcyl(h=EPP_THICKNESS*3, d=id, anchor=CENTER);
     }
 }
 

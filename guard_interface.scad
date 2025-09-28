@@ -1,6 +1,7 @@
 include <BOSL2/std.scad>
 include <BOSL2/threading.scad>
 include <params.scad>
+use <utils.scad>
 
 $guard_pitch = 2.5;
 $guard_major_d = 20;
@@ -13,51 +14,22 @@ module guard_grip_collar(anchor=CENTER, spin=0, orient=UP){
         named_anchor(name = "grip_collar_top", pos = CENTER, orient = UP),
     ];
     attachable(anchor, spin, orient, anchors=anchors){
-        union(){
-            difference(){
-                // hex with slightly clipped corners
-                intersection(){
-                    zcyl(h=100, d=$guard_major_d-0.4, anchor=CENTER);
-                    zcyl(h=10, d=$guard_major_d, anchor=TOP, $fn=6);
-                }
-                zcyl(h=100, d=COREDIMS[1]+CLEARANCE, anchor=CENTER);
-            }
-        }
+        tube(h=10, id=COREDIMS[1]+CLEARANCE, od=COREDIMS[1]+3, anchor=TOP);
         children();
     }
 
 }
-
 
 // uses: $guard_pitch, $guard_major_d, $guard_thread_stop_d
 // @build guard_thread_m.stl
 module guard_thread_m(
-    length=10,
+    length=12.7+1.5+2,
     anchor=CENTER,
     spin=0,
     orient=UP){
     anchors = [
-        named_anchor(name="guard_top_thread_reference", pos=UP*length, orient=UP),
-    ];
-    attachable(anchor, spin, orient, anchors=anchors){
-        intersection(){
-            down($guard_pitch) threaded_rod(d=$guard_major_d, l=length+$guard_pitch, pitch=$guard_pitch, $slop=0.025, anchor=BOTTOM);
-            tube(h=length+1, id=COREDIMS[1]+CLEARANCE, od=$guard_major_d+1, anchor=BOTTOM);
-        }
-        children();
-    }
-}
-
-// uses: $guard_pitch, $guard_major_d, $guard_thread_stop_d
-// @build lower_guard_thread_m.stl
-module lower_guard_thread_m(
-    length=10,
-    anchor=CENTER,
-    spin=0,
-    orient=UP){
-    anchors = [
-        named_anchor(name="guard_lower_thread_flange_top", pos=CENTER, orient=UP),
-        named_anchor(name="guard_lower_thread_bottom", pos=2*DOWN, orient=UP),
+        named_anchor(name="guard_thread_flange_top", pos=CENTER, orient=UP),
+        named_anchor(name="guard_thread_top", pos=length*UP, orient=UP),
     ];
     attachable(anchor, spin, orient, anchors=anchors){
         difference(){
@@ -85,8 +57,7 @@ module guard_thread_f(
     orient=UP){
     anchors=[
         named_anchor(name="guard_epp_attachment", pos=DOWN*(EPP_THICKNESS), orient=UP),
-        named_anchor(name="guard_thread_ref_surface", pos=CENTER, orient=DOWN),
-        named_anchor(name="guard_f_top", pos=CENTER, orient=DOWN)
+        named_anchor(name="guard_thread_ref_surface", pos=DOWN*(EPP_THICKNESS+flange_thickness), orient=DOWN),
     ];
     attachable(anchor, spin, orient, anchors=anchors){
         union(){
@@ -103,6 +74,27 @@ module guard_thread_f(
             // top flange
             // up(2) tube(h=flange_thickness, id=$guard_thread_stop_d+CLEARANCE, od=small_flange_od, anchor=TOP);
             // %up(2-flange_thickness) zcyl(h=EPP_THICKNESS, d=30, anchor=TOP);
+        }
+        children();
+    }
+}
+
+// @build staff_guard_spacer.stl
+module staff_guard_spacer(h=50, slot_size=120, anchor=CENTER, spin=0, orient=UP){
+    anchors=[
+        named_anchor(name="guard_spacer_center", pos=UP*h/2, orient=UP),
+        named_anchor(name="guard_spacer_bottom", pos=CENTER, orient=UP),
+        named_anchor(name="guard_spacer_top", pos=UP*h, orient=UP)
+    ];
+    attachable(anchor, spin, orient, anchors=anchors){
+        union(){
+            linear_extrude(h/2){
+                zrot(-slot_size/2) _chamfered_slotted_ring(ir = COREDIMS[1]/2, or = INCH/2, slot_angular_size = slot_size, chamfer_size = 1);
+            }
+            little_slot_size = 360-slot_size-2;
+            linear_extrude(h){
+                zrot(-little_slot_size/2) _chamfered_slotted_ring(ir = COREDIMS[1]/2, or = INCH/2, slot_angular_size = 360-slot_size, chamfer_size = 1);
+            }
         }
         children();
     }

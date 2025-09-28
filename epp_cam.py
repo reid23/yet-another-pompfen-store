@@ -27,23 +27,24 @@ def label(gcode, name, id, copy):
 def cut_one(x, y, hclear, hcut, ID, OD, travel=2000, ztravel=1000, feed=100, plunge=500, kerf=2.25):
     realid = ID/2 - kerf
     realod = OD/2 + kerf
+    diag = np.sqrt(2)/2
     inner = f"""
-G0 Z{hclear} F{ztravel}
-G0 X{x} Y{y} F{travel}
+G1 Z{hclear} F{ztravel}
+G1 X{x} Y{y} F{travel}
 G1 Z{hcut} F{plunge}
 G1 X{x-realid} Y{y} F{feed}
 G2 I{realid} J0 F{feed}
-G0 X{x} Y{y} F{travel}
-G0 Z{hclear} F{ztravel}
+G1 X{x} Y{y} F{travel}
+G1 Z{hclear} F{ztravel}
 """
     outer = f"""
-G0 Z{hclear} F{ztravel}
-G0 X{x-realod-1} Y{y}
+G1 Z{hclear} F{ztravel}
+G1 X{x-realod*diag-1} Y{y-realod*diag-1}
 G1 Z{hcut} F{plunge}
-G1 X{x-realod} Y{y} F{feed}
-G2 I{realod} J0 F{feed}
-G0 X{x-realod-1} Y{y} F{travel}
-G0 Z{hclear} F{ztravel}
+G1 X{x-realod*diag} Y{y-realod*diag} F{feed}
+G2 I{realod*diag} J{realod*diag} F{feed}
+G1 X{x-realod*diag-1} Y{y-realod*diag-1} F{travel}
+G1 Z{hclear} F{ztravel}
 
 """
     header = f"; CUT ONE X={x:.3g} Y={y:.3g} Z=[{hcut:.3g}, {hclear:.3g}]"
@@ -55,7 +56,7 @@ def export_cam_grids():
     ap.add_argument('-t', '--travel', default=2000, type=float, help="feedrate for travel, in mm/min")
     ap.add_argument('-p', '--plunge', default=500, type=float, help="feedrate for plunge, in mm/min")
     ap.add_argument('-r', '--ztravel', default=2000, type=float, help="feedrate for travel, in mm/min")
-    ap.add_argument('-z', '--zclear', default=25, type=float, help="z height that clears the stock, in mm. Used for travel moves.")
+    ap.add_argument('-z', '--zclear', default=55, type=float, help="z height that clears the stock, in mm. Used for travel moves.")
     ap.add_argument('-y', '--yclear', default=100, type=float, help="y position that clears the stock, in mm. Used for start/end position.")
     ap.add_argument('-k', '--kerf', default=2.25, type=float, help="**radius** of hot knife kerf (ie, effective tool radius), in mm.")
     args = ap.parse_args()

@@ -81,26 +81,33 @@ module qtip_blade(){
 
 module staff_guard(od=GUARD_OD, length=GUARD_LEN){
     staff_grip(){
-        attach("grip_top", "spacer_top")
-            staff_spacer()
-                attach("screw_side_anchor", "guard_top_thread_reference")
-                    guard_thread_m();// attach("guard_top_thread_reference", "guard_thread_ref_surface")
         attach("grip_top", "grip_collar_top")
             guard_grip_collar();
-        attach("grip_bottom", "guard_f_top")
-            guard_thread_f(){
-                attach("guard_epp_attachment", "epp_bottom")
-                    guard_epp(od);
-                attach("guard_epp_attachment", "guard_foam_top", inside=true)
-                    guard_foam(od, length){
-                        attach("guard_foam_bottom", "epp_top", inside=true)
-                            guard_epp(od);
-                        attach("guard_foam_bottom", "guard_epp_attachment")
-                            guard_thread_f()
-                                attach("guard_thread_ref_surface", "guard_lower_thread_flange_top", inside=true)
-                                    lower_guard_thread_m();
-                    }
-            }
+        attach("grip_top", "spacer_top")
+            staff_spacer()
+                attach("screw_side_anchor", "guard_thread_top")
+                    guard_thread_m()// attach("guard_top_thread_reference", "guard_thread_ref_surface")
+                        attach("guard_thread_flange_top", "guard_thread_ref_surface")
+                            guard_thread_f(){
+                                attach("guard_epp_attachment", "epp_bottom")
+                                    guard_epp(od);
+                                attach("guard_epp_attachment", "guard_foam_top", inside=true)
+                                    guard_foam(od, length){
+                                        attach("guard_foam_center", "guard_spacer_center", inside=false)
+                                            staff_guard_spacer();
+                                        attach("guard_foam_center", "guard_spacer_center", inside=true)
+                                            staff_guard_spacer();                                        
+                                        attach("guard_foam_bottom", "epp_top", inside=true)
+                                            guard_epp(od){
+                                                attach("epp_bottom", "guard_spacer_bottom")
+                                                    staff_guard_spacer();
+                                                attach("epp_bottom", "guard_spacer_top", inside=true)
+                                                    staff_guard_spacer();
+                                            }
+                                    }
+                                    
+                            }
+
          
     }
 }
@@ -159,8 +166,7 @@ module qtip_tla(){
 
 }
 
-
-right(000) long_tla();
+right(0) long_tla();
 right(100) short_tla();
 right(200) staff_tla();
 right(300) short_staff_tla();
