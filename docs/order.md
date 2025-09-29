@@ -126,7 +126,7 @@ If you would like me to make a cover from a custom fabric, I can do that! Just c
 
 The noodle underneath the cover comes in three colors: red, blue, and yellow. They look like this: 
 
-![noodle colors](assets/noodle_colors.jpg)
+![noodle colors](/assets/noodle_colors.jpg)
 
 If you go with the opaque Silnylon cover (ie, one of the darker colors of silnylon), you'll basically never see this. At most, it's a tiny accent at the edge of the blade (on everything except qtip, where it isn't visible at all). If you go with the mesh, you can see the color through the cover.
 
@@ -136,27 +136,27 @@ The color options in fabrics I've tested are below. Please tell me the SKU of th
 
 | in stock? | extra fee? | SKU | human readable name  | image |
 | --- | --- | --- | -------------------- | ----- |
-| yes | NO  | PBR | pure black           | ![pure black](assets/pure_black.jpg) |
-| yes | NO  | PBM | pure black mesh      | ![black mesh](assets/black_mesh.jpg) |
-| yes | yes | FGR | foliage green        | ![foliage green](assets/foliage_green.jpg) |
-| yes | yes | RPM | royal purple mesh    | ![royal purple mesh](assets/royal_purple_mesh.jpg) |
-| yes | yes | GTR | green tea            | ![green tea](assets/green_tea.jpg) |
-| yes | yes | RER | robin egg blue       | ![robin egg](assets/robin_egg.jpg) |
-| yes | yes | ODM | olive drab mesh      | ![olive drab mesh](assets/olive_drab_mesh.jpg) |
-| NO  | yes | RPR | royal purple         | ![royal purple](assets/royal_purple.jpg) |
-| yes | yes | DOR | dark olive           | ![dark olive](assets/dark_olive.jpg) |
-| yes | yes | RTR | real teal            | ![real teal](assets/real_teal.jpg) |
-| yes | yes | ORM | blaze orange mesh    | ![blaze orange mesh](assets/blaze_orange_mesh.jpg) |
-| yes | yes | BOR | blaze orange         | ![blaze orange](assets/blaze_orange.jpg) |
-| yes | yes | HPR | hot pink             | ![hot pink](assets/hot_pink.jpg) |
-| yes | yes | ODR | olive drab           | ![olive drab](assets/olive_drab.jpg) |
-| yes | yes | PWR | plain white          | ![plain white](assets/plain_white.jpg) |
-| NO  | yes | CGR | charcoal gray        | ![charcoal gray](assets/charcoal_gray.jpg) |
-| yes | yes | DOM | dark olive mesh      | ![dark olive mesh](assets/dark_olive_mesh.jpg) |
-| yes | yes | MBM | moroccan blue mesh   | ![moroccan blue mesh](assets/moroccan_blue_mesh.jpg) |
-| yes | yes | BOM | burnt orange mesh    | ![burnt orange mesh](assets/burnt_orange_mesh.jpg) |
-| yes | yes | HGM | hunter green mesh    | ![hunter green mesh](assets/hunter_green_mesh.jpg) |
-| yes | yes | WMR | white mesh           | ![white mesh](assets/white_mesh.jpg) |
-| yes | yes | CBR | coyote brown         | ![coyote brown](assets/coyote_brown.jpg) |
-| yes | yes | BYR | blaze yellow         | ![blaze yellow](assets/blaze_yellow.jpg) |
-| yes | yes | CGM | charcoal gray mesh   | ![charcoal gray mesh](assets/charcoal_gray_mesh.jpg) |
+| yes | NO  | PBR | pure black           | ![pure black](/assets/pure_black.jpg) |
+| yes | NO  | PBM | pure black mesh      | ![black mesh](/assets/black_mesh.jpg) |
+| yes | yes | FGR | foliage green        | ![foliage green](/assets/foliage_green.jpg) |
+| yes | yes | RPM | royal purple mesh    | ![royal purple mesh](/assets/royal_purple_mesh.jpg) |
+| yes | yes | GTR | green tea            | ![green tea](/assets/green_tea.jpg) |
+| yes | yes | RER | robin egg blue       | ![robin egg](/assets/robin_egg.jpg) |
+| yes | yes | ODM | olive drab mesh      | ![olive drab mesh](/assets/olive_drab_mesh.jpg) |
+| NO  | yes | RPR | royal purple         | ![royal purple](/assets/royal_purple.jpg) |
+| yes | yes | DOR | dark olive           | ![dark olive](/assets/dark_olive.jpg) |
+| yes | yes | RTR | real teal            | ![real teal](/assets/real_teal.jpg) |
+| yes | yes | ORM | blaze orange mesh    | ![blaze orange mesh](/assets/blaze_orange_mesh.jpg) |
+| yes | yes | BOR | blaze orange         | ![blaze orange](/assets/blaze_orange.jpg) |
+| yes | yes | HPR | hot pink             | ![hot pink](/assets/hot_pink.jpg) |
+| yes | yes | ODR | olive drab           | ![olive drab](/assets/olive_drab.jpg) |
+| yes | yes | PWR | plain white          | ![plain white](/assets/plain_white.jpg) |
+| NO  | yes | CGR | charcoal gray        | ![charcoal gray](/assets/charcoal_gray.jpg) |
+| yes | yes | DOM | dark olive mesh      | ![dark olive mesh](/assets/dark_olive_mesh.jpg) |
+| yes | yes | MBM | moroccan blue mesh   | ![moroccan blue mesh](/assets/moroccan_blue_mesh.jpg) |
+| yes | yes | BOM | burnt orange mesh    | ![burnt orange mesh](/assets/burnt_orange_mesh.jpg) |
+| yes | yes | HGM | hunter green mesh    | ![hunter green mesh](/assets/hunter_green_mesh.jpg) |
+| yes | yes | WMR | white mesh           | ![white mesh](/assets/white_mesh.jpg) |
+| yes | yes | CBR | coyote brown         | ![coyote brown](/assets/coyote_brown.jpg) |
+| yes | yes | BYR | blaze yellow         | ![blaze yellow](/assets/blaze_yellow.jpg) |
+| yes | yes | CGM | charcoal gray mesh   | ![charcoal gray mesh](/assets/charcoal_gray_mesh.jpg) |
