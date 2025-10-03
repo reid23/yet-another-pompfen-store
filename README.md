@@ -1,6 +1,6 @@
 # yet-another-pompfen-store
 
-Pompfen engineered for robustness, maintainability, production, and 
+Pompfen engineered for robustness, maintainability, accessibility, and performance.
 
 > [!IMPORTANT]
 > This content is licensed under [AGPL v3](LICENSE)[^1] because I want to encourage sharing within the community.
