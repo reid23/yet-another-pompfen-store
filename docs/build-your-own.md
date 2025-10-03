@@ -3,6 +3,9 @@
 The intent is to sell these, but that doesn't mean you can't make your own!
 I caution that these were designed to be easy to make at a larger scale, so the time and material cost may be much higher for you.
 
+> [!IMPORTANT]
+> Please read this entire document before deciding to build your own. If you get halfway through and realize that this is too complicated or requires tools you don't have, it will not be very fun.
+
 ## 3D printed parts
 There are rigid and flexible parts. I recommend printing the rigid parts in polypropylene, because it is very lightweight, very isotropic, quite soft, and yields and necks before breaking (instead of just shattering like PLA). I'd highly recommend getting some Magigoo PP to help with bed adhesion; PP is very hard to stick to anything.
 The flexible parts are less material dependent. The provided slicing settings assume a shore hardness of ~83A, though 85A probably will work too.
@@ -28,18 +31,29 @@ To create the cored noodle, you need to cut a hole of the appropriate size down 
 
 ### EPP
 
-For the EPP sheet, you'll need to cut circles. I do this by strapping a hot knife foam cutter to my 3D printer and running the gcodes in the `build` folder. Workholding is done by double-sided taping EPP rectangles to the `epp_support_[type]` part.
+For the EPP sheet, you'll need to cut circles. I do this by strapping a hot knife foam cutter to my 3D printer and running the gcodes in the `build` folder. Workholding is done by double-sided taping EPP rectangles to the `epp_support_[type]` part. If those parts are too big for your printer, you can set the `nrows` and `ncols` parameters by editing the `// @build` comments (see [the build system docs](code.md#build-system) for more info on how this works) above the `epp_support` module and then rebuilding.
 
 The `three_blade_pairs.gcode` will cut three parts for the tip side of the blade and three for the hand side of the blade, but you can just stop it after the first two if you don't want that many. The same goes for the `six_[wide/narrow]_guards.gcode` files.
 
-Before you run those, though, you may need to tune the kerf of your hot knife. Cut through the foam at 100mm/min and measure the kerf in millimeters. Divide that by two to get the radius of the cut, and then from the root directory of this repo, run:
+
+Before you run those, though, you may need to tune the kerf of your hot knife. Cut through the foam at 100mm/min and measure the kerf in millimeters. Divide that by two to get the radius of the cut.
+
+First, update the `epp_support`. Pass `$kerf=<your_kerf_radius>` in the `// @build` comments above the `epp_support` module and then rebuild.
+Then, from the root directory of this repo, run:
 
 ```bash
-python epp_cam.py --kerf 2.25
+python epp_cam.py --kerf your_kerf_radius_here
 ```
-(replacing the `2.25` with the actual effective cutter radius you measured).
-
 This will generate new gcode files that will cut the shapes accurately for you.
+
+Be sure to do these in this order, since rebuilding with `./buildall` overwrites the results of running `epp_cam.py`.
+
+
+If you want to cut many pieces of EPP at once, you can use the `-z`/`--zclear` parameters to set the travel height. For more information on the arguments to `epp_cam.py`, use the standard help flag:
+
+```bash
+python epp_cam.py --help
+```
 
 ### Staff Guard
 

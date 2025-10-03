@@ -5,7 +5,7 @@ include <params.scad>
 module core(l){
     difference(){
         zcyl(h=l, d=COREDIMS[1], anchor=BOTTOM);
-        zcyl(h=l, d=COREDIMS[0], anchor=BOTTOM);
+        down(0.5) zcyl(h=l+1, d=COREDIMS[0], anchor=BOTTOM);
     }
 }
 
@@ -42,7 +42,7 @@ module staff_core(anchor=CENTER, spin=0, orient=UP){
         named_anchor(name="reach_limit", pos=(corelen-STAFF_REACH+TIP_THICKNESS+ABOVE_CORE_HEIGHT+CORE_TO_EPP_DIST)*UP, orient=UP)
     ];
     attachable(anchor, spin, orient, anchors=anchors){
-        core(l=STAFF-POMMEL_THICKNESS-TIP_THICKNESS);
+        core(l=corelen);
         children();
     }
 }
