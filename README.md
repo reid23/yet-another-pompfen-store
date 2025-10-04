@@ -11,6 +11,12 @@ Pompfen engineered for robustness, maintainability, accessibility, and performan
 > 
 > I am uploading this work for free use (in all senses) because I want to see Jugger continue to grow and the equipment to improve. Please carry that spirit forward.
 
+## TLDR
+
+- See [order.md](docs/order.md) for information on ordering and poke around the configuration options & prices at [reid.xz.ax/yaps](reid.xz.ax/yaps) (looks better on a computer than on mobile).
+- See [code.md](docs/code.md) for information on this codebase and how to work with it.
+- See [build-your-own.md](docs/build-your-own.md) for how to build these yourself!
+
 ## Features
 
 Really this section should be after the motivation/project goals bit, but I know everyone just wants to read the cool feature list first. So here it is:
@@ -50,16 +56,6 @@ In order to accomplish this, I developed the following key results:
 
 Within the bounds of these constraints, I seek to optimize for weight[^2] and aesthetics.
 
-
-## More Info
-
-See [order.md](docs/order.md) for information on ordering and poke around the configuration options & prices at [reid.xz.ax/yaps](reid.xz.ax/yaps) (looks better on a computer than on mobile).
-
-See [code.md](docs/code.md) for information on this codebase and how to work with it.
-
-See [build-your-own.md](docs/build-your-own.md) for how to build these yourself!
-
----
 
 [^1]: I am aware that this is not very well suited for hardware projects (I'm not sure if there even is a good license for OpenSCAD projects). But it captures the spirit of what I'm trying to do, and I hope that the details never become relevant anyway. Please be nice and share your work.
 
