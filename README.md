@@ -38,7 +38,7 @@ Really this section should be after the motivation/project goals bit, but I know
 Here's what this project is trying to do.
 
 When developing these pompfen, I was focused on the following objectives:
-- be unquestionably rule compliant
+- be inarguably rule compliant
 - be safe in normal use and in failure
 - be maintainable
 - be accessible
