@@ -28,6 +28,7 @@ def cut_one(x, y, hclear, hcut, ID, OD, travel=2000, ztravel=1000, feed=100, plu
     realid = ID/2 - kerf
     realod = OD/2 + kerf
     diag = np.sqrt(2)/2
+    print(ID, OD)
     inner = f"""
 G1 Z{hclear} F{ztravel}
 G1 X{x} Y{y} F{travel}
@@ -78,7 +79,7 @@ def export_cam_grids():
     blades = PREFIX
     wideguards = PREFIX
     narrowguards = PREFIX
-    for idx, i in enumerate(np.arange(3)*guardgridsize + guardgridsize/2):
+    for idx, i in enumerate(np.arange(2)*guardgridsize + guardgridsize/2):
         for jdx, j in enumerate(np.arange(2)*guardgridsize + guardgridsize/2):
             wideguards += label(
                 cut_one(i, j, args.zclear, 0, params["GUARD_EPP_ID"], params["GUARD_OD"], *cut_one_args),
@@ -87,21 +88,27 @@ def export_cam_grids():
     for idx, i in enumerate(np.arange(3)*narrowguardgridsize + narrowguardgridsize/2):
         for jdx, j in enumerate(np.arange(2)*narrowguardgridsize + narrowguardgridsize/2):
             narrowguards += label(
-                cut_one(i, j, args.zclear, 0, params["GUARD_EPP_ID"], params["GUARD_OD"], *cut_one_args),
+                cut_one(i, j, args.zclear, 0, params["GUARD_EPP_ID"], params["SMALL_GUARD_OD"], *cut_one_args),
                 f"narrowguard{idx}{jdx}", idx*jdx, 0
             )
 
     for idx, i in enumerate(np.arange(3)*gridsize + gridsize/2):
         for jdx, j in enumerate(np.arange(2)*gridsize + gridsize/2):
+            if idx%3 == 0:
+                ID = params["TIP_EPP_AXIAL_ID"]
+            elif idx%3 == 1:
+                ID = params["BLADE_EPP_ID"]
+            else:
+                ID = params["TIP_EPP_RADIAL_ID"] 
             blades += label(
-                cut_one(i, j, args.zclear, 0, params["TIP_EPP_ID"] if jdx==0 else params["BLADE_EPP_ID"], params["NOODLE_OD"], *cut_one_args),
-                f"tip{idx}" if jdx==0 else f"blade{idx}", idx*jdx, 0
+                cut_one(i, j, args.zclear, 0, ID, params["NOODLE_OD"], *cut_one_args),
+                ["tip_axial", "tip_radial", "blade"][idx%3] + str(jdx), idx*jdx, 0
             )
-    with open('build/three_blade_pairs.gcode', 'w') as f:
+    with open('build/blades.gcode', 'w') as f:
         f.write(blades)
-    with open('build/six_wide_guards.gcode', 'w') as f:
+    with open('build/wide_guards.gcode', 'w') as f:
         f.write(wideguards)
-    with open('build/six_narrow_guards.gcode', 'w') as f:
+    with open('build/narrow_guards.gcode', 'w') as f:
         f.write(narrowguards)
 
 

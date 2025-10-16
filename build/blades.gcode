@@ -12,7 +12,7 @@ M205 X10.00 Y10.00 Z0.20 E4.50 ; sets the jerk limits, mm/sec
 ; M115 U3.14.1 ; tell printer latest fw version
 G90 ; use absolute coordinates
 
-; printing object tip0 id:0 copy 0
+; printing object tip_axial0 id:0 copy 0
 ; CUT ONE X=36.5 Y=36.5 Z=[0, 55]
 G1 Z55 F2000
 G1 X9.702318215443551 Y9.702318215443551
@@ -23,18 +23,10 @@ G1 X9.702318215443551 Y9.702318215443551 F2000
 G1 Z55 F2000
 
 
-; stop printing object tip0 id:0 copy 0
+; stop printing object tip_axial0 id:0 copy 0
 
-; printing object blade0 id:0 copy 0
+; printing object tip_axial1 id:0 copy 0
 ; CUT ONE X=36.5 Y=110 Z=[0, 55]
-G1 Z55 F2000
-G1 X36.54 Y109.62 F2000
-G1 Z0 F500
-G1 X26.79 Y109.62 F100
-G2 I9.75 J0 F100
-G1 X36.54 Y109.62 F2000
-G1 Z55 F2000
-
 G1 Z55 F2000
 G1 X9.702318215443551 Y82.78231821544355
 G1 Z0 F500
@@ -44,10 +36,18 @@ G1 X9.702318215443551 Y82.78231821544355 F2000
 G1 Z55 F2000
 
 
-; stop printing object blade0 id:0 copy 0
+; stop printing object tip_axial1 id:0 copy 0
 
-; printing object tip1 id:0 copy 0
+; printing object tip_radial0 id:0 copy 0
 ; CUT ONE X=110 Y=36.5 Z=[0, 55]
+G1 Z55 F2000
+G1 X109.62 Y36.54 F2000
+G1 Z0 F500
+G1 X99.87 Y36.54 F100
+G2 I9.75 J0 F100
+G1 X109.62 Y36.54 F2000
+G1 Z55 F2000
+
 G1 Z55 F2000
 G1 X82.78231821544355 Y9.702318215443551
 G1 Z0 F500
@@ -57,9 +57,9 @@ G1 X82.78231821544355 Y9.702318215443551 F2000
 G1 Z55 F2000
 
 
-; stop printing object tip1 id:0 copy 0
+; stop printing object tip_radial0 id:0 copy 0
 
-; printing object blade1 id:1 copy 0
+; printing object tip_radial1 id:1 copy 0
 ; CUT ONE X=110 Y=110 Z=[0, 55]
 G1 Z55 F2000
 G1 X109.62 Y109.62 F2000
@@ -78,10 +78,18 @@ G1 X82.78231821544355 Y82.78231821544355 F2000
 G1 Z55 F2000
 
 
-; stop printing object blade1 id:1 copy 0
+; stop printing object tip_radial1 id:1 copy 0
 
-; printing object tip2 id:0 copy 0
+; printing object blade0 id:0 copy 0
 ; CUT ONE X=183 Y=36.5 Z=[0, 55]
+G1 Z55 F2000
+G1 X182.7 Y36.54 F2000
+G1 Z0 F500
+G1 X175.2 Y36.54 F100
+G2 I7.5 J0 F100
+G1 X182.7 Y36.54 F2000
+G1 Z55 F2000
+
 G1 Z55 F2000
 G1 X155.86231821544354 Y9.702318215443551
 G1 Z0 F500
@@ -91,15 +99,15 @@ G1 X155.86231821544354 Y9.702318215443551 F2000
 G1 Z55 F2000
 
 
-; stop printing object tip2 id:0 copy 0
+; stop printing object blade0 id:0 copy 0
 
-; printing object blade2 id:2 copy 0
+; printing object blade1 id:2 copy 0
 ; CUT ONE X=183 Y=110 Z=[0, 55]
 G1 Z55 F2000
 G1 X182.7 Y109.62 F2000
 G1 Z0 F500
-G1 X172.95 Y109.62 F100
-G2 I9.75 J0 F100
+G1 X175.2 Y109.62 F100
+G2 I7.5 J0 F100
 G1 X182.7 Y109.62 F2000
 G1 Z55 F2000
 
@@ -112,4 +120,4 @@ G1 X155.86231821544354 Y82.78231821544355 F2000
 G1 Z55 F2000
 
 
-; stop printing object blade2 id:2 copy 0
+; stop printing object blade1 id:2 copy 0

@@ -50,7 +50,7 @@ module tip_thread_m_body(flange_od,
         }
     }
     
-    if(TIP_EPP_ID > 0){
+    if(TIP_EPP_AXIAL_ID > 0){
         up(core_to_epp_dist) zcyl(h=epp_pin_depth, d=TIP_EPP_ID, chamfer2=0.5, anchor=BOTTOM);
         if(first_defined([$include_dfm, false])){
             up(core_to_epp_dist) {

@@ -16,56 +16,60 @@ $include_dfm = false;
 
 module long_blade(){
     tip_thread_m()
-    attach("epp_anchor", "tip_epp_bottom")
-    tip_epp(){
-        attach("tip_epp_top", "tip_noodle_bottom")
+    attach("epp_anchor", "tip_epp_axial_bottom")
+    tip_epp_axial(){
+        attach("tip_epp_axial_top", "tip_noodle_bottom")
             tip_noodle();
-        attach("tip_epp_bottom", "core_tip")
-            long_blade_noodle()
-                attach("hand_side", "blade_epp_top")
-                    blade_epp(){
-                        attach("blade_epp_bottom", "buffer_top")
-                            buffer_noodle();
-                        attach("blade_epp_top", "epp_blade_side")
-                            blade_f(){
-                                attach("blade_spline_interface", "blade_spline_interface")
-                                    blade_m();
-                                attach("collet_interface", "collet_interface")
-                                    collet();
+        attach("tip_epp_axial_bottom", "tip_epp_radial_top")
+            tip_epp_radial()
+                attach("tip_epp_radial_bottom", "core_tip")
+                    long_blade_noodle()
+                        attach("hand_side", "blade_epp_top")
+                            blade_epp(){
+                                attach("blade_epp_bottom", "buffer_top")
+                                    buffer_noodle();
+                                attach("blade_epp_top", "epp_blade_side")
+                                    blade_f(){
+                                        attach("blade_spline_interface", "blade_spline_interface")
+                                            blade_m();
+                                        attach("collet_interface", "collet_interface")
+                                            collet();
+                                    }
                             }
-                    }
     }
 }
 module short_blade(){
     tip_thread_m()
-    attach("epp_anchor", "tip_epp_bottom")
-    tip_epp(){
-        attach("tip_epp_top", "tip_noodle_bottom")
+    attach("epp_anchor", "tip_epp_axial_bottom")
+    tip_epp_axial(){
+        attach("tip_epp_axial_top", "tip_noodle_bottom")
             tip_noodle();
-        attach("tip_epp_bottom", "core_tip")
-            short_blade_noodle()
-                attach("hand_side", "blade_epp_top")
-                    blade_epp(){
-                        attach("blade_epp_bottom", "buffer_top")
-                            buffer_noodle();
-                        attach("blade_epp_top", "epp_blade_side")
-                            blade_f(){
-                                attach("blade_spline_interface", "blade_spline_interface")
-                                    blade_m();
-                                attach("collet_interface", "collet_interface")
-                                    collet();
+        attach("tip_epp_axial_bottom", "tip_epp_radial_top")
+            tip_epp_radial()
+                attach("tip_epp_radial_bottom", "core_tip")
+                    short_blade_noodle()
+                        attach("hand_side", "blade_epp_top")
+                            blade_epp(){
+                                attach("blade_epp_bottom", "buffer_top")
+                                    buffer_noodle();
+                                attach("blade_epp_top", "epp_blade_side")
+                                    blade_f(){
+                                        attach("blade_spline_interface", "blade_spline_interface")
+                                            blade_m();
+                                        attach("collet_interface", "collet_interface")
+                                            collet();
+                                    }
                             }
-                    }
     }
 }
 
 module qtip_blade(){
     tip_thread_m()
-    attach("epp_anchor", "tip_epp_bottom")
-    tip_epp(){
-        attach("tip_epp_top", "tip_noodle_bottom")
+    attach("epp_anchor", "tip_epp_axial_bottom")
+    tip_epp_axial(){
+        attach("tip_epp_axial_top", "tip_noodle_bottom")
             tip_noodle();
-        attach("tip_epp_bottom", "core_tip")
+        attach("tip_epp_axial_bottom", "core_tip")
             short_blade_noodle()
                 attach("hand_side", "blade_epp_top")
                     blade_epp()
