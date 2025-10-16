@@ -31,7 +31,17 @@ To build the .stl files, run the build script:
 ./buildall
 ```
 
+There are a variety of command line arguments. You can see the docs with `./buildall --help`.
+
 This exports all files to the build folder. It also runs the CAM script, which generates some gcode for cutting the EPP. This is not well documented since it was just a one-off I made for myself and my specific setup. If you want to do a similar thing, you should just write your own gcode. It's not hard, and you'll be able to debug it much easier.
+
+If you do want to use mine, you can see the docs like this:
+```bash
+python epp_cam.py --help
+```
+
+Any unknown arguments to `./buildall` are passed to `epp_cam.py`, so you can set the CAM parameters when using the `./buildall` script.
+
 
 ### Assemblies
 

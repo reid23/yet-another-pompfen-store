@@ -3,7 +3,7 @@ include <params.scad>
 
 module pommel_body(height=32, r_fillet=10, r_main=47, x_main=60){
     function r(x) = sqrt((x-10)^2 - 100^2) + y_main;
-    id = COREDIMS[1]-0.5;
+    id = COREDIMS[1]-1;
     od = POMMEL_OD;
     base_thickness = POMMEL_THICKNESS;
     echo(id);

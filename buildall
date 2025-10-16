@@ -2,8 +2,24 @@
 import os, re, epp_cam
 import subprocess
 import logging
+import argparse
+from time import perf_counter
 
-logging.basicConfig(level=logging.INFO)
+ap = argparse.ArgumentParser("buildall")
+ap.add_argument("-m", "--modules-select", nargs="+", default=[])
+ap.add_argument("-s", "--skip-cam", action="store_true")
+ap.add_argument("-l", "--log-level", choices=['DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL'], default='INFO')
+args, unknown_args = ap.parse_known_args()
+
+logging.basicConfig(level={
+    'DEBUG': logging.DEBUG,
+    'INFO': logging.INFO,
+    'WARNING': logging.WARNING,
+    'ERROR': logging.ERROR,
+    'CRITICAL': logging.CRITICAL,
+}[args.log_level])
+
+results = []
 
 r = re.compile('\/\/\s@build\s(?P<filename>[^\s^\\n]*)(?P<args>[^\\n]*)\\n|module\s(?P<module>[^\\n]+)\(')
 for filename in filter(lambda x: x.endswith(".scad"), os.listdir()):
@@ -13,10 +29,27 @@ for filename in filter(lambda x: x.endswith(".scad"), os.listdir()):
         if i[0]=='': res.append([i[2]])
         else: res[-1].append(i[:2])
     for i in filter(lambda x: len(x)>1, res): 
-        for stlfile, opts in i[1:]: 
-            logging.info(f"building `{stlfile}` from `{filename}` with method call `{i[0]}({opts});`")
-            cmd = f'echo \'include <{filename}> \n {i[0]}({opts});\' | \
-                openscad {"--export-format binstl " if stlfile.endswith(".stl") else ""}-o build/{stlfile} -'
-            os.system(cmd)
+        for stlfile, opts in i[1:]:
+            if i[0] in  args.modules_select or len(args.modules_select)==0:
+                tic = perf_counter()
+                logging.info(f"building `{stlfile}` from `{filename}` with method call `{i[0]}({opts});`")
+                cmd = f'echo \'include <{filename}> \n {i[0]}({opts});\' | \
+                    openscad {"--export-format binstl " if stlfile.endswith(".stl") else ""}-o build/{stlfile} -'
+                res = subprocess.run(cmd, shell=True, stderr=subprocess.PIPE, stdout=subprocess.PIPE)
 
-epp_cam.export_cam_grids()
+                ## for some reason all openscad output goes to stderr
+                for stderr_line in str(res.stderr).split('\n'):
+                    if stderr_line.startswith('ECHO:'): logging.info(i)
+                logging.debug(str((res.stderr)))
+
+                if res.returncode != 0:
+                    logging.warning(f"got nonzero exit code {res.returncode} from method call `{filename}.{i[0]}({opts});` while building `{stlfile}`")
+
+                toc = perf_counter()
+                results.append([f'{i[0]}({opts});', stlfile, filename, toc-tic, str(res.stderr), res.returncode])
+
+logging.info('succeeded:\n\t' + '\n\t'.join([f'{i[1]} ({i[3]:.3g}s)' for i in results if i[5]==0]))
+logging.info('failed:\n\t' + '\n\t'.join([f'{i[1]} ({i[3]:.3g}s)' for i in results if i[5]!=0]))
+
+if not args.skip_cam:
+    epp_cam.export_cam_grids(unknown_args)

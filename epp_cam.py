@@ -28,7 +28,7 @@ def cut_one(x, y, hclear, hcut, ID, OD, travel=2000, ztravel=1000, feed=100, plu
     realid = ID/2 - kerf
     realod = OD/2 + kerf
     diag = np.sqrt(2)/2
-    print(ID, OD)
+    # print(ID, OD)
     inner = f"""
 G1 Z{hclear} F{ztravel}
 G1 X{x} Y{y} F{travel}
@@ -51,7 +51,7 @@ G1 Z{hclear} F{ztravel}
     header = f"; CUT ONE X={x:.3g} Y={y:.3g} Z=[{hcut:.3g}, {hclear:.3g}]"
     return header + (inner+outer if realid>=0.0 else outer)
 
-def export_cam_grids():
+def export_cam_grids(args=None):
     ap = argparse.ArgumentParser()
     ap.add_argument('-f', '--feed', default=100, type=float, help="feedrate for cutting, in mm/min")
     ap.add_argument('-t', '--travel', default=2000, type=float, help="feedrate for travel, in mm/min")
@@ -60,7 +60,7 @@ def export_cam_grids():
     ap.add_argument('-z', '--zclear', default=55, type=float, help="z height that clears the stock, in mm. Used for travel moves.")
     ap.add_argument('-y', '--yclear', default=100, type=float, help="y position that clears the stock, in mm. Used for start/end position.")
     ap.add_argument('-k', '--kerf', default=2.25, type=float, help="**radius** of hot knife kerf (ie, effective tool radius), in mm.")
-    args = ap.parse_args()
+    args = ap.parse_args(args) if args is not None else ap.parse_args()
 
     # get values from params.scad
     INCH = 25.4
