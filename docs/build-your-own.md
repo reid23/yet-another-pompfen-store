@@ -112,7 +112,7 @@ For staffs, use small bits of heat shrink to create stops on the core to hold th
 
 First, tape the EPP assemblies. These should be done with athletic tape that is at least 2" wide.
 
-For `tip_epp` and `tip_thread_m`:
+For `tip_epp_axial` and `tip_thread_m`:
 1. Tape across the center of one side with athletic tape. 
 2. get enough tape to wrap around the whole piece of EPP once. Fold it over the edge of a piece of parchment paper, with the edge in the center of the tape. Cut a circular hole in the middle about 5/8" in diameter (or use a hole punch of that size).
 3. Peel the tape off and use it to tape `tip_thread_m` onto the center of the EPP on the side with the tape (on top of the tape). Be sure that the force distribution across the width of the tape is fairly even.
@@ -130,7 +130,7 @@ For the tip side assembly:
 
 1. cut a 24cm length of tape, and round one corner (like a 5-10mm radius)
 2. on the long side without the rounded corner, cut evenly spaced slits about 1cm down from the edge, spaced 10-15mm apart. The actual length of the slits isn't super important, but try to make them all about the same length, and ensure there's at least an inch of tape remaining unslitted.
-3. put the `tip_epp` and `tip_thread_m` assembly onto the end of the blade foam. The `tip_thread_m` will make this a little hard because it has to squish the blade foam out of the way. This is okay.
+3. put the `tip_epp_axial` and `tip_thread_m` assembly onto the end of the blade foam. The `tip_thread_m` will make this a little hard because it has to squish the blade foam out of the way. This is okay.
 4. Starting with the end of the tape without the rounded corner, apply the tape in a loop around the blade, connecting the EPP and blade. The slitted part should be above the EPP, with the ends of the slits aligning with the top edge of the EPP. When doing this, push the EPP into the blade so that there's no gap between the two when they're taped together.
 5. Starting with the same side you started taping on, fold each tab of the tape down onto the EPP, pushing the EPP down as you do to apply axial preload (ie, along the axis of the weapon).
 

@@ -19,11 +19,11 @@ module long_blade_noodle(
     spin=0,
     orient=UP){
     anchors = [
-        named_anchor(name="core_tip", pos=(LONG_BLADE-TIP_THICKNESS-(EPP_THICKNESS+BUFFER_THICKNESS))*UP, orient=UP),
+        named_anchor(name="core_tip", pos=(LONG_BLADE-TIP_THICKNESS-(2*EPP_THICKNESS+BUFFER_THICKNESS))*UP, orient=UP),
         named_anchor(name="hand_side", pos=CENTER, orient=UP)
     ];
     attachable(anchor, spin, orient, anchors=anchors){
-        tube(h=LONG_BLADE-TIP_THICKNESS-(EPP_THICKNESS+BUFFER_THICKNESS), od=NOODLE_OD, id=SHEEP_DIAMETER, anchor=BOTTOM);
+        tube(h=LONG_BLADE-TIP_THICKNESS-(2*EPP_THICKNESS+BUFFER_THICKNESS), od=NOODLE_OD, id=SHEEP_DIAMETER, anchor=BOTTOM);
         children();
     }
 }
@@ -32,11 +32,11 @@ module short_blade_noodle(
     spin=0,
     orient=UP){
     anchors = [
-        named_anchor(name="core_tip", pos=(SHORT_BLADE-TIP_THICKNESS-(EPP_THICKNESS+BUFFER_THICKNESS))*UP, orient=UP),
+        named_anchor(name="core_tip", pos=(SHORT_BLADE-TIP_THICKNESS-(2*EPP_THICKNESS+BUFFER_THICKNESS))*UP, orient=UP),
         named_anchor(name="hand_side", pos=CENTER, orient=UP)
     ];
     attachable(anchor, spin, orient, anchors=anchors){
-        tube(h=SHORT_BLADE-TIP_THICKNESS-(EPP_THICKNESS+BUFFER_THICKNESS), od=NOODLE_OD, id=SHEEP_DIAMETER, anchor=BOTTOM);
+        tube(h=SHORT_BLADE-TIP_THICKNESS-(2*EPP_THICKNESS+BUFFER_THICKNESS), od=NOODLE_OD, id=SHEEP_DIAMETER, anchor=BOTTOM);
         children();
     }
 }

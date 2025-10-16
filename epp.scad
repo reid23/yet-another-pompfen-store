@@ -8,13 +8,23 @@ module epp(id, od){
     }
 }
 
-module tip_epp(anchor=CENTER, spin=0, orient=UP){
+module tip_epp_axial(anchor=CENTER, spin=0, orient=UP){
     anchors = [
-        named_anchor(name="tip_epp_top", pos=CENTER, orient=DOWN),
-        named_anchor(name="tip_epp_bottom", pos=EPP_THICKNESS*UP, orient=UP)
+        named_anchor(name="tip_epp_axial_top", pos=CENTER, orient=DOWN),
+        named_anchor(name="tip_epp_axial_bottom", pos=EPP_THICKNESS*UP, orient=UP)
     ];
     attachable(anchor, spin, orient, anchors=anchors){
-        epp(id=TIP_EPP_ID, od=NOODLE_OD);
+        epp(id=TIP_EPP_AXIAL_ID, od=NOODLE_OD);
+        children();
+    }
+}
+module tip_epp_radial(anchor=CENTER, spin=0, orient=UP){
+    anchors = [
+        named_anchor(name="tip_epp_radial_top", pos=CENTER, orient=DOWN),
+        named_anchor(name="tip_epp_radial_bottom", pos=EPP_THICKNESS*UP, orient=UP),
+    ];
+    attachable(anchor, spin, orient, anchors=anchors){
+        epp(id=TIP_EPP_RADIAL_ID, od=NOODLE_OD);
         children();
     }
 }
