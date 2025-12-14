@@ -153,16 +153,16 @@ module collet(h=INCH/4, anchor=CENTER, spin=0, orient=UP){
 
 }
 
-intersection(){
-    up(12.7) collet();
-    cube(1000, anchor=LEFT);
-}
+//intersection(){
+//    up(12.7) collet();
+//    cube(1000, anchor=LEFT);
+//}
 
 difference(){
-    blade_m();
-    cube(1000, anchor=RIGHT);
-}
-difference(){
     blade_f();
-    cube(1000, anchor=RIGHT);
-}        
+   cube(1000, anchor=RIGHT);
+}
+//difference(){
+//    blade_f();
+//    cube(1000, anchor=RIGHT);
+//}        

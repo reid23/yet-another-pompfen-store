@@ -28,16 +28,27 @@ module tip_epp_radial(anchor=CENTER, spin=0, orient=UP){
         children();
     }
 }
-module blade_epp(anchor=CENTER, spin=0, orient=UP){
+module blade_epp_handside(anchor=CENTER, spin=0, orient=UP){
     anchors = [
-        named_anchor(name="blade_epp_top", pos=CENTER, orient=UP),
-        named_anchor(name="blade_epp_bottom", pos=EPP_THICKNESS*UP, orient=UP)
+        named_anchor(name="blade_epp_handside_top", pos=EPP_THICKNESS*UP, orient=UP),
+        named_anchor(name="blade_epp_handside_bottom", pos=CENTER, orient=DOWN)
     ];
     attachable(anchor, spin, orient, anchors=anchors){
         epp(id=BLADE_EPP_ID, od=NOODLE_OD);
         children();
     }
 }
+module blade_epp_foamside(anchor=CENTER, spin=0, orient=UP){
+    anchors = [
+        named_anchor(name="blade_epp_foamside_top", pos=EPP_THICKNESS*UP, orient=UP),
+        named_anchor(name="blade_epp_foamside_bottom", pos=CENTER, orient=DOWN)
+    ];
+    attachable(anchor, spin, orient, anchors=anchors){
+        epp(id=COREDIMS[1], od=NOODLE_OD);
+        children();
+    }
+}
+
 
 module guard_epp(od, anchor=CENTER, spin=0, orient=UP){
     anchors = [
