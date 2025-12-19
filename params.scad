@@ -42,3 +42,22 @@ BLADE_EPP_ID = 24;
 GUARD_EPP_ID = 26;
 TIP_EPP_AXIAL_ID = 0;
 TIP_EPP_RADIAL_ID = 19.5;
+
+// magic global vars
+// high key i dont like these but
+// i think its the best way
+
+$kerf = 2.25;
+
+$guard_pitch = 2.5;
+$guard_major_d = 20;
+$guard_thread_stop_d = 24;
+
+$grip_step_size = 2;
+$guard_major_d = 20;
+
+// for tip_interface
+$pitch=1.5;
+$starts=2;
+$major_d=COREDIMS[0]-0.4*4-0.3;
+$thread_len=4;

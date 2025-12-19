@@ -1,15 +1,15 @@
 include <BOSL2/std.scad>
 include <params.scad>
 
-include <pommel.scad>
-include <staff_grip.scad>
-include <tip_interface.scad>
-include <guard_interface.scad>
-include <blade_interface.scad>
+use <pommel.scad>
+use <staff_grip.scad>
+use <tip_interface.scad>
+use <guard_interface.scad>
+use <blade_interface.scad>
 
-include <core.scad>
-include <epp.scad>
-include <foam.scad>
+use <core.scad>
+use <epp.scad>
+use <foam.scad>
 
 $fn = 100;
 $include_dfm = false;

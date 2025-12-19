@@ -1,8 +1,6 @@
 include <BOSL2/std.scad>
 include <params.scad>
 
-$kerf=2.25;
-
 // @build epp_support_blade.stl result_od=NOODLE_OD, result_id=BLADE_EPP_ID
 // @build epp_support_wide_guard.stl result_od=GUARD_OD, result_id=GUARD_EPP_ID, ncols=2
 // @build epp_support_narrow_guard.stl result_od=SMALL_GUARD_OD, result_id=GUARD_EPP_ID

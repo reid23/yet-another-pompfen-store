@@ -2,10 +2,7 @@ include <BOSL2/std.scad>
 include <params.scad>
 use <utils.scad>
 
-$grip_step_size = 2;
-$guard_major_d = 20;
-
-
+// uses: $grip_step_size
 // @build staff_grip.stl od=STAFF_GRIP_OD
 // @build staff_grip_narrow.stl od=NARROW_STAFF_GRIP_OD, w1=40
 module staff_grip(
@@ -44,6 +41,8 @@ module staff_grip(
     }
 }
 
+
+// uses: $grip_step_size
 // @build staff_spacer.stl
 module staff_spacer(
     od=INCH,

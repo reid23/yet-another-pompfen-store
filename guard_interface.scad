@@ -3,10 +3,6 @@ include <BOSL2/threading.scad>
 include <params.scad>
 use <utils.scad>
 
-$guard_pitch = 2.5;
-$guard_major_d = 20;
-$guard_thread_stop_d = 24;
-
 // uses: $guard_major_d
 // @build staff_grip_collar.stl
 module guard_grip_collar(anchor=CENTER, spin=0, orient=UP){

@@ -2,11 +2,6 @@ include <BOSL2/std.scad>
 include <BOSL2/threading.scad>
 include <params.scad>
 
-$pitch=1.5;
-$starts=2;
-$major_d=COREDIMS[0]-0.4*4-0.3;
-$thread_len=4;
-
 // uses: $include_dfm, $major_d, $pitch, $starts, $thread_len
 module tip_thread_m_body(flange_od,
                     flange_depth,
