@@ -6,9 +6,11 @@ import argparse
 from time import perf_counter
 
 ap = argparse.ArgumentParser("buildall")
-ap.add_argument("-m", "--modules-select", nargs="+", default=[])
-ap.add_argument("-s", "--skip-cam", action="store_true")
+ap.add_argument("-m", "--modules-select", nargs="+", default=[], help="only build these specific modules.")
+ap.add_argument("-i", "--modules-ignore", nargs="+", default=[], help="do not build these specific modules. overrides modules-select.")
+ap.add_argument("-s", "--skip-cam", action="store_true", help="skip gcode generation for cutting EPP.")
 ap.add_argument("-l", "--log-level", choices=['DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL'], default='INFO')
+ap.add_argument("-p", "--params-file", default="params.scad", help="file to `include` at the top of every build call.")
 args, unknown_args = ap.parse_known_args()
 
 logging.basicConfig(level={
@@ -30,10 +32,10 @@ for filename in filter(lambda x: x.endswith(".scad"), os.listdir()):
         else: res[-1].append(i[:2])
     for i in filter(lambda x: len(x)>1, res): 
         for stlfile, opts in i[1:]:
-            if i[0] in  args.modules_select or len(args.modules_select)==0:
+            if (i[0] in  args.modules_select or len(args.modules_select)==0) and (i[0] not in args.modules_ignore):
                 tic = perf_counter()
                 logging.info(f"building `{stlfile}` from `{filename}` with method call `{i[0]}({opts});`")
-                cmd = f'echo \'include <{filename}> \n {i[0]}({opts});\' | \
+                cmd = f'echo \'include <params.scad>\nuse <{filename}>\n{i[0]}({opts});\' | \
                     openscad {"--export-format binstl " if stlfile.endswith(".stl") else ""}-o build/{stlfile} -'
                 res = subprocess.run(cmd, shell=True, stderr=subprocess.PIPE, stdout=subprocess.PIPE)
 

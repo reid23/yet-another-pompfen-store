@@ -17,6 +17,10 @@ M205 X10.00 Y10.00 Z0.20 E4.50 ; sets the jerk limits, mm/sec
 G90 ; use absolute coordinates
 """
 
+SUFFIX = """
+M300 S440 P500
+G4 P500
+"""*10
 def label(gcode, name, id, copy):
     return f"""
 ; printing object {name} id:{id} copy {copy}
@@ -76,7 +80,8 @@ def export_cam_grids(args=None):
     guardgridsize = params["GUARD_OD"] + 2*args.kerf
     narrowguardgridsize = params["SMALL_GUARD_OD"] + 2*args.kerf
     cut_one_args = (args.travel, args.ztravel, args.feed, args.plunge, args.kerf)
-    blades = PREFIX
+    blades_hand = PREFIX
+    blades_tip = PREFIX
     wideguards = PREFIX
     narrowguards = PREFIX
     for idx, i in enumerate(np.arange(2)*guardgridsize + guardgridsize/2):
@@ -91,25 +96,28 @@ def export_cam_grids(args=None):
                 cut_one(i, j, args.zclear, 0, params["GUARD_EPP_ID"], params["SMALL_GUARD_OD"], *cut_one_args),
                 f"narrowguard{idx}{jdx}", idx*jdx, 0
             )
-
     for idx, i in enumerate(np.arange(3)*gridsize + gridsize/2):
         for jdx, j in enumerate(np.arange(2)*gridsize + gridsize/2):
-            if idx%3 == 0:
-                ID = params["TIP_EPP_AXIAL_ID"]
-            elif idx%3 == 1:
-                ID = params["BLADE_EPP_ID"]
-            else:
-                ID = params["TIP_EPP_RADIAL_ID"] 
-            blades += label(
+            ID = params["TIP_EPP_AXIAL_ID"] if jdx%2 == 0 else params["TIP_EPP_RADIAL_ID"]
+            blades_tip += label(
                 cut_one(i, j, args.zclear, 0, ID, params["NOODLE_OD"], *cut_one_args),
                 ["tip_axial", "tip_radial", "blade"][idx%3] + str(jdx), idx*jdx, 0
             )
-    with open('build/blades.gcode', 'w') as f:
-        f.write(blades)
+    for idx, i in enumerate(np.arange(3)*gridsize + gridsize/2):
+        for jdx, j in enumerate(np.arange(2)*gridsize + gridsize/2):
+            ID = params["COREDIMS"][1] if jdx%2 == 0 else params["BLADE_EPP_ID"]
+            blades_hand += label(
+                cut_one(i, j, args.zclear, 0, ID, params["NOODLE_OD"], *cut_one_args),
+                ["tip_axial", "tip_radial", "blade"][idx%3] + str(jdx), idx*jdx, 0
+            )
+    with open('build/blades_tip.gcode', 'w') as f:
+        f.write(blades_tip+SUFFIX)
+    with open('build/blade_hand.gcode', 'w') as f:
+        f.write(blades_hand+SUFFIX)
     with open('build/wide_guards.gcode', 'w') as f:
-        f.write(wideguards)
+        f.write(wideguards+SUFFIX)
     with open('build/narrow_guards.gcode', 'w') as f:
-        f.write(narrowguards)
+        f.write(narrowguards+SUFFIX)
 
 
 if __name__ == '__main__': export_cam_grids()
