@@ -1,6 +1,7 @@
 include <BOSL2/std.scad>
 include <BOSL2/threading.scad>
 include <params.scad>
+include <utils.scad>
 
 // uses: $include_dfm, $major_d, $pitch, $starts, $thread_len
 module tip_thread_m_body(flange_od,
@@ -27,7 +28,10 @@ module tip_thread_m_body(flange_od,
     // additional reinforcing material: flange, cone, extra tube, etc.
     up(core_to_epp_dist){
         // flange
-        tube(id=COREDIMS[1]+CLEARANCE, od=flange_od, h=flange_depth, anchor=TOP);
+        difference(){
+            tube(id=COREDIMS[1]+CLEARANCE, od=flange_od, h=flange_depth, anchor=TOP);
+            radially_distributed_filleted_slots(ir=flange_od/3);
+        }
 
         // cone + extra tube
         down(flange_depth){
@@ -127,3 +131,6 @@ module tip_thread_f(
         children();
     }
 }
+
+
+tip_thread_m();

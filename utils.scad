@@ -53,3 +53,18 @@ module _chamfered_slotted_ring(ir, or, slot_angular_size, chamfer_size){
         ]);
     }
 }
+module radially_distributed_filleted_slots(ir, r_fillet=2, theta=40, n=6){
+    x = r_fillet/tan(theta/2);
+    offset_rad = ir - (sqrt(x*x + r_fillet*r_fillet)-r_fillet);
+    for(i=[0:(360/n):360]) zrot(i) translate(offset_rad*[cos(theta/2), sin(theta/2), 0]) {
+        down(50) linear_extrude(height = 100) union() {
+            polygon([
+                [x, 0],
+                [100, 0],
+                100*[cos(theta), sin(theta)],
+                x*[cos(theta), sin(theta)],
+            ]);
+            translate([x, r_fillet, 0]) circle(r_fillet);
+        }
+    }
+}

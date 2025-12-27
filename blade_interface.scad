@@ -1,6 +1,7 @@
 include <BOSL2/std.scad>
 include <BOSL2/threading.scad>
 include <params.scad>
+include <utils.scad>
 
 $collet_id=20;
 $collet_od=22;
@@ -105,6 +106,7 @@ module blade_f_body(
         }
         zcyl(h=INCH/2, d=spline_id, chamfer2=-1, anchor=BOTTOM);
         zcyl(h=100, d=COREDIMS[1]+CLEARANCE*2);
+        radially_distributed_filleted_slots(ir=13);
     }
     up(real_epp_height) difference(){
         zcyl(h=$flange_thickness, d=handside_flange_od, anchor=BOTTOM);
@@ -160,7 +162,7 @@ module collet(h=INCH/4, anchor=CENTER, spin=0, orient=UP){
 
 difference(){
     blade_f();
-   cube(1000, anchor=RIGHT);
+    // cube(1000, anchor=RIGHT);
 }
 //difference(){
 //    blade_f();
