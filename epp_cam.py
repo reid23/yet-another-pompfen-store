@@ -28,7 +28,9 @@ def label(gcode, name, id, copy):
 ; stop printing object {name} id:{id} copy {copy}
 """
 
-def cut_one(x, y, hclear, hcut, ID, OD, travel=2000, ztravel=1000, feed=100, plunge=500, kerf=2.25):
+def cut_one(x, y, hclear, hcut, ID, OD, travel=2000, ztravel=1000, feed=100, plunge=500, kerf=2.25, origin=(27, 37)):
+    x = x + origin[0]
+    y = y + origin[1]
     realid = ID/2 - kerf
     realod = OD/2 + kerf
     diag = np.sqrt(2)/2
@@ -64,6 +66,8 @@ def export_cam_grids(args=None):
     ap.add_argument('-z', '--zclear', default=55, type=float, help="z height that clears the stock, in mm. Used for travel moves.")
     ap.add_argument('-y', '--yclear', default=100, type=float, help="y position that clears the stock, in mm. Used for start/end position.")
     ap.add_argument('-k', '--kerf', default=2.25, type=float, help="**radius** of hot knife kerf (ie, effective tool radius), in mm.")
+    ap.add_argument('--x-origin', default=27, type=float, help="x coordinate of stock origin in mm.")
+    ap.add_argument('--y-origin', default=37, type=float, help="y coordinate of stock origin in mm.")
     args = ap.parse_args(args) if args is not None else ap.parse_args()
 
     # get values from params.scad
@@ -79,7 +83,7 @@ def export_cam_grids(args=None):
     gridsize = params["NOODLE_OD"] + 2*args.kerf
     guardgridsize = params["GUARD_OD"] + 2*args.kerf
     narrowguardgridsize = params["SMALL_GUARD_OD"] + 2*args.kerf
-    cut_one_args = (args.travel, args.ztravel, args.feed, args.plunge, args.kerf)
+    cut_one_args = (args.travel, args.ztravel, args.feed, args.plunge, args.kerf, (args.x_origin, args.y_origin))
     blades_hand = PREFIX
     blades_tip = PREFIX
     wideguards = PREFIX
