@@ -20,7 +20,10 @@ module pommel_body(height=32, r_fillet=10, r_main=47, x_main=60){
                 }
             }
             y_main = sqrt(-(x_main - fillet_c.x)^2 + (r_fillet + r_main)^2) + fillet_c.y;
-            tangent_pt = [cos(atan2((y_main-fillet_c.y), (x_main-fillet_c.x)))*r_fillet + fillet_c.x, sin(atan2((y_main-fillet_c.y), (x_main-fillet_c.x)))*r_fillet + fillet_c.y];
+            tangent_pt = [
+	        cos(atan2((y_main-fillet_c.y), (x_main-fillet_c.x)))*r_fillet + fillet_c.x,
+		sin(atan2((y_main-fillet_c.y), (x_main-fillet_c.x)))*r_fillet + fillet_c.y
+	    ];
             rotate_extrude(){
                 difference(){
                     translate([id/2, tangent_pt.y])
@@ -57,7 +60,7 @@ module pommel_body(height=32, r_fillet=10, r_main=47, x_main=60){
 }
 
 // anchors: `core_end` and `bottom`
-// @build pommel.stl
+// @build components/pommel.stl
 module pommel(height=32, r_fillet=10, r_main=47, x_main=60,
     anchor=CENTER,
     spin=0,
@@ -72,7 +75,9 @@ module pommel(height=32, r_fillet=10, r_main=47, x_main=60,
     }
 }
 
-// @build pommel_modifier.stl
+// @build components/pommel_modifier.stl
 module pommel_modifier(d_solid=30, chamfang=45){
     up(5) zcyl(h=100, d=100, chamfer1=(100-d_solid)/2, chamfang=chamfang, anchor=BOTTOM);
 }
+
+pommel();

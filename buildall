@@ -24,7 +24,7 @@ logging.basicConfig(level={
 results = []
 
 r = re.compile('\/\/\s@build\s(?P<filename>[^\s^\\n]*)(?P<args>[^\\n]*)\\n|module\s(?P<module>[^\\n]+)\(')
-for filename in filter(lambda x: x.endswith(".scad"), os.listdir()):
+for filename in filter(lambda x: x.endswith(".scad") and "#" not in x and "~" not in x, os.listdir()):
     with open(filename, 'r') as f: out = r.findall(''.join(f.readlines()))
     res = []
     for i in out[::-1]:
@@ -32,17 +32,20 @@ for filename in filter(lambda x: x.endswith(".scad"), os.listdir()):
         else: res[-1].append(i[:2])
     for i in filter(lambda x: len(x)>1, res): 
         for stlfile, opts in i[1:]:
+            if not os.path.exists(os.path.join('build', os.path.dirname(stlfile))):
+                logging.debug(f"directory build/{os.path.dirname(stlfile)} (from {stlfile}) does not exist; creating it.")
+                os.mkdir(os.path.join('build', os.path.dirname(stlfile)))
             if (i[0] in  args.modules_select or len(args.modules_select)==0) and (i[0] not in args.modules_ignore):
                 tic = perf_counter()
                 logging.info(f"building `{stlfile}` from `{filename}` with method call `{i[0]}({opts});`")
                 cmd = f'echo \'include <params.scad>\nuse <{filename}>\n{i[0]}({opts});\' | \
                     openscad {"--export-format binstl " if stlfile.endswith(".stl") else ""}-o build/{stlfile} -'
-                res = subprocess.run(cmd, shell=True, stderr=subprocess.PIPE, stdout=subprocess.PIPE)
+                res = subprocess.run(cmd, shell=True, stderr=subprocess.PIPE, stdout=subprocess.PIPE, text=True, universal_newlines=True)
 
                 ## for some reason all openscad output goes to stderr
                 for stderr_line in str(res.stderr).split('\n'):
                     if stderr_line.startswith('ECHO:'): logging.info(i)
-                logging.debug(str((res.stderr)))
+                logging.debug(str(res.stderr))
 
                 if res.returncode != 0:
                     logging.warning(f"got nonzero exit code {res.returncode} from method call `{filename}.{i[0]}({opts});` while building `{stlfile}`")

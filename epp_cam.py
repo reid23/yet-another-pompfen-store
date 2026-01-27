@@ -114,13 +114,13 @@ def export_cam_grids(args=None):
                 cut_one(i, j, args.zclear, 0, ID, params["NOODLE_OD"], *cut_one_args),
                 ["tip_axial", "tip_radial", "blade"][idx%3] + str(jdx), idx*jdx, 0
             )
-    with open('build/blades_tip.gcode', 'w') as f:
+    with open('build/gcode/blades_tip.gcode', 'w') as f:
         f.write(blades_tip+SUFFIX)
-    with open('build/blade_hand.gcode', 'w') as f:
+    with open('build/gcode/blade_hand.gcode', 'w') as f:
         f.write(blades_hand+SUFFIX)
-    with open('build/wide_guards.gcode', 'w') as f:
+    with open('build/gcode/wide_guards.gcode', 'w') as f:
         f.write(wideguards+SUFFIX)
-    with open('build/narrow_guards.gcode', 'w') as f:
+    with open('build/gcode/narrow_guards.gcode', 'w') as f:
         f.write(narrowguards+SUFFIX)
 
 

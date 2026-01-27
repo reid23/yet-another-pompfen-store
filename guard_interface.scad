@@ -4,7 +4,7 @@ include <params.scad>
 use <utils.scad>
 
 // uses: $guard_major_d
-// @build staff_grip_collar.stl
+// @build components/staff_grip_collar.stl
 module guard_grip_collar(anchor=CENTER, spin=0, orient=UP){
     anchors = [
         named_anchor(name = "grip_collar_top", pos = CENTER, orient = UP),
@@ -17,7 +17,7 @@ module guard_grip_collar(anchor=CENTER, spin=0, orient=UP){
 }
 
 // uses: $guard_pitch, $guard_major_d, $guard_thread_stop_d
-// @build guard_thread_m.stl
+// @build components/guard_thread_m.stl
 module guard_thread_m(
     length=12.7+1.5+2,
     anchor=CENTER,
@@ -42,7 +42,7 @@ module guard_thread_m(
     }
 }
 
-// @build guard_thread_f.stl
+// @build components/guard_thread_f.stl
 module guard_thread_f(
     length=10, 
     flange_thickness=1.5, 
@@ -75,7 +75,7 @@ module guard_thread_f(
     }
 }
 
-// @build staff_guard_spacer.stl
+// @build components/staff_guard_spacer.stl
 module staff_guard_spacer(h=50, slot_size=120, anchor=CENTER, spin=0, orient=UP){
     anchors=[
         named_anchor(name="guard_spacer_center", pos=UP*h/2, orient=UP),

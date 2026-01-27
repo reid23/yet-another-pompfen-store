@@ -26,7 +26,12 @@ module _spline_cyl(){
             ir = spline_id/2;
             or = od/2+1;
             inner_point_start = [ir, 0];
-            outer_point_start = circle_line_intersection(r=or, cp=[0, 0], line=[inner_point_start, inner_point_start + [cos(chamfer_angle), sin(chamfer_angle)]], bounded=[true, false])[0];
+            outer_point_start = circle_line_intersection(
+	        r=or,
+		cp=[0, 0],
+		line=[inner_point_start, inner_point_start + [cos(chamfer_angle), sin(chamfer_angle)]],
+		bounded=[true, false]
+	    )[0];
             chamfer_angular_width = atan2(outer_point_start[1], outer_point_start[0]);
             outside_point = (or/cos((angular_width-chamfer_angular_width)/2))*[cos((angular_width+chamfer_angular_width)/2), sin((chamfer_angular_width+angular_width)/2)];
             inner_point_end = ir*[cos(angular_width+chamfer_angular_width), sin(angular_width+chamfer_angular_width)];
@@ -62,7 +67,7 @@ module blade_m_body(){
 }
 
 // uses $n_splines, $spline_id, $spline_od, $spline_chamfer_angle
-// @build blade_m.stl
+// @build components/blade_m.stl
 module blade_m(
     anchor=CENTER, spin=0, orient=UP){
     anchors = [
@@ -115,7 +120,7 @@ module blade_f_body(
 }
 
 // uses $flange_thickness, $collet_id, $collet_od, $n_splines, $spline_id, $spline_od, $spline_chamfer_angle
-// @build blade_f.stl
+// @build components/blade_f.stl
 module blade_f(
     n_splines_per_segment=2,
     bladeside_flange_od=40,
@@ -136,7 +141,7 @@ module blade_f(
 }
 
 // uses $flange_thickness, $collet_id, $collet_od
-// @build collet.stl
+// @build components/collet.stl
 module collet(h=INCH/4, anchor=CENTER, spin=0, orient=UP){
     anchors = [
         named_anchor(name="collet_interface", pos=CENTER, orient=DOWN),

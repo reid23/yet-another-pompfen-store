@@ -1,3 +1,17 @@
+include <BOSL2/std.scad>
+
+
+module debuggable(c=undef, split_anchor=undef, split_orient=undef){
+  difference(){
+    if(!is_undef(c)){
+      color(c) union() children();
+    } else {
+      union() children();
+    }
+  }
+    
+}
+
 function hermite(t, p0, p1, v0, v1) = (
     [[t*t*t, t*t, t, 1]]
   * [[2, -2, 1, 1], 

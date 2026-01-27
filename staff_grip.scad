@@ -3,8 +3,8 @@ include <params.scad>
 use <utils.scad>
 
 // uses: $grip_step_size
-// @build staff_grip.stl od=STAFF_GRIP_OD
-// @build staff_grip_narrow.stl od=NARROW_STAFF_GRIP_OD, w1=40
+// @build components/staff_grip.stl od=STAFF_GRIP_OD
+// @build components/staff_grip_narrow.stl od=NARROW_STAFF_GRIP_OD, w1=40
 module staff_grip(
     min_wall_thickness=4,
     od=STAFF_GRIP_OD,
@@ -43,7 +43,7 @@ module staff_grip(
 
 
 // uses: $grip_step_size
-// @build staff_spacer.stl
+// @build components/staff_spacer.stl
 module staff_spacer(
     od=INCH,
     slot_angular_size=4,

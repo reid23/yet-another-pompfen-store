@@ -1,9 +1,9 @@
 include <BOSL2/std.scad>
 include <params.scad>
 
-// @build epp_support_blade.stl result_od=NOODLE_OD, result_id=BLADE_EPP_ID
-// @build epp_support_wide_guard.stl result_od=GUARD_OD, result_id=GUARD_EPP_ID, ncols=2
-// @build epp_support_narrow_guard.stl result_od=SMALL_GUARD_OD, result_id=GUARD_EPP_ID
+// @build extras/epp_support_blade.stl result_od=NOODLE_OD, result_id=BLADE_EPP_ID
+// @build extras/epp_support_wide_guard.stl result_od=GUARD_OD, result_id=GUARD_EPP_ID, ncols=2
+// @build extras/epp_support_narrow_guard.stl result_od=SMALL_GUARD_OD, result_id=GUARD_EPP_ID
 module epp_support(result_od, result_id, nrows=2, ncols=3){
     od = result_od + 2*$kerf;
     r = od/2;

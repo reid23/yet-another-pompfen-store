@@ -62,7 +62,7 @@ module tip_thread_m_body(flange_od,
 
 
 // uses: $include_dfm, $major_d, $pitch, $starts, $thread_len
-// @build tip_thread_m.stl $include_dfm=false
+// @build components/tip_thread_m.stl $include_dfm=false
 module tip_thread_m(
     flange_od=35, 
     flange_depth=1,
@@ -116,7 +116,7 @@ module tip_thread_f_body(depth, above_core_height){
 }
 
 // uses: $major_d, $pitch, $starts, $thread_len
-// @build tip_thread_f.stl
+// @build components/tip_thread_f.stl
 module tip_thread_f(
     depth=13, above_core_height=2,
     anchor = CENTER,
