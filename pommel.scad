@@ -85,7 +85,7 @@ module pommel(height=32, r_fillet=10, r_main=47, x_main=60,
 }
 
 // @build components/pommel_modifier.stl
-module pommel_modifier(d_solid=30, chamfang=45){
+module pommel_modifier(d_solid=30, chamfang=55){
     up(5) zcyl(h=100, d=100, chamfer1=(100-d_solid)/2, chamfang=chamfang, anchor=BOTTOM);
 }
 
