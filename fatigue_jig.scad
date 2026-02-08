@@ -55,7 +55,10 @@ module bumper(){
   difference(){
     union(){
       difference(){
-	translate([0, 0, -10]) rotate([0, 90, 0]) cylinder(h=70, d=70, center=true);
+	translate([0, 0, -10]) rotate([0, 90, 0]) {
+	  //cylinder(h=70, d=70, center=true);
+	  cube([60, 85, 80], center=true);
+	}
 	translate([0, 0, -100]) cube(200, center=true);
       }
       translate([0, 0, 5]) cube([25, 16, 30], center=true);
@@ -65,36 +68,71 @@ module bumper(){
 
   }
 }
+bumper();
 
 
 module sample_mount_plate_hole_pattern(h){
-  for(v=[[0, 0, 0],
-	 [50, 0, 0],
-	 [0, h, 0]]){
-	translate(v) children();
+  v=[[0, 0, 0],
+     [50, 0, 0],
+     [0, h, 0]];
+  for(i=[0:3]){
+    translate(v[i]) if($children==1) {
+      children();
+    } else {
+      children(i);
+    }
   }
 }
 
-// @build extras/fatigue_jig_sample_mount_1.stl height=100
+// @build extras/fatigue_jig_sample_mount.stl height=120
 module sample_mount_plate(height){
   difference(){
     union(){
-      hull(){
-	sample_mount_plate_hole_pattern(height)
-	  cylinder(h=10, d=14);
-      }
-      translate([0, height, 0]) cylinder(h=25, d=11.5);
+    hull(){
+      sample_mount_plate_hole_pattern(height){
+	cylinder(h=10, d=14);
+	cylinder(h=10, d=14);
+	cylinder(h=10, d=24);
+      }	
     }
-    sample_mount_plate_hole_pattern(height)
+    hull(){
+      cylinder(h=16, d=14);
+      translate([50, 0, 0])
+	cylinder(h=16, d=14);
+    }
+    }
+    sample_mount_plate_hole_pattern(height){
       cylinder(h=100, d=3.5);
+      cylinder(h=100, d=3.5);
+      cylinder(h=100, d=14.2);
+    }
   }
 }
 
-// @build extras/fatigue_jig_sample_mount_2.stl height=100
-module mirrored_sample_mount_plate(height){
-  mirror([0, 0, 1]) sample_mount_plate(height);
+
+// @build extras/fatigue_jig_encoder_mount.stl
+module encoder_mount(){
+  tube(id=15, od=16.8, h=3, anchor=BOTTOM);
+  difference(){
+    hull(){
+      for(i=[0:90:360])
+	rotate([0, 0, i])
+	  translate([15.9/2, 15.9/2, 0])
+	  zcyl(d=6, h=1, anchor=BOTTOM);
+    }
+    zcyl(h=20, d=15, anchor=BOTTOM);
+  }
+  for(i=[0:90:360])
+    rotate([0, 0, i])
+      translate([15.9/2, 15.9/2, 0]){
+        zcyl(d=5, h=1, anchor=TOP);
+        zcyl(d=3.5, h=3, anchor=TOP);
+      }
+  
 }
 
+// encoder_mount();
 // bumper();
 // strain_guage_mount(width = 80.5);
-// sample_mount_plate(100);
+// sample_mount_plate(120);
+// mirrored_sample_mount_plate(100);

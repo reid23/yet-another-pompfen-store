@@ -160,15 +160,41 @@ module collet(h=INCH/4, anchor=CENTER, spin=0, orient=UP){
 
 }
 
+module blade_m_mold(){
+  h = INCH;
+  down_offset = 6;
+
+  difference(){
+    down(down_offset) difference(){
+      zcyl(h=h+2*down_offset, d=$spline_od + 4, anchor=BOTTOM);
+      zcyl(h=(h+2*down_offset)*2+1, d=COREDIMS[1]+0.15, anchor=CENTER);
+    }
+    blade_m();
+    for(i=[0:120:360]){
+      linear_extrude(height=100, center=true){
+	polygon([
+		 [0, 0],
+		 20*[cos(1+i), sin(1+i)],
+		 20*[cos(-1+i), sin(-1+i)]
+		 ]);
+      }
+    }
+  }
+}
+
+difference(){
+  blade_m_mold();
+  // cube(1000, anchor=RIGHT);
+}
 //intersection(){
 //    up(12.7) collet();
 //    cube(1000, anchor=LEFT);
 //}
 
-difference(){
-    blade_f();
+// difference(){
+    // blade_f();
     // cube(1000, anchor=RIGHT);
-}
+// }
 //difference(){
 //    blade_f();
 //    cube(1000, anchor=RIGHT);

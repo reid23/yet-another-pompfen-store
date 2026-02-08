@@ -1,7 +1,7 @@
 include <BOSL2/std.scad>
 include <params.scad>
 
-module pommel_body(height=32, r_fillet=10, r_main=47, x_main=60){
+module pommel_body(height=32, r_fillet=10, r_main=47, x_main=60, heat_shrink_ext_height=12, heat_shrink_wall_thick=1){
     function r(x) = sqrt((x-10)^2 - 100^2) + y_main;
     id = COREDIMS[1]-1;
     od = POMMEL_OD;
@@ -40,10 +40,19 @@ module pommel_body(height=32, r_fillet=10, r_main=47, x_main=60){
             top_edge = [- sqrt((r_main)^2 - (height-y_main)^2) + x_main, height];
             slope = -(top_edge.x - x_main)/(top_edge.y - y_main);
             y_offset = slope*(-top_edge.x) + top_edge.y;
-            pts = [for(x=[(id/2 + 1):0.1:(top_edge.x+0.1)]) [x, slope*x + y_offset]];
-            pts_final = concat([[id/2, slope*(id/2+1) + y_offset]], pts, [[id/2, top_edge.y]]);
+	    top_outer_rad = (id/2) + 1 + heat_shrink_wall_thick;
+            pts = [for(x=[top_outer_rad:0.1:(top_edge.x+0.1)]) [x, slope*x + y_offset]];
+            pts_final = concat([[id/2, slope*top_outer_rad + y_offset]], pts, [[id/2, top_edge.y]]);
+	    top = slope*top_outer_rad + y_offset;
+	    extension = [
+			 [id/2,     top   ],
+			 [id/2,     top+12],
+			 [top_outer_rad - heat_shrink_wall_thick, top+12],
+			 [top_outer_rad - heat_shrink_wall_thick, top   ]
+			 ];
             rotate_extrude(){
                 polygon(pts_final);
+		polygon(extension);
             }
         }
         rotate_extrude(){
@@ -81,3 +90,4 @@ module pommel_modifier(d_solid=30, chamfang=45){
 }
 
 pommel();
+#pommel_modifier();
