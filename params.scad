@@ -37,14 +37,14 @@ STAFF_GRIP_OD = 2.5*INCH;
 NARROW_STAFF_GRIP_OD = 2.0*INCH;
 
 ABOVE_CORE_HEIGHT = 2;
-CORE_TO_EPP_DIST = 1;
+CORE_TO_EPP_DIST = 1.5;
 
 POMMEL_OD = 2.05*INCH;
 BLADE_EPP_ID = 24;
 GUARD_EPP_ID = 26;
 TIP_EPP_AXIAL_ID = 0;
 TIP_EPP_RADIAL_ID = 19.5;
-
+HEAT_SHRINK_THICKNESS = 0.05;
 // magic global vars
 // high key i dont like these but
 // i think its the best way

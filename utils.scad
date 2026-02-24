@@ -1,6 +1,5 @@
 include <BOSL2/std.scad>
 
-
 module debuggable(c=undef, split_anchor=undef, split_orient=undef){
   difference(){
     if(!is_undef(c)){
@@ -8,8 +7,17 @@ module debuggable(c=undef, split_anchor=undef, split_orient=undef){
     } else {
       union() children();
     }
+    if(!is_undef(split_anchor) && !is_undef(split_orient)){
+      // ? figure out some way to make a plane
+    }
   }
-    
+}
+
+module pleb_debug(c) {
+  color(c) difference(){
+    union() { children(); }
+    cube(1000, anchor=RIGHT);
+  }
 }
 
 function hermite(t, p0, p1, v0, v1) = (

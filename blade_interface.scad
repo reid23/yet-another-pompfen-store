@@ -61,8 +61,9 @@ module blade_m_body(){
             _spline_cyl();
             zcyl(h=INCH, d=$spline_id, anchor=BOTTOM);
             up(7) zcyl(h=4, d=$spline_od, chamfer=1.5, anchor=BOTTOM);
+            up(19) zcyl(h=4, d=$spline_od, chamfer=1.5, anchor=BOTTOM);
         }
-        zcyl(h=INCH, d=COREDIMS[1]+PRESSFIT, chamfer=-0.25, anchor=BOTTOM);
+        zcyl(h=INCH, d=COREDIMS[1]+CLEARANCE, chamfer=-0.25, anchor=BOTTOM);
     }
 }
 
@@ -173,3 +174,4 @@ module collet(h=INCH/4, anchor=CENTER, spin=0, orient=UP){
 //    blade_f();
 //    cube(1000, anchor=RIGHT);
 //}        
+// blade_m();

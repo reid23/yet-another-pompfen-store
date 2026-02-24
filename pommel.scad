@@ -75,7 +75,7 @@ module pommel(height=32, r_fillet=10, r_main=47, x_main=60,
     spin=0,
     orient=UP){
     anchors = [
-        named_anchor(name="core_end", pos=POMMEL_THICKNESS*UP, orient=DOWN),
+        named_anchor(name="core_end", pos=POMMEL_THICKNESS*UP, orient=UP),
         named_anchor(name="bottom", pos=CENTER, orient=UP)
     ];
     attachable(anchor, spin, orient, anchors=anchors){

@@ -1,5 +1,6 @@
 include <BOSL2/std.scad>
 include <params.scad>
+use <utils.scad>
 
 use <pommel.scad>
 use <staff_grip.scad>
@@ -20,7 +21,7 @@ module blade(length, buffer=true){
         - 3*EPP_THICKNESS // 2 on blade side + radial tip epp (axial tip epp is included in TIP_THICKNESS)
         - TIP_THICKNESS;
 
-    tip_thread_m()
+    tip_flange()
     attach("epp_anchor", "tip_epp_axial_bottom")
     tip_epp_axial(){
         attach("tip_epp_axial_top", "tip_noodle_bottom")
@@ -46,7 +47,6 @@ module blade(length, buffer=true){
                                     }
     }
 }
-
 
 module staff_guard(od=GUARD_OD, length=GUARD_LEN){
     staff_grip(){
@@ -84,14 +84,14 @@ module staff_guard(od=GUARD_OD, length=GUARD_LEN){
 module long_tla(){
     pommel() attach("core_end", "core_bottom")
         long_core() attach("core_top", "carbon_core_tip")
-            tip_thread_f() attach("effective_core_top", "core_anchor")
+            tip_cap() attach("effective_core_top", "core_anchor")
                 blade(LONG_BLADE);
 }
 
 module short_tla(){
     pommel() attach("core_end", "core_bottom")
         short_core() attach("core_top", "carbon_core_tip")
-            tip_thread_f() attach("effective_core_top", "core_anchor")
+            tip_cap() attach("effective_core_top", "core_anchor")
                 blade(SHORT_BLADE);
 }
 
@@ -100,7 +100,7 @@ module staff_tla(){
     attach("core_end", "core_bottom")
     staff_core(){
         attach("core_top", "carbon_core_tip")
-            tip_thread_f()
+            tip_cap()
                 attach("effective_core_top", "core_anchor")
                     blade(LONG_BLADE);
         attach("reach_limit", "grip_top")
@@ -113,7 +113,7 @@ module short_staff_tla(){
     attach("core_end", "core_bottom")
     short_staff_core(){
         attach("core_top", "carbon_core_tip")
-            tip_thread_f()
+            tip_cap()
                 attach("effective_core_top", "core_anchor")
                     blade(LONG_BLADE);
         attach("reach_limit", "grip_top")
@@ -124,19 +124,24 @@ module short_staff_tla(){
 module qtip_tla(){
     qtip_core(anchor="bottom_tip"){
         attach("core_bottom", "carbon_core_tip", inside=true)
-            tip_thread_f()
+            tip_cap()
                 attach("effective_core_top", "core_anchor")
                     blade(QTIP_BLADE, buffer=false);
         attach("core_top", "carbon_core_tip")
-            tip_thread_f()
+            tip_cap()
                 attach("effective_core_top", "core_anchor")
                     blade(QTIP_BLADE, buffer=false);
     }
 
 }
 
-right(000) long_tla();
-right(100) short_tla();
-right(200) staff_tla();
-right(300) short_staff_tla();
-right(400) qtip_tla();
+$fn=50;
+
+//right(000) long_tla();
+difference(){
+    right(0) short_tla();
+    cube(2000, anchor=RIGHT);
+}
+//right(200) staff_tla();
+//right(300) short_staff_tla();
+//right(400) qtip_tla();
