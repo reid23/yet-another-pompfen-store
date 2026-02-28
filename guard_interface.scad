@@ -37,6 +37,16 @@ module guard_thread_m(
                 zcyl(h=2, d=$guard_thread_stop_d-CLEARANCE, chamfer2=1, anchor=TOP);
             }
             zcyl(h=3*length, d=COREDIMS[1]+CLEARANCE);
+
+	    // weird little channels for glue and for making it ever
+	    // so slightly more flexy (less stiffness from hoop
+	    // strength)
+	    for(i=[0:60:360]){
+	      hull(){
+		zcyl(r=5, h=100, anchor=CENTER);
+		zrot(i) right(COREDIMS[1]/2) zcyl(r=0.5, h=100, anchor=CENTER);
+	      }
+	    }
         }
         children();
     }
@@ -66,7 +76,10 @@ module guard_thread_f(
                 // #zcyl(h=EPP_THICKNESS, d=$guard_thread_stop_d+CLEARANCE, chamfer1=0.7, anchor=BOTTOM);
             }
             // bottom flange
-            down(EPP_THICKNESS) tube(h=flange_thickness, id=$guard_major_d, od=flange_od, anchor=TOP);
+            down(EPP_THICKNESS) difference(){
+	      tube(h=flange_thickness, id=$guard_major_d, od=flange_od, anchor=TOP);
+	      radially_distributed_filleted_slots(ir = $guard_major_d/2 + 5, r_fillet = 2, theta = 40, n = 6);
+	    }
             // top flange
             // up(2) tube(h=flange_thickness, id=$guard_thread_stop_d+CLEARANCE, od=small_flange_od, anchor=TOP);
             // %up(2-flange_thickness) zcyl(h=EPP_THICKNESS, d=30, anchor=TOP);
@@ -94,4 +107,12 @@ module staff_guard_spacer(h=50, slot_size=120, anchor=CENTER, spin=0, orient=UP)
         }
         children();
     }
+}
+
+difference(){
+  union(){
+    guard_thread_f();
+    down(15) guard_thread_m();
+  }
+  cube(1000, anchor=RIGHT);
 }

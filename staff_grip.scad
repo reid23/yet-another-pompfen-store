@@ -6,7 +6,7 @@ use <utils.scad>
 // @build components/staff_grip.stl od=STAFF_GRIP_OD
 // @build components/staff_grip_narrow.stl od=NARROW_STAFF_GRIP_OD, w1=40
 module staff_grip(
-    min_wall_thickness=4,
+    min_wall_thickness=5,
     od=STAFF_GRIP_OD,
     id=INCH,
     total_length=STAFF_GRIP_HEIGHT,
@@ -78,3 +78,6 @@ module staff_spacer(
         children();
     }
 }
+
+
+staff_grip(od=STAFF_GRIP_OD);
