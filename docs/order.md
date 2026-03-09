@@ -1,6 +1,7 @@
 ## How to Order
 
-You can order a product by sending me a list of SKUs and quantities. Below is the full SKU map.
+You can order a product by sending me a list of SKUs and
+quantities. Below is the full SKU map.
 - Postfix your resulting SKU with the version. This ensures that I'll
   make compatible components. The current release is always available
   at
@@ -134,12 +135,14 @@ A few comments:
 ## Cover & Color Options
 
 > [!NOTE]
-> I have discontinued the non-mesh cover options, as they would creep (stretch) over time and become loose.
+> 
+> I have discontinued the non-mesh cover options, as they would creep
+> (stretch) over time and become loose.
 
 I maintain inventory with proper safety stock of black fabric. If you
-want a different color, there will be a $5 additional charge for each
-new color you'd like (ie, if you order five bright pink pompf it'll
-still only be $5 extra).
+want a different color, there will be a $5 additional charge (since I
+have to order new fabric, pay shipping, and make the covers custom to
+order instead of making a bunch ahead of time).
 
 If you would like me to make a cover from a custom fabric, I can do
 that! Just contact me directly and we can work something out. I would
@@ -153,9 +156,12 @@ yellow. They look like this:
 
 ![noodle colors](/assets/noodle_colors.jpg)
 
-Please let me know what color noodle you'd like by appending an `R`, `B`, `Y`, (red, blue, yellow) or `X` (no preference) to the end of the three-letter ripstop color SKU (see below) you tell me.
+Please let me know what color noodle you'd like by appending an `R`,
+`B`, `Y`, (red, blue, yellow) or `X` (no preference) to the end of the
+three-letter ripstop color SKU (see below) you tell me.
 
-The color options in fabrics I've tested are below. Please tell me the SKU of the one you want.
+The color options in fabrics I've tested are below. Please tell me the
+SKU of the one you want.
 
 | in stock? | extra fee? | SKU | human readable name  | image |
 | --- | --- | --- | -------------------- | ----- |

@@ -47,9 +47,10 @@ module _spline_cyl(){
                 ]);
             }
         }
-        up(INCH/2) difference(){
+	
+	up(INCH/2) difference(){
             zcyl(h=od-spline_id, d=od, anchor=BOTTOM);   
-            zcyl(h=od-spline_id, d=spline_id, chamfer=-(od-spline_id)/2, anchor=BOTTOM);
+            zcyl(h=od-spline_id, d=spline_id+1, chamfer=-(od-spline_id)/2, anchor=BOTTOM);
         }
     }
 }
@@ -60,8 +61,9 @@ module blade_m_body(){
         union(){
             _spline_cyl();
             zcyl(h=INCH, d=$spline_id, anchor=BOTTOM);
+	    up(INCH/2 + ($spline_od-$spline_id)/2) zcyl(h=INCH/2-($spline_od-$spline_id)/2, d=$spline_id+1, anchor=BOTTOM);
             up(7) zcyl(h=4, d=$spline_od, chamfer=1.5, anchor=BOTTOM);
-            up(19) zcyl(h=4, d=$spline_od, chamfer=1.5, anchor=BOTTOM);
+            up(21) zcyl(h=4, d=$spline_od+1.5, chamfer=1.5, anchor=BOTTOM);
         }
         zcyl(h=INCH, d=COREDIMS[1]+CLEARANCE, chamfer=-0.25, anchor=BOTTOM);
     }
@@ -160,6 +162,8 @@ module collet(h=INCH/4, anchor=CENTER, spin=0, orient=UP){
     }
 
 }
+
+blade_m();
 
 //intersection(){
 //    up(12.7) collet();

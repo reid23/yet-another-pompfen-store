@@ -28,7 +28,7 @@ def label(gcode, name, id, copy):
 ; stop printing object {name} id:{id} copy {copy}
 """
 
-def cut_one(x, y, hclear, hcut, ID, OD, travel=2000, ztravel=1000, feed=100, plunge=500, kerf=2.25, origin=(27, 37)):
+def cut_one(x, y, hclear, hcut, ID, OD, travel=2000, ztravel=1000, feed=100, plunge=500, kerf=2.25, origin=(50, 37+6)):
     x = x + origin[0]
     y = y + origin[1]
     realid = ID/2 - kerf

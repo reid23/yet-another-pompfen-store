@@ -1,7 +1,7 @@
 # Building Your Own
 
-The intent is to sell these, but that doesn't mean you can't make your
-own!  I caution that these were designed to be easy to make at a
+My intent is to sell these, but that doesn't mean you can't make your
+own! I caution that these were designed to be easy to make at a
 larger scale, so the time and material cost may be much higher for
 you.
 
@@ -26,7 +26,6 @@ folder. They were exported with PrusaSlicer; I'm not sure how well
 that plays with other slicers. Hide/show and duplicate components
 based on what you need.
 
-
 ## Foam
 
 There are three types of foam:
@@ -39,8 +38,26 @@ There are three types of foam:
 
 For the solid core noodle, for each blade, you'll need:
 - one tip, which is just a 37.3mm thick piece of solid noodle
-- one buffer, a 50mm thick piece of cored solid noodle
-- one blade, a 787.3mm thick piece of cored solid noodle
+- one blade, a piece of cored solid noodle of the length specified in the table below.
+
+> [!IMPORTANT] 
+> 
+> As of v0.3.0, the heat shrink reinforcement of the internal diameter
+> is **required**. It ensures that there is no axial stretching, which
+> is needed in place of the tip thread.
+
+| pompf | nominal blade length | recommended cut length |
+|-------|----------------------|------------------------|
+| long  | 821.9                | 830                    |
+| short | 571.9                | 580                    |
+| qtip  | 511.9                | 520                    |
+
+This produces a blade that is one centimeter oversized for longs and
+qtips and a blade that is precisely correctly sized for qtips. This is
+because the active constraint on blade length for qtips is a maximum,
+while for the others, it is a minimium. The extra length added to get
+the recommended cut length is to add preload during the glueup; the
+final blade length will be the correct nominal length.
 
 To create the cored noodle, you need to cut a hole of the appropriate
 size down the center of the solid core noodle. I have a jig for that
@@ -48,14 +65,38 @@ size down the center of the solid core noodle. I have a jig for that
 heat up the brass tube with a heat gun (don't use a flame; it makes
 the foam stick to the tube) and push it through the noodle.
 
-Once cut, shrink some heat shrink film tubing over a core. I use Uline
-`S-23533`. Then put E6000 glue all along the heat shrink and put some
-inside the hole of the cored noodle, then gently slide the cored
-noodle onto the core over the heat shrink. This creates a reinforced
-internal diameter which stops crack growth and significantly extends
-life.
+#### ID Reinforcement
 
-Wait at least 24 hours for it to cure before removing it from the core.
+To reinforce the internal diameter of the foam and prevent it from
+cracking, we create a tube out of heat shrink film tubing and glue the
+blade to it. I use Uline `S-23533` tubing.
+
+First, prepare a mandrel. This may take a bit.
+
+1. Take a spare core and glue on a cap (like
+`build/components/tip_cap.stl`).
+2. Apply a single layer of clear tape to the core, ensuring everything
+   is perfectly smooth and there are no bubbles. The tape should be
+   aligned axially (the long way, not in short little loops) and
+   should start 3cm from the tip with the cap and extend down at least
+   5cm longer than the blade you are trying to make.
+
+Then, cut an oversize length of heat shrink tubing, put it over the
+mandrel, and shrink it with a heat gun. Ensure that:
+
+- it does not have any wringles oriented perpendicular to the core;
+axially aligned wrinkles should be avoided if possible but are
+okay.[^1]
+- there is at least a little bit of heat shrink extending past the tip
+  of the core to prevent the tube from sliding down the core if it
+  were pulled
+- the section of tubing above the core pinches all the way closed (you
+  can help it by twisting it while it's heated) 
+
+Finally, trim the section of the tubing that is above the core so it's
+just long enough to pinch closed all the way and isn't sticking out
+too much past the diameter of the core. Then once the tubing is cool,
+remove it from the mandrel.
 
 ### EPP
 
@@ -160,11 +201,8 @@ everywhere you have to attach a (non-removable) printed part, sand the
 core a little bit to scratch the surface, clean it, and then superglue
 the part on. Try to put a little glue on the edges of the part as well
 to provide a more mechanical means of locking the part in place.
-Depending on your core's tolerances, you may need to wrap the printed
-part in a few layers of tape or sand it down before it fits
-snugly. Make sure it's a snug fit before applying glue.
 
-For `blade_m`, make sure the blank part is on the hand side of the
+For `blade_m`, make sure the (more) blank part is on the hand side of the
 blade. Apply some adhesive heat shrink tubing (the kind for
 electronics) over the blank part to help hold it in place.
 
@@ -172,6 +210,90 @@ For staffs, use small bits of heat shrink to create stops on the core
 to hold the four `staff_guard_spacer`s in place.
 
 ### Blades
+
+#### Tip Assembly
+
+The final tip assembly should look like this:
+
+![](tip_assembly.png)
+(yes the printed parts are slightly different; don't worry about it)
+
+To build this:
+
+1. cut the tip pool noodle to length and cut out the EPP disks
+2. cut out two bits of ripstop mesh larger than the diameter of the tip
+3. apply glue around the entire outside of `tip_flange` and push it into the
+   disk that has a hole.
+4. apply glue all over one side of the solid EPP disk and push it onto
+   the flange side of the existing assembly with one piece of ripstop
+   mesh between them
+5. do the same thing for the other side of the solid EPP disk: apply
+   glue, apply ripstop, and press the tip noodle on.
+6. clamp it together! To ensure everything is clamped properly, put
+   another piece of EPP with a hole in it on the bottom side,
+   protected by a piece of wax paper with a hole just large enough for
+   the `tip_flange`'s extending tube part to pass through.
+
+Leave this clamped to cure for at least 24 hours.
+
+#### Hand Side Assembly
+
+The hand side assembly is simpler so I don't have a diagram. 
+
+1. Apply glue all around the outside of the `blade_f` and insert it into the EPP disk with the larger hole
+2. Apply glue evenly around the flanged side of the assembly and press the other EPP disk on
+3. Place this assembly on a core (to ensure all the holes stay aligned) and clamp it together.
+
+Leave this clamped to cure for at least 24 hours.
+
+#### Gluing!
+
+This is the *final glueup of the entire process*. You should have both
+EPP assemblies ready and a core with all necessary hardware installed
+before beginning.
+
+Just like with the EPP assemblies, I've used E6000 and seen good
+results, but I'm sure there's plenty of other adhesives that would
+work okay.
+
+First, place the hand side EPP assembly on the core and secure it with
+the collet.  Then, place the tube on the core and trim the bottom
+until it is the right length to seat against the printed part inside
+the EPP assembly and on the tip at the same time. This means that the
+tube should go *inside* one of the two slices of EPP. It is vital
+that you cut the tube to the right length to **within +0/-5mm**.
+
+Once it is cut to the right length, apply glue to the very bottom of
+the tube and slide it all the way onto the core. This should glue the
+tube to the internal face of one slice of the hand side EPP assembly.
+
+Next, apply glue in two places:
+1. around the tube, ensuring even glue distribution around the radius
+   (even distribution along the core doesn't matter). This is the glue
+   that will end up holding the bottom half of the blade to the tube.
+2. inside the cored noodle, from both sides, but mostly from the side
+   you're going to put the core into. This is the glue that will end
+   up holding the top half of the blade to the tube.
+   
+Then, gently push the cored noodle onto the core around the tube. Glue
+will gradually get sucked into the joint on both sides. If either side
+seems to run out, replenish it.
+
+When you are nearing the end, apply glue to the entire face of the
+hand side EPP assembly to glue it to the noodle. Pulling on only the
+bottom half of the noodle (the hand side half), close the gap just barely.
+
+Then, on the tip side, keep pushing the noodle down until there is up
+to 5-10mm of exposed core and tube. Then:
+1. cover that section of tube as well as the top face of the noodle in
+   glue.
+2. cut off the very top of the tubing so that it does not extend
+   higher than the top of the core cap. You can use a knife to cut
+   around the circle. Be careful not to get any glue above the cut.
+3. Put the tip on, being careful not to crease the tube at all. Ensure
+   the tip goes *all the way on*.
+
+#### Taping
 
 > [!IMPORTANT]
 > **On the Use of Tape**  
@@ -186,88 +308,23 @@ to hold the four `staff_guard_spacer`s in place.
 > - minimize any wrinkles and sharp exposed tape corners; these are things
 >   that can catch on things and reduce effective adhesive area.
 
-First, tape the EPP assemblies. These should be done with athletic
-tape that is at least 2" wide.
+Now, taping!  It's rather hard to clamp this glueup, so instead we
+tape it. Cut two pieces of spinnaker tape, each 250-300mm long. Apply
+them over the top of the tip at a right angle to each other, ensuring
+there is significant preload holding the tip down and pulling the
+blade foam up.
 
-For `tip_epp_axial` and `tip_thread_m`:
-1. Tape across the center of one side with athletic tape. 
-2. get enough tape to wrap around the whole piece of EPP once. Fold it
-   over the edge of a piece of parchment paper, with the edge in the
-   center of the tape. Cut a circular hole in the middle about 5/8" in
-   diameter (or use a hole punch of that size).
-3. Peel the tape off and use it to tape `tip_thread_m` onto the center
-   of the EPP on the side with the tape (on top of the tape). Be sure
-   that the force distribution across the width of the tape is fairly
-   even.
-4. Repeat steps 2 and 3 again, placing the second piece of tape
-   perpendicular to the first.
+Then, repeat the same procedure for the hand side. You will need to
+cut a circular hole in the middle of the tape to make room for the
+collet. If you're building a Q-tip, I recommend doing each side
+separately so that you can still put the tape over the opposite end of
+the core. Likewise, don't put a pommel or staff guard on the end of
+the core so that you can put this tape on.[^2]
 
-For `blade_epp` and `blade_f`:
-1. insert `blade_f` into `blade_epp`
-2. Tape a full loop around the assembly, making sure that the tape
-   connects back to itself.
-3. Add another piece of tape the same way, perpendicular to the first.
-4. Using flush cutters, cut out holes in the center of both sides of
-   the tape. On the outside (where you put in the collet), ensure that
-   the hole in the tape is at least as large as the hole in the
-   EPP. On the other side, just make it as small as possible while
-   still clearing the hole in the printed part. **Important**: make
-   sure you don't cut all the way to the edge of any piece of
-   tape. Make sure there's enough tape left around the edges to carry
-   the tension around the hole.
+#### Curing
 
-Now, attach the EPP assemblies to the main blade foam. From here on
-out, use spinnaker tape for everything.
-
-For the tip side assembly:
-
-1. cut a 24cm length of tape, and round one corner (like a 5-10mm
-   radius)
-2. on the long side without the rounded corner, cut evenly spaced
-   slits about 1cm down from the edge, spaced 10-15mm apart. The
-   actual length of the slits isn't super important, but try to make
-   them all about the same length, and ensure there's at least an inch
-   of tape remaining unslitted.
-3. put the `tip_epp_axial` and `tip_thread_m` assembly onto the end of
-   the blade foam. The `tip_thread_m` will make this a little hard
-   because it has to squish the blade foam out of the way. This is
-   okay.
-4. Starting with the end of the tape without the rounded corner, apply
-   the tape in a loop around the blade, connecting the EPP and
-   blade. The slitted part should be above the EPP, with the ends of
-   the slits aligning with the top edge of the EPP. When doing this,
-   push the EPP into the blade so that there's no gap between the two
-   when they're taped together.
-5. Starting with the same side you started taping on, fold each tab of
-   the tape down onto the EPP, pushing the EPP down as you do to apply
-   axial preload (ie, along the axis of the weapon).
-
-For the blade side assembly, do the exact same, just on the other end
-of the blade.
-
-Now, we need to add the tip:
-1. Take the solid tip foam and put it on top of the tip EPP. 
-2. Cut two 26cm pieces of tape and round all of their corners.
-3. Tape the tip down by placing the tape up and over the center of the
-   tip foam.
-
-When taping, be sure that there is some preload and that the tensile
-stress profile across the width of each piece of tape is somewhat even
-(to help spread the load into the foam more evenly and thus reduce
-shear stresses within the foam).
-
-> [!NOTE] 
-> It may be better to just put the up and over tape pieces on
-> the EPP (under the tip foam) instead of the hoop with slits, then
-> just use a simple hoop without slits+tabs to hold the tip foam
-> on. This leaves the top of the tip foam relatively unprotected, but
-> it should be fine with the ripstop. This has not been sufficiently
-> tested, but it seems to have promise:
-> - it's much faster to assemble
-> - tape will reach further down the blade foam, distributing the load from tip moments better
-> - it provides more tension members across the top of the tip EPP, which could reduce the amount of athletic tape needed and definitely increases the strength of the EPP
-> 
-> In a few weeks I'll have much better data on whether this is actually better and will update this document with the results.
+Wait at least 24 hours for everything to cure before even thinking
+about removing it from the core.
 
 ### Staff Guards
 
@@ -292,7 +349,10 @@ on each side to affix it.
 
 ### Final Assembly
 
-First, put the pommel on, if the stick you're building has one.
+First, put the pommel on, if the stick you're building has one. Secure
+it with two pieces of heat shrink: one just over the small shoulder of
+the pommel and another on top of that, extending further up onto the
+pommel.
 
 Then, if you're building a staff:
 
@@ -302,17 +362,11 @@ Then, if you're building a staff:
 3. put the `staff_spacer` over the core in front of the guard foam.
 4. put the `staff_grip` over the spacer.
 
-Then, install the blade. If you aren't making a Qtip, put the buffer
-foam on the core and slide it past `blade_m`. After that, put the
-`collet` on the core. Finally, put the blade on! Slide it all the way
-down the core until the tip of the core goes into `tip_thread_m`. From
-there, hold the blade side EPP (and `blade_f`) away from `blade_m` (so
-they don't interact while you do this) and screw the core into the
-blade. Rotate the core at least 4 times; it will never tighten and
-that is okay. You can check that it's screwed in properly by pulling
-the blade gently off and seeing if it can be removed without screwing.
 
-Once the tip is screwed in, pull the blade side EPP over the spline
-(`blade_m`) and push the `collet` in to lock it. Then you can push the
-buffer foam, if present, up against the EPP, pull the cover over it,
-and secure it by cinching it with the wire.
+[^1]: this is because we rely on this tube for some axial strength
+    during installation, so horizontal wrinkles essentially pre-buckle
+    it for us and can cause installation issues.
+
+[^2]: lwk this is bad form because I should warn about this
+    beforehand, but if you got this far without reading the entire
+    document first, maybe this will serve as a good lesson.
