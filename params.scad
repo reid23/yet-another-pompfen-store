@@ -52,11 +52,10 @@ HEAT_SHRINK_THICKNESS = 0.05;
 $kerf = 2.25;
 
 $guard_pitch = 2.5;
-$guard_major_d = 20;
-$guard_thread_stop_d = 24;
+$guard_major_d = 22;
+$guard_thread_stop_d = INCH;
 
 $grip_step_size = 2;
-$guard_major_d = 20;
 
 // for tip_interface
 $pitch=1.5;

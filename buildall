@@ -22,7 +22,7 @@ logging.basicConfig(level={
 }[args.log_level])
 
 results = []
-
+had_echo = []
 r = re.compile('\/\/\s@build\s(?P<filename>[^\s^\\n]*)(?P<args>[^\\n]*)\\n|module\s(?P<module>[^\\n]+)\(')
 for filename in filter(lambda x: x.endswith(".scad") and "#" not in x and "~" not in x, os.listdir()):
     with open(filename, 'r') as f: out = r.findall(''.join(f.readlines()))
@@ -44,7 +44,8 @@ for filename in filter(lambda x: x.endswith(".scad") and "#" not in x and "~" no
 
                 ## for some reason all openscad output goes to stderr
                 for stderr_line in str(res.stderr).split('\n'):
-                    if stderr_line.startswith('ECHO:'): logging.info(i)
+                    if stderr_line.startswith('ECHO:'):
+                        had_echo.append([f'{i[0]}({opts});', stlfile, filename])
                 logging.debug(str(res.stderr))
 
                 if res.returncode != 0:
@@ -55,6 +56,7 @@ for filename in filter(lambda x: x.endswith(".scad") and "#" not in x and "~" no
 
 logging.info('succeeded:\n\t' + '\n\t'.join([f'{i[1]} ({i[3]:.3g}s)' for i in results if i[5]==0]))
 logging.info('failed:\n\t' + '\n\t'.join([f'{i[1]} ({i[3]:.3g}s)' for i in results if i[5]!=0]))
+logging.info('had echo output:\n\t' + '\n\t'.join([f'{i[0]} => {i[1]} (from {i[2]})' for i in had_echo]))
 
 if not args.skip_cam:
     epp_cam.export_cam_grids(unknown_args)

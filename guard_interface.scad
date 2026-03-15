@@ -69,7 +69,7 @@ module guard_thread_f(
         union(){
             intersection(){
                 threaded_nut(nutwidth=GUARD_EPP_ID*2, id=$guard_major_d, h=length, pitch=$guard_pitch, ibevel=false, blunt_start1=false, $slop=0.15, anchor=TOP);
-                zcyl(h=length, d=GUARD_EPP_ID, anchor=TOP);
+                tube(h=length, od=GUARD_EPP_ID, id=$guard_major_d-$pitch, anchor=TOP);
             }
             difference(){
                 tube(h=EPP_THICKNESS+flange_thickness, id=$guard_major_d, od=GUARD_EPP_ID, anchor=TOP);
@@ -112,7 +112,7 @@ module staff_guard_spacer(h=50, slot_size=120, anchor=CENTER, spin=0, orient=UP)
 difference(){
   union(){
     guard_thread_f();
-    down(15) guard_thread_m();
+    down(14.2) zrot(-60) guard_thread_m();
   }
   cube(1000, anchor=RIGHT);
 }
