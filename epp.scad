@@ -8,6 +8,7 @@ module epp(id, od){
     }
 }
 
+// @build components/tip_epp_axial.dxf
 module tip_epp_axial(anchor=CENTER, spin=0, orient=UP){
     anchors = [
         named_anchor(name="tip_epp_axial_top", pos=CENTER, orient=DOWN),
@@ -18,6 +19,8 @@ module tip_epp_axial(anchor=CENTER, spin=0, orient=UP){
         children();
     }
 }
+
+// @build components/tip_epp_radial.dxf
 module tip_epp_radial(anchor=CENTER, spin=0, orient=UP){
     anchors = [
         named_anchor(name="tip_epp_radial_top", pos=CENTER, orient=DOWN),
@@ -28,6 +31,8 @@ module tip_epp_radial(anchor=CENTER, spin=0, orient=UP){
         children();
     }
 }
+
+// @build components/blade_epp_handside.dxf
 module blade_epp_handside(anchor=CENTER, spin=0, orient=UP){
     anchors = [
         named_anchor(name="blade_epp_handside_top", pos=EPP_THICKNESS*UP, orient=UP),
@@ -38,6 +43,8 @@ module blade_epp_handside(anchor=CENTER, spin=0, orient=UP){
         children();
     }
 }
+
+// @build components/blade_epp_foamside.dxf
 module blade_epp_foamside(anchor=CENTER, spin=0, orient=UP){
     anchors = [
         named_anchor(name="blade_epp_foamside_top", pos=EPP_THICKNESS*UP, orient=UP),
@@ -50,6 +57,7 @@ module blade_epp_foamside(anchor=CENTER, spin=0, orient=UP){
 }
 
 
+// @build components/guard_epp.dxf od=GUARD_OD
 module guard_epp(od, anchor=CENTER, spin=0, orient=UP){
     anchors = [
         named_anchor(name="epp_top", pos=CENTER, orient=DOWN),
@@ -60,3 +68,4 @@ module guard_epp(od, anchor=CENTER, spin=0, orient=UP){
         children();
     }
 }
+

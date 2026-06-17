@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 import os, re, epp_cam
 import subprocess
 import logging
@@ -37,8 +37,10 @@ for filename in filter(lambda x: x.endswith(".scad") and "#" not in x and "~" no
                 os.mkdir(os.path.join('build', os.path.dirname(stlfile)))
             if (i[0] in  args.modules_select or len(args.modules_select)==0) and (i[0] not in args.modules_ignore):
                 tic = perf_counter()
-                logging.info(f"building `{stlfile}` from `{filename}` with method call `{i[0]}({opts});`")
-                cmd = f'echo \'include <params.scad>\nuse <{filename}>\n{i[0]}({opts});\' | \
+                prefix = ''
+                if stlfile.endswith(".dxf"): prefix = "projection() "
+                logging.info(f"building `{stlfile}` from `{filename}` with method call `{prefix}{i[0]}({opts});`")
+                cmd = f'echo \'include <params.scad>\nuse <{filename}>\n{prefix}{i[0]}({opts});\' | \
                     openscad {"--export-format binstl " if stlfile.endswith(".stl") else ""}-o build/{stlfile} -'
                 res = subprocess.run(cmd, shell=True, stderr=subprocess.PIPE, stdout=subprocess.PIPE, text=True, universal_newlines=True)
 
