@@ -38,7 +38,8 @@ There are three types of foam:
 
 For the solid core noodle, for each blade, you'll need:
 - one tip, which is just a 37.3mm thick piece of solid noodle
-- one blade, a piece of cored solid noodle of the length specified in the table below.
+- one blade, a piece of cored solid noodle of the length specified in
+  the table below.
 
 > [!IMPORTANT] 
 > 
