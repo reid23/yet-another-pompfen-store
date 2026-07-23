@@ -2,8 +2,8 @@ include <BOSL2/std.scad>
 include <BOSL2/geometry.scad>
 include <params.scad>
 
-// @build extras/tip_axial_epp_cutter.stl h=10, id=TIP_AXIAL_EPP_ID, od=NOODLE_OD
-// @build extras/tip_radial_epp_cutter.stl h=10, id=TIP_RADIAL_EPP_ID, od=NOODLE_OD
+// @build extras/tip_axial_epp_cutter.stl h=10, id=TIP_EPP_AXIAL_ID, od=NOODLE_OD
+// @build extras/tip_radial_epp_cutter.stl h=10, id=TIP_EPP_RADIAL_ID, od=NOODLE_OD
 // @build extras/blade_handside_epp_cutter.stl h=10, id=BLADE_EPP_ID, od=NOODLE_OD
 // @build extras/blade_foamside_epp_cutter.stl h=10, id=COREDIMS[1], od=NOODLE_OD
 // @build extras/guard_epp_cutter.stl h=10, id=GUARD_EPP_ID, od=GUARD_OD
@@ -44,9 +44,9 @@ module inner_clamp(h, d) {
   }
 }
 
-// @build extras/blade_epp_cutter_outer_clamp.stl h=10, d=NOODLE_OD
-// @build extras/guard_epp_cutter_outer_clamp.stl h=10, d=GUARD_OD
-module outer_clamp(h, d, thickness, slot_size){
+// @build extras/blade_epp_cutter_outer_clamp.stl h=10, d=NOODLE_OD, thickness=2, slot_size=2
+// @build extras/guard_epp_cutter_outer_clamp.stl h=10, d=GUARD_OD, thickness=2, slot_size=2
+module outer_clamp(h, d, thickness, slot_size, include_dfm=true){
   difference(){
     tube(id=d, od=d+2*thickness, h=h, anchor=CENTER);
     right(d/2) cube([2*h, slot_size, 2*h], center=true);
@@ -71,6 +71,12 @@ module outer_clamp(h, d, thickness, slot_size){
       fwd(slot_size/2+2) ycyl(d=6.4, h=20, anchor=BACK, $fn=6);
     }
   }
+  // one layer of connection across the slot
+  // helps prevent delamination from warping stresses
+  // bc it takes hoop stress
+  if(include_dfm)
+    down(h/2)
+      tube(id=d, od=d+2*thickness, h=0.2, anchor=BOTTOM);
 }
 
 // outer_clamp(10, NOODLE_OD, 2, 2);
